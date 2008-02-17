@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-//TODO: move this to the test source folder when there is more than one.
-public class ExtendedIteratorTest {
+public class CountingIteratorTest {
 
-	private ExtendedIteratorAdapter<Integer> extendedIterator;
+	private CountingIterator<Integer> extendedIterator;
+	private ArrayList<Integer> ret;
 
 	@Before
 	public void setUp() {
-		extendedIterator = new ExtendedIteratorAdapter<Integer>(asList(1, 2, 3));
+		extendedIterator = new CountingIterator<Integer>(1, 2, 3);
+		ret = new ArrayList<Integer>();
 	}
 	
 	@Test
 	public void testAdaptIterator() {
-		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (Integer integer : extendedIterator) {
 			ret.add(integer);
 		}
@@ -29,7 +29,6 @@ public class ExtendedIteratorTest {
 	
 	@Test
 	public void testForEachIterationStyleOnAExtendedIterator() throws Exception {
-		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (Integer integer : extendedIterator.iterator().iterator()) {
 			ret.add(integer);
 		}
@@ -37,22 +36,30 @@ public class ExtendedIteratorTest {
 	}
 	
 	@Test
-	public void testCountsIterationIndex() throws Exception {
-		ArrayList<Integer> ret = new ArrayList<Integer>();
+	public void testSkippingSecondElement() throws Exception {
 		for (Integer integer : extendedIterator) {
-			ret.add(integer);
 			if (extendedIterator.iterationNumber() == 2) {
-				break;
+				continue;
 			}
+			ret.add(integer);
 			
 		}
-		assertEquals(asList(1, 2), ret);
+		assertEquals(asList(1, 3), ret);
 	}
 	
 	@Test
 	public void testIterationNumberIsZeroAtTheStart() throws Exception {
 		assertEquals(0, extendedIterator.iterationNumber());
 		
+	}
+	
+	@Test
+	public void testExtendedIteratorsAreStillNotReusable() throws Exception {
+		for (Integer integer : extendedIterator) {
+			ret.add(integer);
+		}
+		assertEquals(3, extendedIterator.iterationNumber());
+		assertEquals(false, extendedIterator.hasNext());
 	}
 
 }
