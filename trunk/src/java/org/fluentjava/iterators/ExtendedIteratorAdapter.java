@@ -1,15 +1,16 @@
 package org.fluentjava.iterators;
 
+import static java.util.Arrays.asList;
+
 import java.util.Iterator;
 
 /**
- * Adapter that takes a simple old fashioned java Iterator, and turns it into an
- * ExtendedIterator. Also adapts for iterables' iterators. Note that iteration index is
- * kept as well, as this is a CountingIterator.
+ * Adapter that adapts iterable's iterators, iterators (including extended iterators,
+ * making this a wrapper as well) and arrays.
  * 
  * @see ExtendedIterator
  */
-public class ExtendedIteratorAdapter<T> extends CountingIterator<T> {
+public class ExtendedIteratorAdapter<T> extends AbstractExtendedIterator<T> {
 	/*
 	 * Variables
 	 */
@@ -21,19 +22,23 @@ public class ExtendedIteratorAdapter<T> extends CountingIterator<T> {
 	public ExtendedIteratorAdapter(Iterator<T> iterator) {
 		this.iterator = iterator;
 	}
+	
+	public ExtendedIteratorAdapter(Iterable<T> iterable) {
+		this(iterable.iterator());
+	}
+	
+	public ExtendedIteratorAdapter(T... iterator) {
+		this(asList(iterator));
+	}
 
 	/*
 	 * Public Methods
 	 */
-	public ExtendedIteratorAdapter(Iterable<T> iterable) {
-		this.iterator = iterable.iterator();
-	}
-
 	public boolean hasNext() {
 		return iterator.hasNext();
 	}
 
-	public T doNext() {
+	public T next() {
 		return iterator.next();
 	}
 
