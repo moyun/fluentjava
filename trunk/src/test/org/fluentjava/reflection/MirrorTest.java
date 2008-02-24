@@ -7,15 +7,15 @@ import org.junit.Test;
 
 public class MirrorTest {
 
-	private NMirror mirror;
+	private Mirror mirror;
 	private Mock mock;
-	private NMirror priviligedMirror;
+	private Mirror priviligedMirror;
 
 	@Before
 	public void setUp() {
 		mock = new Mock("aname");
-		mirror = new NMirror(mock);
-		priviligedMirror = NMirror.priviligedMirror(mock);
+		mirror = new Mirror(mock);
+		priviligedMirror = Mirror.priviligedMirror(mock);
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class MirrorTest {
 
 	@Test(expected = RuntimeReflectionException.class)
 	public void testOneMirrorsPriviligedDoesNotMakeAllMirrorsPriviliged() throws Exception {
-		NMirror.priviligedMirror(mock);
+		Mirror.priviligedMirror(mock);
 		mock.setPrivateString("private string value");
 		mirror.get("privateString");
 	}

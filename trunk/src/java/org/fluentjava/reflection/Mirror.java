@@ -9,16 +9,16 @@ import java.util.Map;
  * documentation, we refer to the subject of reflection as mirrored object. A mirror can
  * be priviliged (with access to private methods and fields) or unpriviliged (without).
  */
-public class NMirror {
+public class Mirror {
 	/*
 	 * Factory Methods 
 	 */
-	public static NMirror priviligedMirror(Object mirroredObject) {
-		return new NMirror(mirroredObject, true);
+	public static Mirror priviligedMirror(Object mirroredObject) {
+		return new Mirror(mirroredObject, true);
 	}
 	
-	public static NMirror mirror(Object mirroredObject) {
-		return new NMirror(mirroredObject);
+	public static Mirror mirror(Object mirroredObject) {
+		return new Mirror(mirroredObject);
 	}
 	
 
@@ -42,7 +42,7 @@ public class NMirror {
 	 * @param isPriviliged
 	 * True if the mirror is priviliged
 	 */
-	private NMirror(Object mirroredObject, boolean isPriviliged) {
+	private Mirror(Object mirroredObject, boolean isPriviliged) {
 		this.mirrored = mirroredObject;
 		for (Field field : mirroredObject.getClass().getDeclaredFields()) {
 			if (isPriviliged) {
@@ -58,7 +58,7 @@ public class NMirror {
 	 * @param mirroredObject
 	 * subject of reflection
 	 */
-	public NMirror(Object mirroredObject) {
+	public Mirror(Object mirroredObject) {
 		this(mirroredObject, false);
 	}
 
@@ -85,7 +85,7 @@ public class NMirror {
 	 * the new value for the field of obj being modified
 	 * @return The mirror (fluent style)
 	 */
-	public NMirror set(String fieldName, Object value) {
+	public Mirror set(String fieldName, Object value) {
 		field(fieldName).set(value);
 		return this;
 	}

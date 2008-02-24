@@ -3,7 +3,7 @@ package org.fluentjava.reflection;
 /**
  * Unchecked exception that encapsulates problems encountered by Mirror class.
  * 
- * @see NMirror
+ * @see Mirror
  */
 public class RuntimeReflectionException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
