@@ -16,6 +16,7 @@ public class MirrorTest {
 		mock = new Mock("aname");
 		mirror = new Mirror(mock);
 		priviligedMirror = Mirror.priviligedMirror(mock);
+		Mock.setValue("classValue");
 	}
 
 	@Test
@@ -87,7 +88,23 @@ public class MirrorTest {
 	public void testCannotGetAFieldThatDoesNotExist() throws Exception {
 		priviligedMirror.get("doesNotExist!");
 	}
+	
+	@Test(expected = RuntimeReflectionException.class)
+	public void testCannotGetPrivateFieldsOnParentOrAncestors() throws Exception {
+		priviligedMirror.field("privateFieldOnParent");
+	}
 
+	@Test
+	public void testPublicFieldsDefinedOnParentsAreAccessible() throws Exception {
+		priviligedMirror.field("publicFieldOnParent").set("aValue");
+		assertEquals("aValue", mock.publicFieldOnParent);
+	}
+	
+	@Test
+	public void testCanAcessStaticFields() throws Exception {
+		priviligedMirror.field("classField").set("aValue");
+		assertEquals("aValue", Mock.getValue());
+	}
 
 
 }
