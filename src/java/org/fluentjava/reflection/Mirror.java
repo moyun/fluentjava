@@ -11,16 +11,15 @@ import java.util.Map;
  */
 public class Mirror {
 	/*
-	 * Factory Methods 
+	 * Factory Methods
 	 */
 	public static Mirror priviligedMirror(Object mirroredObject) {
 		return new Mirror(mirroredObject, true);
 	}
-	
+
 	public static Mirror mirror(Object mirroredObject) {
 		return new Mirror(mirroredObject);
 	}
-	
 
 	/*
 	 * Variables
@@ -44,11 +43,16 @@ public class Mirror {
 	 */
 	private Mirror(Object mirroredObject, boolean isPriviliged) {
 		this.mirrored = mirroredObject;
-		for (Field field : mirroredObject.getClass().getDeclaredFields()) {
-			if (isPriviliged) {
-				field.setAccessible(true);
-			}
+		for (Field field : mirroredObject.getClass().getFields()) {
 			allFields.put(field.getName(), new InstanceField(mirroredObject, field));
+		}
+		if (isPriviliged) {
+			for (Field field : mirroredObject.getClass().getDeclaredFields()) {
+				if (!allFields.containsKey(field.getName())) {
+					field.setAccessible(true);
+					allFields.put(field.getName(), new InstanceField(mirroredObject, field));
+				}
+			}
 		}
 	}
 
@@ -103,6 +107,14 @@ public class Mirror {
 			return allFields.get(fieldName);
 		}
 		throw new RuntimeReflectionException("Unknown field: " + fieldName);
+	}
+
+	public Object invoke(String methodName, Object... args) {
+		try {
+			return mirrored.getClass().getMethod(methodName).invoke(mirrored, args);
+		} catch (Exception e) {
+			throw new RuntimeReflectionException(e);
+		}
 	}
 
 }
