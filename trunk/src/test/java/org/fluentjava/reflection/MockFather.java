@@ -1,5 +1,8 @@
 package org.fluentjava.reflection;
 
+/**
+ * Simple Mock parent.
+ */
 public class MockFather {
 	private String privateFieldOnParent;
 	

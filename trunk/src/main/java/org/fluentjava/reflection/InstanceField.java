@@ -29,5 +29,9 @@ public class InstanceField {
 			throw new RuntimeReflectionException(e);
 		}
 	}
+	
+	public Field getField() {
+		return field;
+	}
 
 }
