@@ -10,6 +10,13 @@ import org.fluentjava.iterators.ExtendedIterable;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.Pair;
 
+/**
+ * Fluent map.
+ * @param <K>
+ * Type of keys.
+ * @param <V>
+ * Type of Values
+ */
 public class Dictionary<K, V> extends HashMap<K, V> implements ExtendedIterable<Pair<K, V>>{
 
 	private static final long serialVersionUID = 7553752893723422794L;

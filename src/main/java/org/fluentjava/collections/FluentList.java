@@ -5,7 +5,7 @@ import java.util.List;
 import org.fluentjava.iterators.ExtendedIterable;
 
 /**
- * List that is type safe on toArray, and has a fluent interface on methods. Also, has
+ * List that has type safe toArray, and has a fluent interface on methods. Also, has
  * more convenient methods to include and remove elements. Also, uses extendedIterators
  * whenever a iterator is asked for.
  * 
