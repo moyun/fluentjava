@@ -46,6 +46,11 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	public ExtendedIterator<E> iterator() {
 		return new ExtendedIteratorAdapter<E>(super.iterator());
 	}
+	
+	public FluentList<E> insert(E e) {
+		add(e);
+		return this;
+	}
 
 	public FluentList<E> insert(E... list) {
 		return insert(asList(list));
