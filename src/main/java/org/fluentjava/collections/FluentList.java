@@ -32,6 +32,14 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 * @return self
 	 */
 	public FluentList<E> insert(E... list);
+	
+	/**
+	 * Fluent method (returns self). Add one element
+	 * @param e
+	 * The element to be inserted. 
+	 * @return
+	 */
+	public FluentList<E> insert(E e);
 
 	/**
 	 * Fluent method (returns self). Adds all elements of the iterable.
