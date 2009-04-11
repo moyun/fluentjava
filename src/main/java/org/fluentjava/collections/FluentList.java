@@ -5,8 +5,8 @@ import java.util.List;
 import org.fluentjava.iterators.ExtendedIterable;
 
 /**
- * List that has type safe toArray, and has a fluent interface on methods. Also, has
- * more convenient methods to include and remove elements. Also, uses extendedIterators
+ * List that has type safe toArray, and has a fluent interface on methods. Also, has more
+ * convenient methods to include and remove elements. Also, uses extendedIterators
  * whenever a iterator is asked for.
  * 
  * @param <E>
@@ -32,11 +32,12 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 * @return self
 	 */
 	FluentList<E> insert(E... list);
-	
+
 	/**
 	 * Fluent method (returns self). Add one element
+	 * 
 	 * @param e
-	 * The element to be inserted. 
+	 * The element to be inserted.
 	 * @return
 	 */
 	FluentList<E> insert(E e);
@@ -68,6 +69,17 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 */
 	FluentList<E> delete(Iterable<E> iterable);
 
-	boolean exists(Object closure);
+	/**
+	 * Extended Collection Method. Checks if there exists an object such that the closure
+	 * returns true. The closure must only return boolean values. 
+	 * 
+	 * @param closure
+	 * Predicate
+	 * @return
+	 * The existence
+	 * @throws EnumeratingException
+	 * In case anything happens while enumerating.
+	 */
+	boolean exists(Object closure) throws EnumeratingException;
 
 }
