@@ -31,4 +31,5 @@ Smalltalk collection api makes heavy use of closures. The methods that are categ
 
 
 == References ==
-[http://web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits : Tools and Methodology] 
+ * [http://web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits : Tools and Methodology] 
+ * [http://www.ruby-doc.org/core/classes/Enumerable.html#M003163 Ruby] also has a very similar protocl
