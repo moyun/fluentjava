@@ -11,7 +11,6 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
 public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	private static final long serialVersionUID = 1L;
-	
 
 	/*
 	 * Factory Methods
@@ -19,11 +18,11 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	public static <T> FluentList<T> list(T... list) {
 		return new Sequence<T>(list);
 	}
-	
+
 	public static <T> FluentList<T> list(Iterable<T> iterable) {
 		return new Sequence<T>(iterable);
 	}
-	
+
 	/*
 	 * Constructors
 	 */
@@ -42,12 +41,11 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	 * Public Methods
 	 */
 
-
 	@Override
 	public ExtendedIterator<E> iterator() {
 		return new ExtendedIteratorAdapter<E>(super.iterator());
 	}
-	
+
 	public FluentList<E> insert(E e) {
 		add(e);
 		return this;
@@ -64,7 +62,6 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return this;
 	}
 
-
 	public FluentList<E> delete(E... list) {
 		removeAll(asList(list));
 		return this;
@@ -79,15 +76,19 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return toArray((T[]) Array.newInstance(clazz, size()));
 	}
 
-	public boolean exists(Object closure) throws IllegalStateException {
+	public boolean exists(Object closure) throws EnumeratingException {
 		if (closure instanceof Closure) {
 			Closure function = (Closure) closure;
-			ExtendedIterator<E> i = iterator();
 			try {
-				boolean ret = function.invoke();
+				for (E e : iterator()) {
+					boolean ret = function.invoke(e);
+					if (ret) {
+						return true;
+					}
+				}
+				return false;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new EnumeratingException(e);
 			}
 		}
 		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
