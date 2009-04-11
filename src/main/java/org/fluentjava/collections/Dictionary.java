@@ -44,7 +44,7 @@ public class Dictionary<K, V> extends HashMap<K, V> implements ExtendedIterable<
 		};
 	}
 
-	public Sequence<Pair<K, V>> toArray() {
+	public FluentList<Pair<K, V>> toArray() {
 		return new Sequence<Pair<K,V>>(iterator());
 	}
 
