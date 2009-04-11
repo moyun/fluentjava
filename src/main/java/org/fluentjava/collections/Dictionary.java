@@ -12,12 +12,13 @@ import org.fluentjava.iterators.Pair;
 
 /**
  * Fluent map.
+ * 
  * @param <K>
  * Type of keys.
  * @param <V>
  * Type of Values
  */
-public class Dictionary<K, V> extends HashMap<K, V> implements ExtendedIterable<Pair<K, V>>{
+public class Dictionary<K, V> extends HashMap<K, V> implements ExtendedIterable<Pair<K, V>> {
 
 	private static final long serialVersionUID = 7553752893723422794L;
 
@@ -33,7 +34,7 @@ public class Dictionary<K, V> extends HashMap<K, V> implements ExtendedIterable<
 
 	public ExtendedIterator<Pair<K, V>> iterator() {
 		final Iterator<Entry<K, V>> i = entrySet().iterator();
-		return new AbstractExtendedIterator<Pair<K,V>>() {
+		return new AbstractExtendedIterator<Pair<K, V>>() {
 			public boolean hasNext() {
 				return i.hasNext();
 			}
@@ -45,7 +46,7 @@ public class Dictionary<K, V> extends HashMap<K, V> implements ExtendedIterable<
 	}
 
 	public FluentList<Pair<K, V>> toArray() {
-		return new Sequence<Pair<K,V>>(iterator());
+		return new Sequence<Pair<K, V>>(iterator());
 	}
 
 }

@@ -7,5 +7,5 @@ package org.fluentjava.iterators;
  * @param <T>
  */
 public interface ExtendedIterable<T> extends Iterable<T> {
-	public ExtendedIterator<T> iterator();
+	ExtendedIterator<T> iterator();
 }
