@@ -3,9 +3,9 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Sun Checks (Eclipse) - Amenizadas
+    Checkstyle-Configuration: fluentchedks
     Description: 
-Very modified version of Sun Checks that better matches the default code formatter setting of Eclipse.
+you know
 -->
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
@@ -18,8 +18,8 @@ Very modified version of Sun Checks that better matches the default code formatt
             <property name="suppressLoadErrors" value="true"/>
         </module>
         <module name="JavadocType">
-         	<property name="severity" value="ignore"/>
-         </module>
+            <property name="severity" value="ignore"/>
+        </module>
         <module name="JavadocVariable">
             <property name="severity" value="ignore"/>
         </module>
@@ -105,6 +105,7 @@ Very modified version of Sun Checks that better matches the default code formatt
         </module>
         <module name="MissingSwitchDefault"/>
         <module name="RedundantThrows">
+            <property name="severity" value="ignore"/>
             <property name="logLoadErrors" value="true"/>
             <property name="suppressLoadErrors" value="true"/>
         </module>
