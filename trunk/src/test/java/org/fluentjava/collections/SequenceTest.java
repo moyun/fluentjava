@@ -1,10 +1,11 @@
 package org.fluentjava.collections;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fluentjava.closures.Closure;
 import org.junit.Test;
 
 public class SequenceTest {
@@ -55,6 +56,19 @@ public class SequenceTest {
 		assertEquals(asList(1, 2, 3), list);
 	}
 
+	@Test
+	public void testExistsWithClosures() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
+		Closure anyGreaterThan4 = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				Integer i = (Integer) args[0];
+				return i > 4;
+			}
+		};
+		assertTrue(list.exists(anyGreaterThan4));
+	}
+	
 	private List<Integer> half(Integer... array) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (Integer integer : array) {
@@ -62,5 +76,7 @@ public class SequenceTest {
 		}
 		return ret;
 	}
+	
+	
 	
 }

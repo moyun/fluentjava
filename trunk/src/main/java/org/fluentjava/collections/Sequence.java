@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import org.fluentjava.closures.Closure;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
@@ -76,5 +77,19 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	@SuppressWarnings("unchecked")
 	public <T> T[] array(Class<T> clazz) {
 		return toArray((T[]) Array.newInstance(clazz, size()));
+	}
+
+	public boolean exists(Object closure) {
+		if (closure instanceof Closure) {
+			Closure function = (Closure) closure;
+			ExtendedIterator<E> i = iterator();
+			try {
+				boolean ret = function.invoke();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
 	}
 }

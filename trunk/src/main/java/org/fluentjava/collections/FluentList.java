@@ -2,6 +2,7 @@ package org.fluentjava.collections;
 
 import java.util.List;
 
+import org.fluentjava.closures.Closure;
 import org.fluentjava.iterators.ExtendedIterable;
 
 /**
@@ -67,5 +68,7 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 * @return self
 	 */
 	public FluentList<E> delete(Iterable<E> iterable);
+
+	public boolean exists(Object closure);
 
 }
