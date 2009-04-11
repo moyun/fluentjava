@@ -79,7 +79,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return toArray((T[]) Array.newInstance(clazz, size()));
 	}
 
-	public boolean exists(Object closure) {
+	public boolean exists(Object closure) throws IllegalStateException {
 		if (closure instanceof Closure) {
 			Closure function = (Closure) closure;
 			ExtendedIterator<E> i = iterator();

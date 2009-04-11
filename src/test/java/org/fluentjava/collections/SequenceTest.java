@@ -57,7 +57,7 @@ public class SequenceTest {
 	}
 
 	@Test
-	public void testExistsWithClosures() throws Exception {
+	public void testExistsWithClosures() {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
 		Closure anyGreaterThan4 = new Closure() {
 			@Override
