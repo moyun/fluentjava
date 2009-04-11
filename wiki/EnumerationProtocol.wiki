@@ -1,0 +1,34 @@
+#summary SmallTalk enumeration Protocal. The original!
+#labels enumeration,closure,collection
+
+= Introduction =
+
+Smalltalk collection api makes heavy use of closures. The methods that are categorized (yes methods in smalltalk can be divided into categories) under Enumeration encompass such protocol:
+
+ * allSatisfy:
+ * anySatisfy:
+ * associationsDo:
+ * collect:
+ * collect:thenSelect:
+ * count:
+ * detect:
+ * detect:ifNone:
+ * detectMax:
+ * detectMin:
+ * detectSum:
+ * difference:
+ * do:
+ * do:separatedBy:
+ * do:without:
+ * groupBy:having:
+ * inject:into:
+ * intersection:
+ * noneSatisfy:
+ * reject:
+ * select:
+ * select:thenCollect:
+ * union:
+
+
+== References ==
+[web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits: Tools and Methodology] 
