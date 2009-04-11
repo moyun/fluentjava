@@ -13,6 +13,6 @@
  * Full Coercion: 10  points
  * Numargs method: 5 points
  * .asThread: 2 points
- * TimeIt: 4  points
+ * !TimeIt: 4  points
  * Compose: 6 points
  * Curry: 1 point
