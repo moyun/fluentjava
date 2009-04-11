@@ -31,4 +31,4 @@ Smalltalk collection api makes heavy use of closures. The methods that are categ
 
 
 == References ==
-[web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits: Tools and Methodology] 
+[http://web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits : Tools and Methodology] 
