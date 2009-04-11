@@ -1,6 +1,6 @@
 package org.fluentjava.reflection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -102,7 +102,7 @@ public class MirrorTest {
 	
 	@Test
 	public void testCanAcessStaticFields() throws Exception {
-		priviligedMirror.field("classField").set("aValue");
+		priviligedMirror.field("ClassField").set("aValue");
 		assertEquals("aValue", Mock.getValue());
 	}
 
