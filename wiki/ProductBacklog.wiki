@@ -1,7 +1,7 @@
 #summary Features to be Implemented
 #labels backlog
 
-= Colleciton Theme =
+= Collection Theme =
  * Fluent Map: 2 points
  * Extended Collections (select, remove, collect...): 6 points
  * Wrapped extended collections: 9 points
