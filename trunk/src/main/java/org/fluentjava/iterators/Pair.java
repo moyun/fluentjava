@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 /**
  * Simple Pair of types F and S. Similar to Map.Entry, but does not have the same
  * semantics: it is not necesseryly a key and a value.
- * 
+ *
  * @param <F>
  * first type
  * @param <S>
@@ -51,33 +51,44 @@ public class Pair<F, S> implements Entry<F, S> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((first == null) ? 0 : first.hashCode());
-		result = prime * result + ((second == null) ? 0 : second.hashCode());
+		if (first != null) {
+			result = prime * result + first.hashCode();
+		}
+		if (second != null) { 
+			result = prime * result + second.hashCode();
+		}
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		final Pair other = (Pair) obj;
 		if (first == null) {
-			if (other.first != null)
+			if (other.first != null) {
 				return false;
+			}
 		}
-		else if (!first.equals(other.first))
+		else if (!first.equals(other.first)) {
 			return false;
+		}
 		if (second == null) {
-			if (other.second != null)
+			if (other.second != null) {
 				return false;
+			}
 		}
-		else if (!second.equals(other.second))
+		else if (!second.equals(other.second)) {
 			return false;
+		}
 		return true;
 	}
 

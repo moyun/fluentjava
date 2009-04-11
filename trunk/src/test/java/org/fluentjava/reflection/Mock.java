@@ -8,14 +8,14 @@ public class Mock extends MockFather {
 	public String publicName;
 	private String privateString;
 
-	private static String classField = "classValue";
+	private static String ClassField = "classValue";
 
 	public static String getValue() {
-		return Mock.classField;
+		return Mock.ClassField;
 	}
 	
 	public static void setValue(String value) {
-		Mock.classField = value;
+		Mock.ClassField = value;
 	}
 	
 	public Mock(String name) {

@@ -34,7 +34,7 @@ public class Mirror {
 	 * Constructors
 	 */
 	/**
-	 * Builds a mirror over mirroredObject
+	 * Builds a mirror over mirroredObject.
 	 * 
 	 * @param mirroredObject
 	 * subject of reflection
@@ -57,7 +57,7 @@ public class Mirror {
 	}
 
 	/**
-	 * Builds an unpriviliged mirror over mirroredObject
+	 * Builds an unpriviliged mirror over mirroredObject.
 	 * 
 	 * @param mirroredObject
 	 * subject of reflection
@@ -70,7 +70,7 @@ public class Mirror {
 	 * Public Methods
 	 */
 	/**
-	 * Gets the value of fieldName
+	 * Gets the value of fieldName.
 	 * 
 	 * @param fieldName
 	 * the name of the field
@@ -95,7 +95,7 @@ public class Mirror {
 	}
 
 	/**
-	 * Retrieves an instance field from the mirrored Object
+	 * Retrieves an instance field from the mirrored Object.
 	 * 
 	 * @param fieldName
 	 * The name of the field
