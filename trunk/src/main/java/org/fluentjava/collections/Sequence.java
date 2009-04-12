@@ -93,4 +93,60 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		}
 		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
 	}
+
+	public boolean allSatisfy(Object closure) throws EnumeratingException {
+		if (closure instanceof Closure) {
+			Closure function = (Closure) closure;
+			try {
+				for (E e : iterator()) {
+					boolean ret = function.invoke(e);
+					if (!ret) {
+						return false;
+					}
+				}
+				return true;
+			} catch (Exception e) {
+				throw new EnumeratingException(e);
+			}
+		}
+		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
+	}
+
+	public int count(Object closure) throws EnumeratingException {
+		if (closure instanceof Closure) {
+			Closure function = (Closure) closure;
+			try {
+				int total = 0;
+				for (E e : iterator()) {
+					boolean ret = function.invoke(e);
+					if (ret) {
+						total++;
+					}
+				}
+				return total;
+			} catch (Exception e) {
+				throw new EnumeratingException(e);
+			}
+		}
+		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
+	}
+
+	public FluentList<E> select(Object closure) throws EnumeratingException {
+		if (closure instanceof Closure) {
+			Closure function = (Closure) closure;
+			try {
+				FluentList<E> list = new Sequence<E>();
+				for (E e : iterator()) {
+					boolean ret = function.invoke(e);
+					if (ret) {
+						list.add(e);
+					}
+				}
+				return list;
+			} catch (Exception e) {
+				throw new EnumeratingException(e);
+			}
+		}
+		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
+	}
 }

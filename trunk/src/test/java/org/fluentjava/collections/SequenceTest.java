@@ -59,6 +59,42 @@ public class SequenceTest {
 	@Test
 	public void testExistsWithClosures() {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
+		assertTrue(list.exists(greaterThan4()));
+	}
+	
+	@Test(expected = EnumeratingException.class)
+	public void testClosureMustReturnBooleanWhenUsingExists() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
+		Closure badClosure = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				return new ArrayList<Object>();
+			}
+		};
+		list.exists(badClosure);
+	}
+	
+	
+	@Test
+	public void testAllSatisfy() throws Exception {
+		FluentList<Integer> list = Sequence.list(5, 6, 7);
+		assertTrue(list.allSatisfy(greaterThan4()));
+	}
+	
+	@Test
+	public void testSelect() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3, 5, 6, 7);
+		assertEquals(asList(5, 6, 7), list.select(greaterThan4()));
+	}
+	
+	
+	@Test
+	public void testCount() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3, 5, 6, 7);
+		assertEquals(3, list.count(greaterThan4()));
+	}
+
+	private Closure greaterThan4() {
 		Closure anyGreaterThan4 = new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
@@ -66,8 +102,9 @@ public class SequenceTest {
 				return i > 4;
 			}
 		};
-		assertTrue(list.exists(anyGreaterThan4));
+		return anyGreaterThan4;
 	}
+
 	
 	private List<Integer> half(Integer... array) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();

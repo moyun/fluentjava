@@ -82,4 +82,10 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 */
 	boolean exists(Object closure) throws EnumeratingException;
 
+	boolean allSatisfy(Object closure) throws EnumeratingException;
+
+	int count(Object closure) throws EnumeratingException;
+
+	FluentList<E> select(Object closure) throws EnumeratingException;
+
 }
