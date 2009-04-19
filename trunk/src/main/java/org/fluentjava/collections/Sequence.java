@@ -228,4 +228,24 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return new Sequence<E>(this);
 	}
 
+	@SuppressWarnings("unchecked")
+	public <T> T reduce(Object closure) throws EnumeratingException {
+		Closure function = toClosure(closure);
+		try {
+			if (size() == 0) {
+				return null;
+			}
+			if (size() == 1) {
+				return (T) get(0);
+			}
+			Object result = function.call(get(0), get(1));
+			for (int i = 2; i < size(); i++) {
+				result  = function.call(result, get(i));
+			}
+			return (T) result;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
+	}
+
 }
