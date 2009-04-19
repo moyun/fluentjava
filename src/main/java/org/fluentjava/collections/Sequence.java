@@ -230,7 +230,6 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return new Sequence<E>(this);
 	}
 
-	@SuppressWarnings("unchecked")
 	public E reduce(Object closure) throws EnumeratingException {
 		if (size() == 0) {
 			return null;
