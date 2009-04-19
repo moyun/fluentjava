@@ -15,7 +15,9 @@ import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
 /**
+ * Standard implementation of FluentList.
  * @param <E>
+ * Type of elements
  */
 public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	private static final long serialVersionUID = 1L;
@@ -229,23 +231,41 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T reduce(Object closure) throws EnumeratingException {
+	public E reduce(Object closure) throws EnumeratingException {
+		if (size() == 0) {
+			return null;
+		}
+		return doReduce(closure, get(0), 2);
+	}
+
+	public E reduce(E initial, Object closure) throws EnumeratingException {
+		return doReduce(closure, initial, 1);
+	}
+
+	private E doReduce(Object closure, E first, int startingPoint) throws EnumeratingException {
 		Closure function = toClosure(closure);
+		if (size() <= startingPoint - 1) {
+			return first;
+		}
 		try {
-			if (size() == 0) {
-				return null;
+			E second = get(startingPoint - 1);
+			E result = function.invoke(first, second);
+			for (int i = startingPoint; i < size(); i++) {
+				result = function.invoke(result, get(i));
 			}
-			if (size() == 1) {
-				return (T) get(0);
-			}
-			Object result = function.call(get(0), get(1));
-			for (int i = 2; i < size(); i++) {
-				result  = function.call(result, get(i));
-			}
-			return (T) result;
+			return result;
 		} catch (Exception e) {
 			throw new EnumeratingException(e);
 		}
+		
+	}
+
+	public E inject(Object closure) throws EnumeratingException {
+		return reduce(closure);
+	}
+
+	public E inject(E initial, Object closure) throws EnumeratingException {
+		return reduce(initial, closure);
 	}
 
 }

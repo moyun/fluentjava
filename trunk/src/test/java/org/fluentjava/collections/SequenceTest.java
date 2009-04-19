@@ -218,6 +218,19 @@ public class SequenceTest {
 		FluentList<Integer> list = new Sequence<Integer>();
 		assertNull(list.reduce(sumBlock()));
 	}
+	
+	@Test
+	public void testReduceWithStartingElement() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3);
+		Integer resultado = list.reduce(10, sumBlock());
+		assertEquals(16, resultado);
+	}
+	
+	@Test
+	public void testReducewithEmtpyListAndStartingEelment() throws Exception {
+		FluentList<Integer> list = new Sequence<Integer>();
+		assertEquals(10, list.reduce(10, sumBlock()));
+	}
 
 	private Predicate greaterThan4() {
 		Predicate anyGreaterThan4 = new Predicate() {
