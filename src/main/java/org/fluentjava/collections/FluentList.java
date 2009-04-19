@@ -81,8 +81,12 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 * In case anything happens while enumerating.
 	 */
 	boolean exists(Object closure) throws EnumeratingException;
+	
+	boolean anySatisfy(Object closure) throws EnumeratingException;
 
 	boolean allSatisfy(Object closure) throws EnumeratingException;
+	
+	boolean noneSatisfy(Object closure) throws EnumeratingException;
 
 	int count(Object closure) throws EnumeratingException;
 
@@ -90,17 +94,14 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	
 	FluentList<E> reject(Object closure) throws EnumeratingException;
 
-	boolean anySatisfy(Object closure) throws EnumeratingException;
-
-	boolean noneSatisfy(Object closure) throws EnumeratingException;
-
 	E detect(Object closure) throws EnumeratingException;
 
 	E detectIfNone(Object closure, E ifNone) throws EnumeratingException;
 	
 	void foreach(Object closure) throws EnumeratingException;
 
-	FluentList<E> map(Object closure) throws EnumeratingException;
+	<T> FluentList<T> map(Object closure) throws EnumeratingException;
 
+	<T> FluentList<T> collect(Object closure) throws EnumeratingException;
 
 }
