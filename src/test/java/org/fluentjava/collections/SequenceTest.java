@@ -143,7 +143,7 @@ public class SequenceTest {
 		list.foreach(new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
-				Integer i = (Integer) args[0];
+				Integer i = first(args);
 				if (i % 2 == 0) {
 					acummulated.add(i);
 				}
@@ -159,7 +159,7 @@ public class SequenceTest {
 		FluentList<Integer> ret = list.map(new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
-				Integer i = (Integer) args[0];
+				Integer i = first(args);
 				return i * 3;
 			}
 		});
@@ -168,22 +168,49 @@ public class SequenceTest {
 	
 	@Test
 	public void testMapToDifferentTypes() throws Exception {
-		FluentList<String> list = Sequence.list("I", "am", "war");
+		FluentList<String> list = Sequence.list("I", "am", "one");
 		FluentList<Integer> ret = list.map(new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
-				String i = (String) args[0];
+				String i = first(args);
 				return i.length();
 			}
 		});
 		assertEquals(asList(1, 2, 3), ret);	
+	}
+	
+	@Test
+	public void testSortWithClosure() throws Exception {
+		FluentList<String> list = Sequence.list("big", "ones", "always come", "before");
+		FluentList<String> ret = list.sort(new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				String i = first(args);
+				String j = second(args);
+				return j.length() - i.length();
+			}
+		});
+		assertEquals(asList("always come", "before", "ones", "big"), ret);	
+	}
+	
+	@Test
+	public void testToListCreatesACopy() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3);
+		FluentList<Integer> copy = list.toList();
+		assertEquals(copy, list);
+	}
+	
+	@Test
+	public void testSortingWithNaturalOrder() throws Exception {
+		FluentList<Integer> list = Sequence.list(3, 2, 1);
+		assertEquals(asList(1, 2, 3), list.sort());
 	}
 
 	private Predicate greaterThan4() {
 		Predicate anyGreaterThan4 = new Predicate() {
 			@Override
 			public boolean eval(Object... args) throws Exception {
-				Integer i = (Integer) args[0];
+				Integer i = first(args);
 				return i > 4;
 			}
 		};

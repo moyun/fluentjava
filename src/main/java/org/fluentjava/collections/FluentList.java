@@ -104,4 +104,10 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 
 	<T> FluentList<T> collect(Object closure) throws EnumeratingException;
 
+	FluentList<E> sort(Object closure) throws EnumeratingException;
+
+	FluentList<E> toList();
+
+	FluentList<E> sort();
+
 }
