@@ -19,7 +19,7 @@ import org.fluentjava.iterators.Pair;
 public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
 
 	private static final long serialVersionUID = 7553752893723422794L;
-	
+
 	/*
 	 * Constructors
 	 */
@@ -31,14 +31,23 @@ public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
 		super(m);
 	}
 
+	/*
+	 * Public Methods
+	 */
+
+	public FluentList<V> allValues() {
+		return new Sequence<V>(values());
+	}
+
+	public FluentSet<K> keys() {
+		return new ExtendedSet<K>(keySet());
+	}
+
 	public FluentMap<K, V> putAt(K key, V value) {
 		super.put(key, value);
 		return this;
 	}
 
-	/*
-	 * Public Methods
-	 */
 	public FluentMap<K, V> insert(Map<? extends K, ? extends V> m) {
 		super.putAll(m);
 		return this;
@@ -55,12 +64,6 @@ public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
 				return new Pair<K, V>(i.next());
 			}
 		};
-	}
-	
-	
-
-	private Enumerator<Pair<K, V>> enumerator() {
-		return new Enumerator<Pair<K, V>>(this);
 	}
 
 	public boolean allSatisfy(Object closure) throws EnumeratingException {
@@ -141,6 +144,13 @@ public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
 
 	public FluentSet<Pair<K, V>> toSet() {
 		return enumerator().toSet();
+	}
+
+	/*
+	 * Other Methods
+	 */
+	private Enumerator<Pair<K, V>> enumerator() {
+		return new Enumerator<Pair<K, V>>(this);
 	}
 
 }
