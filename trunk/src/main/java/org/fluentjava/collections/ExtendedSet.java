@@ -10,8 +10,14 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 
 	private static final long serialVersionUID = 1L;
 
+	public ExtendedSet() { }
+	
 	public ExtendedSet(E...elements) {
 		insert(elements);
+	}
+	
+	public ExtendedSet(Iterable<E> element) {
+		insert(element);
 	}
 
 	public static <E> ExtendedSet<E> set(E...element) {
