@@ -110,6 +110,12 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 
 	FluentList<E> sort();
 
-	<T> T reduce(Object closure) throws EnumeratingException;
+	E reduce(Object closure) throws EnumeratingException;
+
+	E reduce(E initial, Object closure) throws EnumeratingException;
+	
+	E inject(Object closure) throws EnumeratingException;
+
+	E inject(E initial, Object closure) throws EnumeratingException;
 
 }
