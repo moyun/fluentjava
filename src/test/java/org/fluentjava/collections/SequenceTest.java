@@ -233,14 +233,14 @@ public class SequenceTest {
 	}
 
 	private Predicate greaterThan(final int number) {
-		Predicate anyGreaterThan4 = new Predicate() {
+		Predicate anyGreaterThan = new Predicate() {
 			@Override
 			public boolean eval(Object... args) throws Exception {
 				Integer i = first(args);
 				return i > number;
 			}
 		};
-		return anyGreaterThan4;
+		return anyGreaterThan;
 	}
 
 	
