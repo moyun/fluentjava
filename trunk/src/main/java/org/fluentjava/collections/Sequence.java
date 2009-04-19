@@ -1,10 +1,13 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
-import static org.fluentjava.closures.ClosureCoercion.*;
+import static org.fluentjava.closures.ClosureCoercion.toClosure;
+import static org.fluentjava.closures.ClosureCoercion.toPredicate;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.Predicate;
@@ -87,7 +90,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	public E detect(Object closure) throws EnumeratingException {
 		return detectIfNone(closure, null);
 	}
-	
+
 	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
 		Predicate predicate = toPredicate(closure);
 		try {
@@ -101,11 +104,11 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 			throw new EnumeratingException(e);
 		}
 	}
-	
+
 	public boolean exists(Object closure) throws EnumeratingException {
 		return anySatisfy(closure);
 	}
-	
+
 	public boolean noneSatisfy(Object closure) throws EnumeratingException {
 		return allSatisfy(toPredicate(closure).negated());
 	}
@@ -123,7 +126,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 			throw new EnumeratingException(e);
 		}
 	}
-	
+
 	public boolean anySatisfy(Object closure) throws EnumeratingException {
 		Predicate predicate = toPredicate(closure);
 		try {
@@ -198,9 +201,31 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 			throw new EnumeratingException(e);
 		}
 	}
-	
+
 	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
 		return map(closure);
+	}
+
+	public FluentList<E> sort(Object closure) throws EnumeratingException {
+		Comparator<E> comparator = toClosure(closure).toInteface(Comparator.class);
+		try {
+			FluentList<E> list = toList();
+			Collections.sort(list, comparator);
+			return list;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
+	}
+
+	public FluentList<E> sort() {
+		FluentList<E> list = toList();
+		Collections.sort(list, new ComparableComparator<E>());
+		return list;
+
+	}
+
+	public FluentList<E> toList() {
+		return new Sequence<E>(this);
 	}
 
 }
