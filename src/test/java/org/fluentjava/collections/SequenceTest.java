@@ -205,6 +205,19 @@ public class SequenceTest {
 		FluentList<Integer> list = Sequence.list(3, 2, 1);
 		assertEquals(asList(1, 2, 3), list.sort());
 	}
+	
+	@Test
+	public void testReduce() throws Exception {
+		FluentList<Integer> list = Sequence.list(1, 2, 3);
+		Integer resultado = list.reduce(sumBlock());
+		assertEquals(6, resultado);
+	}
+
+	@Test
+	public void testReduceReturnsNullIfListIsEmpty() throws Exception {
+		FluentList<Integer> list = new Sequence<Integer>();
+		assertNull(list.reduce(sumBlock()));
+	}
 
 	private Predicate greaterThan4() {
 		Predicate anyGreaterThan4 = new Predicate() {
@@ -224,6 +237,18 @@ public class SequenceTest {
 			ret.add(integer / 2);
 		}
 		return ret;
+	}
+	
+	private Closure sumBlock() {
+		Closure sumBlock = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				Integer x = first(args);
+				Integer y = second(args);
+				return x + y;
+			}
+		};
+		return sumBlock;
 	}
 	
 	
