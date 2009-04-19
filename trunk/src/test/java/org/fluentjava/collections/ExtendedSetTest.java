@@ -1,7 +1,6 @@
 package org.fluentjava.collections;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +11,7 @@ public class ExtendedSetTest {
 
 	@Test
 	public void testCreatingSequence() throws Exception {
-		ExtendedSet<Integer> set = new ExtendedSet<Integer>(1, 2, 2, 3);
+		FluentSet<Integer> set = new ExtendedSet<Integer>(1, 2, 2, 3);
 		assertEquals(asSet(1, 2, 2, 3), set);
 	}
 	
@@ -23,7 +22,7 @@ public class ExtendedSetTest {
 
 	@Test
 	public void testFluentStyle() throws Exception {
-		ExtendedSet<Integer> list = new ExtendedSet<Integer>();
+		FluentSet<Integer> list = new ExtendedSet<Integer>();
 		list.insert(1)
 			.insert(2, 2, 3)
 			.insert(4, 4, 4, 5, 5)
