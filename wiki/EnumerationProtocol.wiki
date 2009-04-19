@@ -34,3 +34,4 @@ Further information on what they do can be found [http://wiki.squeak.org/squeak/
 == References ==
  * [http://web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits : Tools and Methodology] 
  * [http://www.ruby-doc.org/core/classes/Enumerable.html#M003163 Ruby] also has a very similar protocl
+ * [http://eigenclass.org/hiki.rb?Changes+in+Ruby+1.9#l55 More] ruby enumerable method on from version 1.9
