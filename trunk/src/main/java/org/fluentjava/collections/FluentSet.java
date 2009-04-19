@@ -2,17 +2,17 @@ package org.fluentjava.collections;
 
 import java.util.Set;
 
-import org.fluentjava.iterators.ExtendedIterable;
-
-
 /**
- * Set that has type safe toArray, and has a fluent interface on methods. Also, has more
- * convenient methods to include and remove elements.
+ * Set that has type safe toArray, and has a fluent interface on methods.
+ * 
+ * Also, has more convenient methods to include and remove elements.
+ * 
+ * All Enumerable methods are also implemented.
  * 
  * @param <E>
  * Type of elements
  */
-public interface FluentSet<E> extends Set<E>, ExtendedIterable<E> {
+public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 
 	/**
 	 * Simliar to the method toArray, but recieves no args and is type safe. Also, the
@@ -23,7 +23,7 @@ public interface FluentSet<E> extends Set<E>, ExtendedIterable<E> {
 	 * @return A copy of the set as an array.
 	 */
 	<T> T[] array(Class<T> clazz);
-	
+
 	/**
 	 * Fluent method (returns self). Adds all elements on the list.
 	 * 
@@ -32,7 +32,7 @@ public interface FluentSet<E> extends Set<E>, ExtendedIterable<E> {
 	 * @return self
 	 */
 	FluentSet<E> insert(E... set);
-	
+
 	/**
 	 * Fluent method (returns self). Add one element
 	 * 
@@ -58,7 +58,7 @@ public interface FluentSet<E> extends Set<E>, ExtendedIterable<E> {
 	 * The elements to be removed.
 	 * @return self
 	 */
-	FluentSet<E> delete(E...set);
+	FluentSet<E> delete(E... set);
 
 	/**
 	 * Fluent method (returns self). Removes all elements on the iterable.
@@ -68,6 +68,5 @@ public interface FluentSet<E> extends Set<E>, ExtendedIterable<E> {
 	 * @return self
 	 */
 	FluentSet<E> delete(Iterable<E> iterable);
-
 
 }

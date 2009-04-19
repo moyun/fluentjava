@@ -160,11 +160,10 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return enumerator().toSet();
 	}
 
+	/*
+	 * Other Methods
+	 */
 	private Enumerator<E> enumerator() {
 		return new Enumerator<E>(this);
 	}
-
-
-
-
 }
