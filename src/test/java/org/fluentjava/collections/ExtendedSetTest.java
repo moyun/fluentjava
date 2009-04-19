@@ -7,22 +7,22 @@ import java.util.Set;
 
 import org.junit.Test;
 
-public class FluentSetTest {
+public class ExtendedSetTest {
 
 	@Test
 	public void testCreatingSequence() throws Exception {
-		FluentSet<Integer> set = new FluentSet<Integer>(1, 2, 2, 3);
+		ExtendedSet<Integer> set = new ExtendedSet<Integer>(1, 2, 2, 3);
 		assertEquals(asSet(1, 2, 2, 3), set);
 	}
 	
 	@Test
 	public void testFactoryMethods() throws Exception {
-		assertEquals(asSet(1, 2, 3, 3), FluentSet.set(1, 2, 3, 3));
+		assertEquals(asSet(1, 2, 3, 3), ExtendedSet.set(1, 2, 3, 3));
 	}
 
 	@Test
 	public void testFluentStyle() throws Exception {
-		FluentSet<Integer> list = new FluentSet<Integer>();
+		ExtendedSet<Integer> list = new ExtendedSet<Integer>();
 		list.insert(1)
 			.insert(2, 2, 3)
 			.insert(4, 4, 4, 5, 5)
@@ -35,7 +35,7 @@ public class FluentSetTest {
 	
 	@Test
 	public void testCheckedToArrayIsUsefullForVariableArgumentsMethods() throws Exception {
-		FluentSet<Number> set = new FluentSet<Number>(2, 4, 6);
+		ExtendedSet<Number> set = new ExtendedSet<Number>(2, 4, 6);
 		assertEquals(asSet(1, 2, 3), half(set.array(Integer.class)));
 	}
 	
