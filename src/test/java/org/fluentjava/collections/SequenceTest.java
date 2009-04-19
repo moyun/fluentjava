@@ -60,7 +60,7 @@ public class SequenceTest {
 	@Test
 	public void testExistsWithClosures() {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
-		assertTrue(list.exists(greaterThan4()));
+		assertTrue(list.exists(greaterThan(4)));
 	}
 	
 	@Test(expected = EnumeratingException.class)
@@ -78,62 +78,62 @@ public class SequenceTest {
 	@Test
 	public void testAllSatisfy() throws Exception {
 		FluentList<Integer> list = Sequence.list(5, 6, 7);
-		assertTrue(list.allSatisfy(greaterThan4()));
+		assertTrue(list.allSatisfy(greaterThan(4)));
 	}
 	
 	@Test
 	public void testAnySatisfy() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3);
-		assertFalse(list.anySatisfy(greaterThan4()));
+		assertFalse(list.anySatisfy(greaterThan(4)));
 	}
 	
 	@Test
 	public void testAnySatisfyWithOneSatifying() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 30);
-		assertTrue(list.anySatisfy(greaterThan4()));
+		assertTrue(list.anySatisfy(greaterThan(4)));
 	}
 	
 	@Test
 	public void testNoneSatisfy() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3);
-		assertTrue(list.noneSatisfy(greaterThan4()));
+		assertTrue(list.noneSatisfy(greaterThan(4)));
 	}
 	
 	@Test
 	public void testSelect() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 5, 6, 7);
-		assertEquals(asList(5, 6, 7), list.select(greaterThan4()));
+		assertEquals(asList(5, 6, 7), list.select(greaterThan(4)));
 	}
 	
 	@Test
 	public void testReject() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 5, 6, 7);
-		assertEquals(asList(1, 2, 3), list.reject(greaterThan4()));
+		assertEquals(asList(1, 2, 3), list.reject(greaterThan(4)));
 	}
 	
 	@Test
 	public void testDetectNonExistant() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3);
-		assertNull(list.detect(greaterThan4()));
+		assertNull(list.detect(greaterThan(4)));
 	}
 	
 	@Test
 	public void testDetect() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 8, 9, 10);
-		assertEquals(8, list.detect(greaterThan4()));
+		assertEquals(8, list.detect(greaterThan(4)));
 	}
 	
 	
 	@Test
 	public void testDetectIfNone() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3);
-		assertEquals(8, list.detectIfNone(greaterThan4(), 8));
+		assertEquals(8, list.detectIfNone(greaterThan(4), 8));
 	}
 	
 	@Test
 	public void testCount() throws Exception {
 		FluentList<Integer> list = Sequence.list(1, 2, 3, 5, 6, 7);
-		assertEquals(3, list.count(greaterThan4()));
+		assertEquals(3, list.count(greaterThan(4)));
 	}
 	
 	@Test
@@ -232,12 +232,12 @@ public class SequenceTest {
 		assertEquals(10, list.reduce(10, sumBlock()));
 	}
 
-	private Predicate greaterThan4() {
+	private Predicate greaterThan(final int number) {
 		Predicate anyGreaterThan4 = new Predicate() {
 			@Override
 			public boolean eval(Object... args) throws Exception {
 				Integer i = first(args);
-				return i > 4;
+				return i > number;
 			}
 		};
 		return anyGreaterThan4;
