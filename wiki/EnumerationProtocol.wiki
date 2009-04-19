@@ -29,6 +29,7 @@ Smalltalk collection api makes heavy use of closures. The methods that are categ
  * select:thenCollect:
  * union:
 
+Further information on what they do can be found [http://wiki.squeak.org/squeak/uploads/SqueakClassesRef.html#Enumerating Collections here]
 
 == References ==
  * [http://web.cecs.pdx.edu/~black/presentations/Traits%20Methodology.pdf Traits : Tools and Methodology] 
