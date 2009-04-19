@@ -70,6 +70,10 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 		removeAll(set(elements));
 		return this;
 	}
+	
+	public FluentSet<E> delete(Iterable<E> iterable) {
+		return delete(new ExtendedSet<E>(iterable));
+	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T[] array(Class<T> clazz) {
