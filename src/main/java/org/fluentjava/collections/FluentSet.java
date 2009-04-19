@@ -13,7 +13,6 @@ import java.util.Set;
  * Type of elements
  */
 public interface FluentSet<E> extends Set<E>, Enumerable<E> {
-
 	/**
 	 * Simliar to the method toArray, but recieves no args and is type safe. Also, the
 	 * returned array is just a copy. Note that the class is necessary, as Gererics by
