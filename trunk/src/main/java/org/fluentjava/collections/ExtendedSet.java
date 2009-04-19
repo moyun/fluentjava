@@ -3,7 +3,11 @@ package org.fluentjava.collections;
 import java.lang.reflect.Array;
 import java.util.HashSet;
 
-public class ExtendedSet<E> extends HashSet<E> {
+import org.fluentjava.iterators.ExtendedIterable;
+import org.fluentjava.iterators.ExtendedIterator;
+import org.fluentjava.iterators.ExtendedIteratorAdapter;
+
+public class ExtendedSet<E> extends HashSet<E> implements ExtendedIterable<E> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,5 +46,10 @@ public class ExtendedSet<E> extends HashSet<E> {
 	@SuppressWarnings("unchecked")
 	public <T> T[] array(Class<T> clazz) {
 		return 	toArray((T[]) Array.newInstance(clazz, size()));
+	}
+	
+	@Override
+	public ExtendedIterator<E> iterator() {
+	return new ExtendedIteratorAdapter<E>(super.iterator());
 	}
 }
