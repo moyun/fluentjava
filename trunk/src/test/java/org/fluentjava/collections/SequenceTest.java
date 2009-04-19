@@ -165,6 +165,19 @@ public class SequenceTest {
 		});
 		assertEquals(asList(3, 6, 9), ret);	
 	}
+	
+	@Test
+	public void testMapToDifferentTypes() throws Exception {
+		FluentList<String> list = Sequence.list("I", "am", "war");
+		FluentList<Integer> ret = list.map(new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				String i = (String) args[0];
+				return i.length();
+			}
+		});
+		assertEquals(asList(1, 2, 3), ret);	
+	}
 
 	private Predicate greaterThan4() {
 		Predicate anyGreaterThan4 = new Predicate() {

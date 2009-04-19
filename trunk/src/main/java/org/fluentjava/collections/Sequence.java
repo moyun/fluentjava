@@ -185,18 +185,22 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		}
 	}
 
-	public FluentList<E> map(Object closure) throws EnumeratingException {
+	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
 		Closure function = toClosure(closure);
 		try {
-			FluentList<E> list = new Sequence<E>();
+			FluentList<T> list = new Sequence<T>();
 			for (E e : iterator()) {
-				E element = function.invoke(e);
+				T element = function.invoke(e);
 				list.add(element);
 			}
 			return list;
 		} catch (Exception e) {
 			throw new EnumeratingException(e);
 		}
+	}
+	
+	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
+		return map(closure);
 	}
 
 }
