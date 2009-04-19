@@ -1,14 +1,19 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.closures.ClosureCoercion.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.fluentjava.closures.Closure;
+import org.fluentjava.closures.Predicate;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
+/**
+ * @param <E>
+ */
 public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	private static final long serialVersionUID = 1L;
 
@@ -76,77 +81,122 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return toArray((T[]) Array.newInstance(clazz, size()));
 	}
 
-	public boolean exists(Object closure) throws EnumeratingException {
-		if (closure instanceof Closure) {
-			Closure function = (Closure) closure;
-			try {
-				for (E e : iterator()) {
-					boolean ret = function.invoke(e);
-					if (ret) {
-						return true;
-					}
+	/*
+	 * Enum Methods
+	 */
+	public E detect(Object closure) throws EnumeratingException {
+		return detectIfNone(closure, null);
+	}
+	
+	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
+		Predicate predicate = toPredicate(closure);
+		try {
+			for (E e : iterator()) {
+				if (predicate.eval(e)) {
+					return e;
 				}
-				return false;
-			} catch (Exception e) {
-				throw new EnumeratingException(e);
 			}
+			return ifNone;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
 		}
-		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
+	}
+	
+	public boolean exists(Object closure) throws EnumeratingException {
+		return anySatisfy(closure);
+	}
+	
+	public boolean noneSatisfy(Object closure) throws EnumeratingException {
+		return allSatisfy(toPredicate(closure).negated());
 	}
 
 	public boolean allSatisfy(Object closure) throws EnumeratingException {
-		if (closure instanceof Closure) {
-			Closure function = (Closure) closure;
-			try {
-				for (E e : iterator()) {
-					boolean ret = function.invoke(e);
-					if (!ret) {
-						return false;
-					}
+		Predicate predicate = toPredicate(closure);
+		try {
+			for (E e : iterator()) {
+				if (predicate.notEval(e)) {
+					return false;
 				}
-				return true;
-			} catch (Exception e) {
-				throw new EnumeratingException(e);
 			}
+			return true;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
 		}
-		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
+	}
+	
+	public boolean anySatisfy(Object closure) throws EnumeratingException {
+		Predicate predicate = toPredicate(closure);
+		try {
+			for (E e : iterator()) {
+				if (predicate.eval(e)) {
+					return true;
+				}
+			}
+			return false;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
 	}
 
 	public int count(Object closure) throws EnumeratingException {
-		if (closure instanceof Closure) {
-			Closure function = (Closure) closure;
-			try {
-				int total = 0;
-				for (E e : iterator()) {
-					boolean ret = function.invoke(e);
-					if (ret) {
-						total++;
-					}
+		Predicate predicate = toPredicate(closure);
+		try {
+			int total = 0;
+			for (E e : iterator()) {
+				if (predicate.eval(e)) {
+					total++;
 				}
-				return total;
-			} catch (Exception e) {
-				throw new EnumeratingException(e);
 			}
+			return total;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
 		}
-		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
 	}
 
 	public FluentList<E> select(Object closure) throws EnumeratingException {
-		if (closure instanceof Closure) {
-			Closure function = (Closure) closure;
-			try {
-				FluentList<E> list = new Sequence<E>();
-				for (E e : iterator()) {
-					boolean ret = function.invoke(e);
-					if (ret) {
-						list.add(e);
-					}
+		Predicate predicate = toPredicate(closure);
+		try {
+			FluentList<E> list = new Sequence<E>();
+			for (E e : iterator()) {
+				if (predicate.eval(e)) {
+					list.add(e);
 				}
-				return list;
-			} catch (Exception e) {
-				throw new EnumeratingException(e);
 			}
+			return list;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
 		}
-		throw new IllegalArgumentException("Argument does not coerce to closure: " + closure);
+
 	}
+
+	public FluentList<E> reject(Object closure) throws EnumeratingException {
+		return select(toPredicate(closure).negated());
+
+	}
+
+	public void foreach(Object closure) throws EnumeratingException {
+		Closure function = toClosure(closure);
+		try {
+			for (E e : iterator()) {
+				function.call(e);
+			}
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
+	}
+
+	public FluentList<E> map(Object closure) throws EnumeratingException {
+		Closure function = toClosure(closure);
+		try {
+			FluentList<E> list = new Sequence<E>();
+			for (E e : iterator()) {
+				E element = function.invoke(e);
+				list.add(element);
+			}
+			return list;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
+	}
+
 }
