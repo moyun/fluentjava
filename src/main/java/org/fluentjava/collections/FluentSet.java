@@ -28,7 +28,7 @@ public class FluentSet<E> extends HashSet<E> {
 	}
 
 	public FluentSet<E> insert(Iterable<E> iterable) {
-		for (E e : iterable){
+		for (E e : iterable) {
 			add(e);
 		}
 		return this;
@@ -41,6 +41,6 @@ public class FluentSet<E> extends HashSet<E> {
 
 	@SuppressWarnings("unchecked")
 	public <T> T[] array(Class<T> clazz) {
-		return 	toArray((T[])Array.newInstance(clazz, size()));
+		return 	toArray((T[]) Array.newInstance(clazz, size()));
 	}
 }
