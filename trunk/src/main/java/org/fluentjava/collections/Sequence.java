@@ -1,16 +1,10 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
-import static org.fluentjava.closures.ClosureCoercion.toClosure;
-import static org.fluentjava.closures.ClosureCoercion.toPredicate;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import org.fluentjava.closures.Closure;
-import org.fluentjava.closures.Predicate;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
@@ -21,7 +15,7 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  */
 public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	private static final long serialVersionUID = 1L;
-
+	
 	/*
 	 * Factory Methods
 	 */
@@ -86,185 +80,86 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return toArray((T[]) Array.newInstance(clazz, size()));
 	}
 
-	/*
-	 * Enum Methods
-	 */
-	public E detect(Object closure) throws EnumeratingException {
-		return detectIfNone(closure, null);
-	}
-
-	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
-		try {
-			for (E e : iterator()) {
-				if (predicate.eval(e)) {
-					return e;
-				}
-			}
-			return ifNone;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-	}
-
-	public boolean exists(Object closure) throws EnumeratingException {
-		return anySatisfy(closure);
-	}
-
-	public boolean noneSatisfy(Object closure) throws EnumeratingException {
-		return allSatisfy(toPredicate(closure).negated());
-	}
-
 	public boolean allSatisfy(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
-		try {
-			for (E e : iterator()) {
-				if (predicate.notEval(e)) {
-					return false;
-				}
-			}
-			return true;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
+		return enumerator().allSatisfy(closure);
 	}
 
 	public boolean anySatisfy(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
-		try {
-			for (E e : iterator()) {
-				if (predicate.eval(e)) {
-					return true;
-				}
-			}
-			return false;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-	}
-
-	public int count(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
-		try {
-			int total = 0;
-			for (E e : iterator()) {
-				if (predicate.eval(e)) {
-					total++;
-				}
-			}
-			return total;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-	}
-
-	public FluentList<E> select(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
-		try {
-			FluentList<E> list = new Sequence<E>();
-			for (E e : iterator()) {
-				if (predicate.eval(e)) {
-					list.add(e);
-				}
-			}
-			return list;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-
-	}
-
-	public FluentList<E> reject(Object closure) throws EnumeratingException {
-		return select(toPredicate(closure).negated());
-
-	}
-
-	public void foreach(Object closure) throws EnumeratingException {
-		Closure function = toClosure(closure);
-		try {
-			for (E e : iterator()) {
-				function.call(e);
-			}
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-	}
-
-	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
-		Closure function = toClosure(closure);
-		try {
-			FluentList<T> list = new Sequence<T>();
-			for (E e : iterator()) {
-				T element = function.invoke(e);
-				list.add(element);
-			}
-			return list;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
+		return enumerator().anySatisfy(closure);
 	}
 
 	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
-		return map(closure);
+		return enumerator().collect(closure);
 	}
 
-	public FluentList<E> sort(Object closure) throws EnumeratingException {
-		Comparator<E> comparator = toClosure(closure).toInteface(Comparator.class);
-		try {
-			FluentList<E> list = toList();
-			Collections.sort(list, comparator);
-			return list;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
+	public int count(Object closure) throws EnumeratingException {
+		return enumerator().count(closure);
 	}
 
-	public FluentList<E> sort() {
-		FluentList<E> list = toList();
-		Collections.sort(list, new ComparableComparator<E>());
-		return list;
-
+	public E detect(Object closure) throws EnumeratingException {
+		return enumerator().detect(closure);
 	}
 
-	public FluentList<E> toList() {
-		return new Sequence<E>(this);
+	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
+		return enumerator().detectIfNone(closure, ifNone);
 	}
 
-	public E reduce(Object closure) throws EnumeratingException {
-		if (size() == 0) {
-			return null;
-		}
-		return doReduce(closure, get(0), 2);
+	public boolean exists(Object closure) throws EnumeratingException {
+		return enumerator().exists(closure);
 	}
 
-	public E reduce(E initial, Object closure) throws EnumeratingException {
-		return doReduce(closure, initial, 1);
-	}
-
-	private E doReduce(Object closure, E first, int startingPoint) throws EnumeratingException {
-		Closure function = toClosure(closure);
-		if (size() <= startingPoint - 1) {
-			return first;
-		}
-		try {
-			E second = get(startingPoint - 1);
-			E result = function.invoke(first, second);
-			for (int i = startingPoint; i < size(); i++) {
-				result = function.invoke(result, get(i));
-			}
-			return result;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-		
-	}
-
-	public E inject(Object closure) throws EnumeratingException {
-		return reduce(closure);
+	public void foreach(Object closure) throws EnumeratingException {
+		enumerator().foreach(closure);
 	}
 
 	public E inject(E initial, Object closure) throws EnumeratingException {
-		return reduce(initial, closure);
+		return enumerator().inject(initial, closure);
 	}
+
+	public E inject(Object closure) throws EnumeratingException {
+		return enumerator().inject(closure);
+	}
+
+	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
+		return enumerator().map(closure);
+	}
+
+	public boolean noneSatisfy(Object closure) throws EnumeratingException {
+		return enumerator().noneSatisfy(closure);
+	}
+
+	public E reduce(E initial, Object closure) throws EnumeratingException {
+		return enumerator().reduce(initial, closure);
+	}
+
+	public E reduce(Object closure) throws EnumeratingException {
+		return enumerator().reduce(closure);
+	}
+
+	public FluentList<E> reject(Object closure) throws EnumeratingException {
+		return enumerator().reject(closure);
+	}
+
+	public FluentList<E> select(Object closure) throws EnumeratingException {
+		return enumerator().select(closure);
+	}
+
+	public FluentList<E> sort() {
+		return enumerator().sort();
+	}
+
+	public FluentList<E> sort(Object closure) throws EnumeratingException {
+		return enumerator().sort(closure);
+	}
+
+	public FluentList<E> toList() {
+		return enumerator().toList();
+	}
+
+
+	private Enumerator<E> enumerator() {
+		return new Enumerator<E>(this);
+	}
+
 
 }
