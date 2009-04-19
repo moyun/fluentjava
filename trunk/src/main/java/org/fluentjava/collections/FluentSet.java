@@ -5,6 +5,11 @@ import java.util.Set;
 import org.fluentjava.iterators.ExtendedIterable;
 
 
+/**
+ * 
+ * TODO: add javadoc.
+ * @param <E>
+ */
 public interface FluentSet<E> extends Set<E>, ExtendedIterable<E> {
 
 	FluentSet<E> insert(E element);

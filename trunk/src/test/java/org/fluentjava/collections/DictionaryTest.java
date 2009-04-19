@@ -15,7 +15,7 @@ public class DictionaryTest {
 
 	@Test
 	public void testFluentStyle() {
-		Dictionary<String, Integer> dictionary = new Dictionary<String, Integer>()
+		FluentMap<String, Integer> dictionary = new Dictionary<String, Integer>()
 		.putAt("Item 1", 1)
 		.putAt("Item 2", 2);
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -26,10 +26,10 @@ public class DictionaryTest {
 	
 	@Test
 	public void testFluentPutAll() throws Exception {
-		Dictionary<String, Integer> map = new Dictionary<String, Integer>()
+		FluentMap<String, Integer> map = new Dictionary<String, Integer>()
 		.putAt("Item 2", 20)
 		.putAt("Item 3", 3);
-		Dictionary<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>()
+		FluentMap<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>()
 		.putAt("Item 1", 1)
 		.putAt("Item 2", 2)
 		.insert(map);
@@ -39,20 +39,20 @@ public class DictionaryTest {
 		
 	}
 	
-	private void mapKey(Dictionary<CharSequence, Integer> dictionary, String key, int value) {
+	private void mapKey(FluentMap<CharSequence, Integer> dictionary, String key, int value) {
 		assertEquals(value, dictionary.get(key));
 	}
 
 	@Test
-	public void testToArray() throws Exception {
-		Dictionary<String, Integer> map = new Dictionary<String, Integer>()
+	public void testToList() throws Exception {
+		FluentMap<String, Integer> map = new Dictionary<String, Integer>()
 		.putAt("Item 2", 20)
 		.putAt("Item 3", 3);
 		FluentList<Pair<String, Integer>> x = new Sequence<Pair<String, Integer>>()
 		.insert(pair("Item 2", 20))
 		.insert(pair("Item 3", 3));
-		assertEquals(x.size(), map.toArray().size());
-		assertEquals(set(x), set(map.toArray()));
+		assertEquals(x.size(), map.toList().size());
+		assertEquals(set(x), set(map.toList()));
 	}
 
 	private HashSet<Pair<String, Integer>> set(List<Pair<String, Integer>> array) {

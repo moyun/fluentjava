@@ -6,6 +6,8 @@ import org.fluentjava.iterators.ExtendedIterable;
  * Implements a enumeration protocol. A classthat implement this interface allow its elements
  * to be operated on with closures.
  * 
+ * TODO: add javadoc do methods
+ * 
  * @param <E>
  * Type of Elements.
  */
@@ -48,6 +50,8 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	FluentList<E> sort(Object closure) throws EnumeratingException;
 
 	FluentList<E> toList();
+	
+	FluentSet<E> toSet();
 
 	FluentList<E> sort();
 

@@ -12,6 +12,11 @@ import org.fluentjava.iterators.ExtendedIterable;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
+/**
+ * Class that takes an iterable, and implements all Enumerable methods using only its iterator.
+ * @param <E>
+ * Type of elements to be iterated on.
+ */
 public class Enumerator<E> implements Enumerable<E> {
 	/*
 	 * Variables
@@ -174,6 +179,10 @@ public class Enumerator<E> implements Enumerable<E> {
 	public FluentList<E> toList() {
 		return new Sequence<E>(this);
 	}
+	
+	public FluentSet<E> toSet() {
+		return new ExtendedSet<E>(this);
+	}
 
 	public E reduce(Object closure) throws EnumeratingException {
 		ExtendedIterator<E> it = iterator();
@@ -217,4 +226,5 @@ public class Enumerator<E> implements Enumerable<E> {
 			throw new EnumeratingException(e);
 		}
 	}
+
 }

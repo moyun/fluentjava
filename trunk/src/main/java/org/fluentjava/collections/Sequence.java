@@ -156,10 +156,15 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return enumerator().toList();
 	}
 
+	public FluentSet<E> toSet() {
+		return enumerator().toSet();
+	}
 
 	private Enumerator<E> enumerator() {
 		return new Enumerator<E>(this);
 	}
+
+
 
 
 }

@@ -4,8 +4,9 @@ import java.util.Map.Entry;
 
 /**
  * Simple Pair of types F and S. Similar to Map.Entry, but does not have the same
- * semantics: it is not necesseryly a key and a value.
- *
+ * semantics: it is not necesseryly a key and a value. But, for backwards compatibility,
+ * it implements Entry.
+ * 
  * @param <F>
  * first type
  * @param <S>
@@ -54,7 +55,7 @@ public class Pair<F, S> implements Entry<F, S> {
 		if (first != null) {
 			result = prime * result + first.hashCode();
 		}
-		if (second != null) { 
+		if (second != null) {
 			result = prime * result + second.hashCode();
 		}
 		return result;
