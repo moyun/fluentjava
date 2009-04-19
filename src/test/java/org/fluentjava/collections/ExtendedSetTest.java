@@ -1,6 +1,7 @@
 package org.fluentjava.collections;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,9 +36,21 @@ public class ExtendedSetTest {
 	
 	@Test
 	public void testCheckedToArrayIsUsefullForVariableArgumentsMethods() throws Exception {
-		ExtendedSet<Number> set = new ExtendedSet<Number>(2, 4, 6);
+		ExtendedSet<Number> set = new ExtendedSet<Number>(2, 4, 4, 6);
 		assertEquals(asSet(1, 2, 3), half(set.array(Integer.class)));
 	}
+
+	@Test(expected = Exception.class)
+	public void testCannotConvertEverything() throws Exception {
+		ExtendedSet<Integer> set = ExtendedSet.set(2, 4, 4, 6);
+		set.array(String.class);
+	}
+	
+//	@Test
+//	public void testExistsWithClosures() {
+//		FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
+//		assertTrue(list.exists(greaterThan4()));
+//	}
 	
 	private Set<Integer> half(Integer...array) {
 		Set<Integer> set = new HashSet<Integer>();
@@ -45,12 +58,6 @@ public class ExtendedSetTest {
 			set.add(integer / 2);
 		}
 		return set;
-	}
-
-	@Test(expected = Exception.class)
-	public void testCannotConvertEverything() throws Exception {
-		FluentList<Integer> list = Sequence.list(2, 4, 6);
-		list.array(String.class);
 	}
 	
 	private <E> Set<E> asSet(E...element) {
