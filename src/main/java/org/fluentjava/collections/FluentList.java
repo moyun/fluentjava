@@ -2,8 +2,6 @@ package org.fluentjava.collections;
 
 import java.util.List;
 
-import org.fluentjava.iterators.ExtendedIterable;
-
 /**
  * List that has type safe toArray, and has a fluent interface on methods. Also, has more
  * convenient methods to include and remove elements. Also, uses extendedIterators
@@ -12,7 +10,7 @@ import org.fluentjava.iterators.ExtendedIterable;
  * @param <E>
  * Type of elements
  */
-public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
+public interface FluentList<E> extends List<E>, Enumerable<E> {
 
 	/**
 	 * Simliar to the method toArray, but recieves no args and is type safe. Also, the
@@ -68,54 +66,4 @@ public interface FluentList<E> extends List<E>, ExtendedIterable<E> {
 	 * @return self
 	 */
 	FluentList<E> delete(Iterable<E> iterable);
-
-	/**
-	 * Extended Collection Method. Checks if there exists an object such that the closure
-	 * returns true. The closure must only return boolean values. 
-	 * 
-	 * @param closure
-	 * Predicate
-	 * @return
-	 * The existence
-	 * @throws EnumeratingException
-	 * In case anything happens while enumerating.
-	 */
-	boolean exists(Object closure) throws EnumeratingException;
-	
-	boolean anySatisfy(Object closure) throws EnumeratingException;
-
-	boolean allSatisfy(Object closure) throws EnumeratingException;
-	
-	boolean noneSatisfy(Object closure) throws EnumeratingException;
-
-	int count(Object closure) throws EnumeratingException;
-
-	FluentList<E> select(Object closure) throws EnumeratingException;
-	
-	FluentList<E> reject(Object closure) throws EnumeratingException;
-
-	E detect(Object closure) throws EnumeratingException;
-
-	E detectIfNone(Object closure, E ifNone) throws EnumeratingException;
-	
-	void foreach(Object closure) throws EnumeratingException;
-
-	<T> FluentList<T> map(Object closure) throws EnumeratingException;
-
-	<T> FluentList<T> collect(Object closure) throws EnumeratingException;
-
-	FluentList<E> sort(Object closure) throws EnumeratingException;
-
-	FluentList<E> toList();
-
-	FluentList<E> sort();
-
-	E reduce(Object closure) throws EnumeratingException;
-
-	E reduce(E initial, Object closure) throws EnumeratingException;
-	
-	E inject(Object closure) throws EnumeratingException;
-
-	E inject(E initial, Object closure) throws EnumeratingException;
-
 }
