@@ -16,38 +16,89 @@ import org.fluentjava.iterators.Pair;
 
 /**
  * Class with no attributes that allows subclasses to easly create collections and
- * closures.
+ * closures. A lot of type inference to make things go more fluent.
  */
 public abstract class Fluency {
 
+	/**
+	 * Creates an empty map.
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	protected <K, V> FluentMap<K, V> map() {
 		return new Dictionary<K, V>();
 	}
 
+	/**
+	 * Creates an empty list.
+	 * @param <T>
+	 * @return
+	 */
 	protected <T> FluentList<T> list() {
 		return new Sequence<T>();
 	}
 
+	/**
+	 * Varargs version that creates a fluent list from a list of elements.
+	 * @param <T>
+	 * @param first
+	 * @param list
+	 * @return
+	 */
 	protected <T> FluentList<T> list(T first, T... list) {
 		return new Sequence<T>().insert(first).insert(list);
 	}
 
+	/**
+	 * Creates a fluent list from a iterable.
+	 * @param <T>
+	 * @param iterable
+	 * @return
+	 */
 	protected <T> FluentList<T> list(Iterable<T> iterable) {
 		return new Sequence<T>(iterable);
 	}
 	
+	/**
+	 * Creates an empty set.
+	 * @param <T>
+	 * @return
+	 */
 	protected <T> FluentSet<T> set() {
 		return new ExtendedSet<T>();
 	}
 	
+	
+	/**
+	 * Varargs version that creates a set from a list of elements.
+	 * @param <T>
+	 * @param first
+	 * @param list
+	 * @return
+	 */
 	protected <T> FluentSet<T> set(T first, T... list) {
 		return new ExtendedSet<T>().insert(first).insert(list);
 	}
 
+	/**
+	 * Creates fluentSet from a iterable.
+	 * @param <T>
+	 * @param iterable
+	 * @return
+	 */
 	protected <T> FluentSet<T> set(Iterable<T> iterable) {
 		return new ExtendedSet<T>(iterable);
 	}
 	
+	/**
+	 * Create a simple pair.
+	 * @param <F>
+	 * @param <S>
+	 * @param first
+	 * @param second
+	 * @return
+	 */
 	protected <F, S> Pair<F, S> pair(F first, S second) {
 		return new Pair<F, S>(first, second);
 	}
@@ -62,6 +113,11 @@ public abstract class Fluency {
 	}
 	
 	
+	/**
+	 * Creates the ClosureOfAString on methodName.
+	 * @param methodName
+	 * @return
+	 */
 	protected Closure target(String methodName) {
 		return new ClosureOfAString(methodName);
 	}
