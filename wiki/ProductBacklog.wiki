@@ -7,7 +7,7 @@
  * Wrapped over Fork Join: 10 points
 
 = Closures Theme =
- * Full Coercion: 10  points
+ * Full Coercion (includes detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces): 10  points
  * Numargs method: 5 points
  * .asThread: 2 points
  * !TimeIt: 4  points
