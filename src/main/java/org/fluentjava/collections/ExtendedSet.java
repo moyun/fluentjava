@@ -18,14 +18,13 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	/*
 	 * Factory Methods
 	 */
-	public static <E> ExtendedSet<E> set(E... element) {
-		return new ExtendedSet<E>(element);
+	public static <T> FluentSet<T> set(T... element) {
+		return new ExtendedSet<T>(element);
 	}
 
-	public static <E> ExtendedSet<E> set(Iterable<E> iterable) {
-		return new ExtendedSet<E>(iterable);
+	public static <T> FluentSet<T> set(Iterable<T> iterable) {
+		return new ExtendedSet<T>(iterable);
 	}
-
 	/*
 	 * Constructors
 	 */

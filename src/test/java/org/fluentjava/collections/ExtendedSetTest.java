@@ -41,7 +41,7 @@ public class ExtendedSetTest {
 
 	@Test(expected = Exception.class)
 	public void testCannotConvertEverything() throws Exception {
-		ExtendedSet<Integer> set = ExtendedSet.set(2, 4, 4, 6);
+		FluentSet<Integer> set = ExtendedSet.set(2, 4, 4, 6);
 		set.array(String.class);
 	}
 	

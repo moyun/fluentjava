@@ -7,8 +7,8 @@ import java.lang.reflect.Method;
  */
 public class ClosureOfAMethod extends Closure {
 
-	private Method method;
-	private Object target;
+	protected Method method;
+	protected Object target;
 	
 	public ClosureOfAMethod(Object target, Method method) {
 		this.target = target;
