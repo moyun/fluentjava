@@ -2,18 +2,24 @@
 #labels backlog
 
 = Collection Theme =
- * Fluent Map: 2 points
- * Extended Collections (select, remove, collect...): 6 points
  * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map etc): ??? points
  * Wrapped extended collections: 9 points
  * Wrapped over Fork Join: 10 points
 
 = Closures Theme =
- * Basic support: 2 points
- * Basic Coercion: 3 points
  * Full Coercion: 10  points
  * Numargs method: 5 points
  * .asThread: 2 points
  * !TimeIt: 4  points
  * Compose: 6 points
  * Curry: 1 point
+
+= To think about it (need points) =
+ * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by
+ * sort_with_keys (python influence). Receiving a closure, of course.
+ * Standard coercion to runnable and callable. One liner, with [http://fluentjava.googlecode.com/svn/trunk/apidocs/org/fluentjava/closures/Closure.html#toInteface(java.lang.Class) to interface]
+ * Softening exceptions (on Closure)
+ * Make it javac friendly (type inference on instance methods is incredible on eclipse compiler). Maybe I should make a wiki page about it?
+ * range and xrange from python, on fluency
+ * Fluency delegator
+ * Static fluency methods. Thinking about an Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
