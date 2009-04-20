@@ -45,4 +45,8 @@ public class Mock extends MockFather {
 	private String aTimesOne() {
 		return aTimesn(1);
 	}
+	
+	protected String getPrivateName() {
+		return "Private> " + publicName;
+	}
 }
