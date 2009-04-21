@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.fluentjava.FluentUtils;
 import org.junit.Test;
 
 public class ExtendedSetTest {
@@ -17,7 +18,7 @@ public class ExtendedSetTest {
 	
 	@Test
 	public void testFactoryMethods() throws Exception {
-		assertEquals(asSet(1, 2, 3, 3), ExtendedSet.set(1, 2, 3, 3));
+		assertEquals(asSet(1, 2, 3, 3), FluentUtils.set(1, 2, 3, 3));
 	}
 
 	@Test
@@ -41,7 +42,7 @@ public class ExtendedSetTest {
 
 	@Test(expected = Exception.class)
 	public void testCannotConvertEverything() throws Exception {
-		FluentSet<Integer> set = ExtendedSet.set(2, 4, 4, 6);
+		FluentSet<Integer> set = FluentUtils.set(2, 4, 4, 6);
 		set.array(String.class);
 	}
 	

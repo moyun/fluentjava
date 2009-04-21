@@ -1,26 +1,26 @@
 package org.fluentjava;
 
-import java.lang.reflect.Method;
-import java.util.NoSuchElementException;
-
 import org.fluentjava.closures.Closure;
-import org.fluentjava.closures.ClosureOfAMethod;
-import org.fluentjava.closures.ClosureOfAString;
 import org.fluentjava.collections.Dictionary;
 import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
 import org.fluentjava.collections.FluentSet;
 import org.fluentjava.collections.Pair;
-import org.fluentjava.collections.Sequence;
 
 /**
  * Class with no attributes that allows subclasses to easly create collections and
  * closures. A lot of type inference to make things go more fluent.
+ * 
+ * If you do not with to extend Fluency, FluentUtils with import static can be a good
+ * enough replacement.
+ * 
+ * @see FluentUtils
  */
 public abstract class Fluency {
 	/**
 	 * Creates an empty map.
+	 * 
 	 * @param <K>
 	 * @param <V>
 	 * @return
@@ -30,68 +30,73 @@ public abstract class Fluency {
 	}
 
 	/**
-	 * Creates an empty list.
+	 * Delegates to {@link FluentUtils#list()}.
+	 * 
 	 * @param <T>
 	 * @return
 	 */
 	protected <T> FluentList<T> list() {
-		return new Sequence<T>();
+		return FluentUtils.<T> list();
 	}
 
 	/**
-	 * Varargs version that creates a fluent list from a list of elements.
+	 * Delegates to {@link FluentUtils#list(Object...))}.
+	 * 
 	 * @param <T>
-	 * @param first
-	 * @param list
+	 * @param args
 	 * @return
 	 */
-	protected <T> FluentList<T> list(T first, T... list) {
-		return new Sequence<T>().insert(first).insert(list);
+	protected <T> FluentList<T> list(T... args) {
+		return FluentUtils.<T> list(args);
 	}
 
 	/**
-	 * Creates a fluent list from a iterable.
+	 * Delegates to {@link FluentUtils#listFromIterable(Iterable)}.
+	 * 
 	 * @param <T>
 	 * @param iterable
 	 * @return
 	 */
-	protected <T> FluentList<T> list(Iterable<T> iterable) {
-		return new Sequence<T>(iterable);
+	protected <T> FluentList<T> listFromIterable(Iterable<T> iterable) {
+		return FluentUtils.<T> listFromIterable(iterable);
 	}
-	
+
 	/**
-	 * Creates an empty set.
+	 * Delegates to {@link FluentUtils#set()}.
+	 * 
 	 * @param <T>
 	 * @return
 	 */
 	protected <T> FluentSet<T> set() {
 		return new ExtendedSet<T>();
 	}
-	
-	
+
 	/**
-	 * Varargs version that creates a set from a list of elements.
+	 * Delegates to {@link FluentUtils#set(Object...)}.
+	 * 
 	 * @param <T>
 	 * @param first
 	 * @param list
 	 * @return
 	 */
-	protected <T> FluentSet<T> set(T first, T... list) {
-		return new ExtendedSet<T>().insert(first).insert(list);
+	protected <T> FluentSet<T> set(T... args) {
+		return FluentUtils.<T> set(args);
 	}
 
 	/**
-	 * Creates fluentSet from a iterable.
+	 * Delegates to {@link FluentUtils#setFromIterable(Iterable)}.
+	 * 
 	 * @param <T>
 	 * @param iterable
 	 * @return
 	 */
-	protected <T> FluentSet<T> set(Iterable<T> iterable) {
-		return new ExtendedSet<T>(iterable);
+	protected <T> FluentSet<T> setFromIterable(Iterable<T> iterable) {
+		return FluentUtils.<T> setFromIterable(iterable);
 	}
-	
+
 	/**
-	 * Create a simple pair.
+	 * Delegates to {@link FluentUtils#pair(Object, Object)}.
+	 * 
 	 * @param <F>
 	 * @param <S>
 	 * @param first
@@ -99,61 +104,16 @@ public abstract class Fluency {
 	 * @return
 	 */
 	protected <F, S> Pair<F, S> pair(F first, S second) {
-		return new Pair<F, S>(first, second);
+		return FluentUtils.pair(first, second);
 	}
 
 	/**
-	 * Returns a closure of a method on the current class, of the name methodName. 
-	 * @param methodName
+	 * Delegates to {@link FluentUtils#my(Object, String)}, passing this as target.
+	 * 
 	 * @return
 	 */
 	protected Closure my(String methodName) {
-		return new ClosureOfAMethod(this, findMethod(methodName));
+		return FluentUtils.my(this, methodName);
 	}
-	
-	
-	/**
-	 * Creates the ClosureOfAString on methodName.
-	 * @param methodName
-	 * @return
-	 */
-	protected Closure target(String methodName) {
-		return new ClosureOfAString(methodName);
-	}
-
-	/*
-	 * Private Methods
-	 */
-	private Method findMethod(String methodName) {
-		Method method = findOnDeclared(methodName);
-		if (method != null) {
-			return method;
-		}
-		method = findOnInhenrited(methodName);
-		if (method != null) {
-			return method;
-		}
-		throw new NoSuchElementException("The method " + methodName + " was not found on " + this);
-	}
-
-	private Method findOnInhenrited(String methodName) {
-		for (Method method : this.getClass().getMethods()) {
-			if (methodName.equals(method.getName())) {
-				return method;
-			}
-		}
-		return null;
-	}
-
-	private Method findOnDeclared(String methodName) {
-		for (Method method : getClass().getDeclaredMethods()) {
-			if (methodName.equals(method.getName())) {
-				method.setAccessible(true);
-				return method;
-			}
-		}
-		return null;
-	}
-
 
 }

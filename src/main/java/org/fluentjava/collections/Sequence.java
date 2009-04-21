@@ -17,26 +17,26 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	private static final long serialVersionUID = 1L;
 	
 	/*
-	 * Factory Methods
-	 */
-	public static <T> FluentList<T> list(T... list) {
-		return new Sequence<T>(list);
-	}
-
-	public static <T> FluentList<T> list(Iterable<T> iterable) {
-		return new Sequence<T>(iterable);
-	}
-
-	/*
 	 * Constructors
+	 */
+	/**
+	 * Creates an empty Sequence.
 	 */
 	public Sequence() {
 	}
 
-	public Sequence(E... list) {
-		insert(list);
+	/**
+	 * Creates a Sequence with elements args.
+	 * @param args
+	 */
+	public Sequence(E... args) {
+		insert(args);
 	}
 
+	/**
+	 * Creates a Sequence the with the iterable elements.
+	 * @param iterable
+	 */
 	public Sequence(Iterable<E> iterable) {
 		insert(iterable);
 	}
