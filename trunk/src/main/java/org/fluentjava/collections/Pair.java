@@ -1,4 +1,4 @@
-package org.fluentjava.iterators;
+package org.fluentjava.collections;
 
 import java.util.Map.Entry;
 

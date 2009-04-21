@@ -1,6 +1,6 @@
 package org.fluentjava.collections;
 
-import static org.fluentjava.iterators.Pair.pair;
+import static org.fluentjava.collections.Pair.pair;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.fluentjava.closures.Predicate;
-import org.fluentjava.iterators.Pair;
 import org.junit.Test;
 
 public class DictionaryTest {

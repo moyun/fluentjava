@@ -2,7 +2,6 @@ package org.fluentjava.collections;
 
 import java.util.Map;
 
-import org.fluentjava.iterators.Pair;
 
 /**
  * Map that has a fluent interface on methods. All Enumerable methods are also

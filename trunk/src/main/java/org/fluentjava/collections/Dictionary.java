@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.fluentjava.iterators.AbstractExtendedIterator;
 import org.fluentjava.iterators.ExtendedIterator;
-import org.fluentjava.iterators.Pair;
 
 /**
  * Standard Implementation of Fluent map.
