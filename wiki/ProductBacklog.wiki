@@ -26,3 +26,9 @@
  * Arithmethic operations (smalltalk inspiration, again) on enumerable
  * fluent set operations. possibly both immutable and muttable
  * Partiation and iterablePartition on list
+ * Ruby's hash constructor (maybe extended interface on map, as the defaults do not allow this):
+{{{
+Hash.new => hash
+Hash.new(obj) => aHash
+Hash.new {|hash, key| block } => aHash
+}}}
