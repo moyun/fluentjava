@@ -7,6 +7,7 @@ import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
 import org.fluentjava.collections.FluentSet;
 import org.fluentjava.collections.Pair;
+import org.fluentjava.iterators.ExtendedIterator;
 
 /**
  * Class with no attributes that allows subclasses to easly create collections and
@@ -130,8 +131,16 @@ public abstract class Fluency {
 	 * 
 	 * @return
 	 */
-	protected FluentList<Integer> range(int start, int range) {
-		return FluentUtils.range(start, range);
+	protected FluentList<Integer> range(int start, int stop) {
+		return FluentUtils.range(start, stop);
+	}
+	
+	protected ExtendedIterator<Integer> irange(int range) {
+		return FluentUtils.irange(range);
+	}
+	
+	protected ExtendedIterator<Integer> irange(int start, int stop) {
+		return FluentUtils.irange(start, stop);
 	}
 
 }

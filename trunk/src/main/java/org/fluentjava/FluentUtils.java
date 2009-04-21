@@ -9,6 +9,8 @@ import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentSet;
 import org.fluentjava.collections.Pair;
 import org.fluentjava.collections.Sequence;
+import org.fluentjava.iterators.AbstractExtendedIterator;
+import org.fluentjava.iterators.ExtendedIterator;
 
 /**
  * Class with static methods that serves as facade to serveral objects of the api. If you
@@ -110,6 +112,79 @@ public class FluentUtils {
 		return new ClosureOfAMethod(target, findMethod(target, methodName));
 	}
 
+	/**
+	 * <pre>
+	 * Calls {@link FluentUtils#range(int, int)} passing 0 as start.
+	 * </pre>
+	 * 
+	 * @see {@link FluentUtils#range(int, int)}
+	 * @param range
+	 * @return
+	 */
+	public static FluentList<Integer> range(int range) {
+		return range(0, range);
+	}
+	
+	/**
+	 * Like range in Phyton, this method creates a {@link FluentList} of a sequence of Integer
+	 * starting from start (including) and ends at stop (excluding).
+	 * 
+	 * Examples:
+	 * 
+	 * <pre>
+	 * range(0,10) creates [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	 * range(5,10) creates [5, 6, 7, 8, 9]
+	 * </pre>
+	 * 
+	 * @param start
+	 * 	start of the sequence (including)
+	 * @param stop 	
+	 *  stop of a sequence (excluding)
+	 *  
+	 * @return [start,stop) 
+	 * 
+	 */
+	public static FluentList<Integer> range(int start, int stop) {
+		return new Sequence<Integer>(irange(start, stop));
+	}
+
+	/**
+	 * <pre>
+	 * Calls {@link FluentUtils#irange(int, int)} passing 0 as start.
+	 * </pre>
+	 * 
+	 * @see {@link FluentUtils#irange(int, int)}
+	 * @param range
+	 * @return
+	 */
+	public static ExtendedIterator<Integer> irange(int range) {
+		return irange(0, range);
+	}
+	
+	/**
+	 * Like xrange in Phyton, this method creates a {@link ExtendedIterator} of a sequence of Integer
+	 * starting from start (including) and ends at stop (excluding).
+	 * 
+	 * Examples:
+	 * 
+	 * <pre>
+	 * range(0,10) creates [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	 * range(5,10) creates [5, 6, 7, 8, 9]
+	 * </pre>
+	 * 
+	 * @param start
+	 * 	start of the sequence (including)
+	 * @param stop 	
+	 *  stop of a sequence (excluding)
+	 *  
+	 * @return [start,stop) 
+	 * 
+	 */
+	public static ExtendedIterator<Integer> irange(int start, int stop) {
+		ExtendedIterator<Integer> interable = new IRangeExtendedIterator(start, stop);
+		return interable;
+	}
+	
 	/*
 	 * Private Methods
 	 */
@@ -143,46 +218,30 @@ public class FluentUtils {
 		}
 		return null;
 	}
-
-	/**
-	 * <pre>
-	 * Calls {@link FluentUtils#range(int, int)} passing 0 as start.
-	 * </pre>
-	 * 
-	 * @see {@link FluentUtils#range(int, int)}
-	 * @param range
-	 * @return
-	 */
-	public static FluentList<Integer> range(int range) {
-		return range(0, range);
-	}
 	
-	/**
-	 * Link range in Phyton, this method creates a {@link FluentList} of a sequence of Integer
-	 * starting from start (including) and ends at stop (excluding).
-	 * 
-	 * Examples:
-	 * 
-	 * <pre>
-	 * range(0,10) creates [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-	 * range(5,10) creates [5, 6, 7, 8, 9]
-	 * </pre>
-	 * 
-	 * @param start
-	 * 	start of the sequence (including)
-	 * @param stop 	
-	 *  stop of a sequence (excluding)
-	 *  
-	 * @return [start,stop) 
-	 * @see {@link FluentUtils#range(int, int)}
-	 * 
-	 */
-	public static FluentList<Integer> range(int start, int stop) {
-		FluentList<Integer> list = new Sequence<Integer>();
-		for (int i = start; i < stop; i++) {
-			list.add(new Integer(i));
+	private static class IRangeExtendedIterator extends AbstractExtendedIterator<Integer> {
+		
+		private final int stop;
+		private int step;
+		
+		public IRangeExtendedIterator(int start, int stop) {
+			this.step = start;
+			this.stop = stop;
 		}
-		return list;
+
+		public boolean hasNext() {
+			return step < stop;
+		}
+
+		public Integer next() {
+			if (!hasNext()) {
+				return null;
+			}
+			Integer ret = new Integer(step);
+			step++;
+			return ret;
+		}
+		
 	}
 
 }
