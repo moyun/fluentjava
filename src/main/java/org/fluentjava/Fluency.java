@@ -116,10 +116,20 @@ public abstract class Fluency {
 		return FluentUtils.my(this, methodName);
 	}
 	
+	/**
+	 * Delegates to {@link FluentUtils#range(int)}, passing range as argument.
+	 * 
+	 * @return
+	 */
 	protected FluentList<Integer> range(int range) {
 		return FluentUtils.range(range);
 	}
 	
+	/**
+	 * Delegates to {@link FluentUtils#range(int, int)}, passing start and stop as argument.
+	 * 
+	 * @return
+	 */
 	protected FluentList<Integer> range(int start, int range) {
 		return FluentUtils.range(start, range);
 	}

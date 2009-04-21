@@ -145,11 +145,7 @@ public class FluentUtils {
 	}
 
 	public static FluentList<Integer> range(int range) {
-		FluentList<Integer> sequence = new Sequence<Integer>();
-		for (int i = 0; i < range; i++) {
-			sequence.add(i);
-		}
-		return sequence;
+		return range(0, range);
 	}
 	
 	public static FluentList<Integer> range(int start, int stop) {

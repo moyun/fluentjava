@@ -3,7 +3,6 @@ package org.fluentjava;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.fluentjava.collections.EnumeratingException;
 import org.fluentjava.collections.FluentList;
@@ -47,23 +46,12 @@ public class FluencyTest extends Fluency {
 
 	@Test
 	public void testRange() throws Exception {
-		List<Integer> list = new ArrayList<Integer>();
-		int range = 10;
-		for (int i = 0; i < range; i++) {
-			list.add(new Integer(i));
-		}
-		assertEquals(list, range(range));
+		assertEquals(list(0, 1 , 2 , 3), range(4));
 	}
 	
 	@Test
 	public void testRangeWithStartAndStopParameters() throws Exception {
-		List<Integer> list = new ArrayList<Integer>();
-		int start = 10;
-		int stop = 20;
-		for (int i = start; i < stop; i++) {
-			list.add(new Integer(i));
-		}
-		assertEquals(list, range(start, stop));
+		assertEquals(list(1, 2, 3), range(1, 4));
 	}
 
 	private int squareOfInt(int i) {
