@@ -14,7 +14,7 @@
  * Compose: 6 points
  * Curry: 1 point
 
-= To think about it (need points) =
+= To think about it (need points and priorization) =
  * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by
  * sort_with_keys (python influence). Receiving a closure, of course.
  * Standard coercion to runnable and callable. One liner, with [http://fluentjava.googlecode.com/svn/trunk/apidocs/org/fluentjava/closures/Closure.html#toInteface(java.lang.Class) to interface]
@@ -23,3 +23,6 @@
  * range and xrange from python, on fluency
  * Fluency delegator
  * Static fluency methods. Thinking about an Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
+ * Arithmethic operations (smalltalk inspiration, again) on enumerable
+ * fluent set operations. possibly both immutable and muttable
+ * Partiation and iterablePartition on list
