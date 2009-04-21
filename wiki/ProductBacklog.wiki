@@ -32,3 +32,17 @@ Hash.new => hash
 Hash.new(obj) => aHash
 Hash.new {|hash, key| block } => aHash
 }}}
+
+== Mini release (0.21) ==
+=== Done ===
+ * coercion de string para ClosureOfAString
+ * static fluent utils (from fluency)
+ * move Pair from iterators to collections
+
+=== Working ===
+ * better lookup strategy to ClosureOfAString
+ * cache to o closure of a string
+ * fluency delegator
+ * range(10), range(1, 10), and iterable versions
+ * hamcrest support (too many good almost closures there)
+ 
