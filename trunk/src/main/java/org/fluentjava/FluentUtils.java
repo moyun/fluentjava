@@ -144,4 +144,20 @@ public class FluentUtils {
 		return null;
 	}
 
+	public static FluentList<Integer> range(int range) {
+		FluentList<Integer> sequence = new Sequence<Integer>();
+		for (int i = 0; i < range; i++) {
+			sequence.add(i);
+		}
+		return sequence;
+	}
+	
+	public static FluentList<Integer> range(int start, int stop) {
+		FluentList<Integer> list = new Sequence<Integer>();
+		for (int i = start; i < stop; i++) {
+			list.add(new Integer(i));
+		}
+		return list;
+	}
+
 }
