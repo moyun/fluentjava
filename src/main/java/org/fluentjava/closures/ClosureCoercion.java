@@ -19,6 +19,10 @@ public class ClosureCoercion {
 			Closure function = (Closure) closure;
 			return function;
 		}
+		if (closure instanceof String) {
+			String nameOfAMethod = (String) closure;
+			return new ClosureOfAString(nameOfAMethod);
+		}
 		Method method = getSingleAbstractMethod(closure);
 		if (method != null) {
 			return new ClosureOfAMethod(closure, method);

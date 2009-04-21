@@ -28,14 +28,14 @@ public class FluencyTest extends Fluency {
 	}
 	
 	@Test
-	public void testClosureOnTarget() throws Exception {
+	public void testClosureFrmomAString() throws Exception {
 		FluentList<String> list = list("a", "to", "you");
 		ArrayList<Integer> esperado = new ArrayList<Integer>();
 		for (String string : list) {
 			esperado.add(string.length());
 		}
-		assertEquals(esperado, list.map(target("length")));
-		assertEquals(list(1, 2, 3), list.map(target("length")));
+		assertEquals(esperado, list.map("length"));
+		assertEquals(list(1, 2, 3), list.map("length"));
 	}
 	
 	@Test(expected = EnumeratingException.class)
