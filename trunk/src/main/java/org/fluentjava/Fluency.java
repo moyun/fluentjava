@@ -19,7 +19,6 @@ import org.fluentjava.iterators.Pair;
  * closures. A lot of type inference to make things go more fluent.
  */
 public abstract class Fluency {
-
 	/**
 	 * Creates an empty map.
 	 * @param <K>
