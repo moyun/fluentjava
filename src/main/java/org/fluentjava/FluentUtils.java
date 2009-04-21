@@ -144,10 +144,39 @@ public class FluentUtils {
 		return null;
 	}
 
+	/**
+	 * <pre>
+	 * Calls {@link FluentUtils#range(int, int)} passing 0 as start.
+	 * </pre>
+	 * 
+	 * @see {@link FluentUtils#range(int, int)}
+	 * @param range
+	 * @return
+	 */
 	public static FluentList<Integer> range(int range) {
 		return range(0, range);
 	}
 	
+	/**
+	 * Link range in Phyton, this method creates a {@link FluentList} of a sequence of Integer
+	 * starting from start (including) and ends at stop (excluding).
+	 * 
+	 * Examples:
+	 * 
+	 * <pre>
+	 * range(0,10) creates [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	 * range(5,10) creates [5, 6, 7, 8, 9]
+	 * </pre>
+	 * 
+	 * @param start
+	 * 	start of the sequence (including)
+	 * @param stop 	
+	 *  stop of a sequence (excluding)
+	 *  
+	 * @return [start,stop) 
+	 * @see {@link FluentUtils#range(int, int)}
+	 * 
+	 */
 	public static FluentList<Integer> range(int start, int stop) {
 		FluentList<Integer> list = new Sequence<Integer>();
 		for (int i = start; i < stop; i++) {
