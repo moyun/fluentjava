@@ -32,7 +32,7 @@ public class ClosureCoercionTest {
 			}
 		};
 		Closure closure = ClosureCoercion.toClosure(stringComparator);
-		int result = closure.invoke("one", "two");
+		Integer result = closure.invoke("one", "two");
 		assertEquals(0, result);
 	}
 	

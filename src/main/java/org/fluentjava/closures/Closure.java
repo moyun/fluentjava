@@ -65,7 +65,7 @@ public abstract class Closure {
 	 * @return args[0] Casted
 	 */
 	public <T> T first(Object... args) {
-		return arg(0, args);
+		return this.<T>arg(0, args);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public abstract class Closure {
 	 * @return args[1] Casted
 	 */
 	public <T> T second(Object... args) {
-		return arg(1, args);
+		return this.<T>arg(1, args);
 	}
 
 	/**
