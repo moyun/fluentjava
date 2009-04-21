@@ -11,8 +11,8 @@ import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
 import org.fluentjava.collections.FluentSet;
+import org.fluentjava.collections.Pair;
 import org.fluentjava.collections.Sequence;
-import org.fluentjava.iterators.Pair;
 
 /**
  * Class with no attributes that allows subclasses to easly create collections and
