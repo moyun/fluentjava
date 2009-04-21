@@ -38,11 +38,12 @@ Hash.new {|hash, key| block } => aHash
  * coercion de string para ClosureOfAString
  * static fluent utils (from fluency)
  * move Pair from iterators to collections
+ * better lookup strategy to ClosureOfAString
 
 === Working ===
- * better lookup strategy to ClosureOfAString
- * cache to o closure of a string
  * fluency delegator
  * range(10), range(1, 10), and iterable versions
  * hamcrest support (too many good almost closures there)
  
+= Won't be Done =
+ * cache to o closure of a string
