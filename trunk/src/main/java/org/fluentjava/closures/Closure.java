@@ -99,11 +99,16 @@ public abstract class Closure {
 		return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, handler);
 	}
 
+	public <T> Callable<T> asCallable() {
+		return toInteface(Callable.class);
+	}
+
 	public Runnable asRunnable() {
 		return toInteface(Runnable.class);
 	}
 
-	public <T> Callable<T> asCallable() {
-		return toInteface(Callable.class);
+	public Thread asThread() { 
+		return new Thread(asRunnable());
 	}
+	
 }

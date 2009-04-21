@@ -66,6 +66,28 @@ public class ClosureTest {
 		Callable<String> callable = callableClosure().asCallable();
 		assertTrue(callable.call().equals("Thet's the point!"));
 	}
+	
+	@Test
+	public void testClosureAsThread() throws Exception {
+		Thread thread = threadClosure().asThread();
+		assertNotNull(thread);
+	}
+	
+	public void testOnlyAdpatedInterfaceMethodsAreForwarded() throws Exception {
+		Closure comparatorClosure = comparatorClosure();
+		Comparator<String> comparator = comparatorClosure.toInteface(Comparator.class);
+		assertEquals(comparatorClosure.hashCode(), comparator.hashCode());
+	}
+
+	private Closure threadClosure() {
+		Closure c = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				return first(args);
+			}
+		};
+		return c;
+	}
 
 	private Closure callableClosure() {
 		Closure c = new Closure() {
@@ -85,12 +107,6 @@ public class ClosureTest {
 			}
 		};
 		return c;
-	}
-
-	public void testOnlyAdpatedInterfaceMethodsAreForwarded() throws Exception {
-		Closure comparatorClosure = comparatorClosure();
-		Comparator<String> comparator = comparatorClosure.toInteface(Comparator.class);
-		assertEquals(comparatorClosure.hashCode(), comparator.hashCode());
 	}
 
 	private Closure comparatorClosure() {
