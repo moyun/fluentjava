@@ -99,14 +99,35 @@ public abstract class Closure {
 		return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, handler);
 	}
 
+	/**
+	 * Adapts self to a Callable. <b>IMPORTANT:</b> this methods will trigger call,
+	 * so be carefull.
+	 * 
+	 * @return
+	 * A {@link Callable} of self.
+	 */
 	public <T> Callable<T> asCallable() {
 		return toInteface(Callable.class);
 	}
 
+	/**
+	 * Adapts self to a Runnable. <b>IMPORTANT:</b> this methods will trigger call,
+	 * so be carefull.
+	 * 
+	 * @return
+	 * A {@link Runnable} of self.
+	 */
 	public Runnable asRunnable() {
 		return toInteface(Runnable.class);
 	}
-
+	
+	/**
+	 * Adapts self to a Runnable. <b>IMPORTANT:</b> this methods will trigger call,
+	 * so be Thread.
+	 * 
+	 * @return
+	 * A {@link Runnable} of self.
+	 */
 	public Thread asThread() { 
 		return new Thread(asRunnable());
 	}
