@@ -50,6 +50,16 @@ public class FluencyTest extends Fluency {
 	}
 	
 	@Test
+	public void testIRange() throws Exception {
+		assertEquals(list(0, 1 , 2 , 3), listFromIterable(irange(4)));
+	}
+	
+	@Test
+	public void testIRangeWithStartAndStopParameters() throws Exception {
+		assertEquals(list(1, 2, 3), listFromIterable(irange(1, 4)));
+	}
+
+	@Test
 	public void testRangeWithStartAndStopParameters() throws Exception {
 		assertEquals(list(1, 2, 3), range(1, 4));
 	}
