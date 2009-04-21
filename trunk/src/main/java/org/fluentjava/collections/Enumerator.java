@@ -145,7 +145,7 @@ public class Enumerator<E> implements Enumerable<E> {
 		try {
 			FluentList<T> list = new Sequence<T>();
 			for (E e : iterator()) {
-				T element = function.invoke(e);
+				T element = function.<T>invoke(e);
 				list.add(element);
 			}
 			return list;
@@ -219,7 +219,7 @@ public class Enumerator<E> implements Enumerable<E> {
 		try {
 			E result = initial;
 			while (it.hasNext()) {
-				result = function.invoke(result, it.next());
+				result = function.<E>invoke(result, it.next());
 			}
 			return result;
 		} catch (Exception e) {

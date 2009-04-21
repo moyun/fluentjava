@@ -32,7 +32,7 @@ public class ClosureTest {
 				return 5;
 			}
 		};
-		int ret = c.invoke();
+		int ret = c.<Integer>invoke();
 		assertEquals(5, ret);
 	}
 
@@ -44,7 +44,7 @@ public class ClosureTest {
 				return 5;
 			}
 		};
-		boolean ret = c.invoke();
+		boolean ret = c.<Boolean>invoke();
 	}
 
 	@Test
