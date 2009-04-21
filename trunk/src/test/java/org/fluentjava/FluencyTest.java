@@ -39,9 +39,9 @@ public class FluencyTest extends Fluency {
 	}
 	
 	@Test(expected = EnumeratingException.class)
-	public void testDontUseTargetToLookOverNonPublicMethods() throws Exception {
+	public void testDontUseMethoOfAStringToLookOverNonPublicMethods() throws Exception {
 		FluentList<Mock> list = list(new Mock("a mock"));
-		list.map(target("getPrivateName"));
+		list.map("getPrivateName");
 	}
 
 

@@ -16,10 +16,6 @@ public class Pair<F, S> implements Entry<F, S> {
 	public F first;
 	public S second;
 
-	public static <F, S> Pair<F, S> pair(F first, S second) {
-		return new Pair<F, S>(first, second);
-	}
-
 	public Pair(Entry<F, S> entry) {
 		this(entry.getKey(), entry.getValue());
 	}

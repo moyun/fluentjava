@@ -3,6 +3,7 @@ package org.fluentjava.collections;
 import java.lang.reflect.Array;
 import java.util.HashSet;
 
+import org.fluentjava.FluentUtils;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
@@ -16,27 +17,28 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	private static final long serialVersionUID = 1L;
 	
 	/*
-	 * Factory Methods
-	 */
-	public static <T> FluentSet<T> set(T... element) {
-		return new ExtendedSet<T>(element);
-	}
-
-	public static <T> FluentSet<T> set(Iterable<T> iterable) {
-		return new ExtendedSet<T>(iterable);
-	}
-	/*
 	 * Constructors
+	 */
+	/**
+	 * Creates an empty ExtendedSet.
 	 */
 	public ExtendedSet() {
 	}
 
-	public ExtendedSet(E... elements) {
-		insert(elements);
+	/**
+	 * Creates an ExtendedSet with elements args.
+	 * @param args
+	 */
+	public ExtendedSet(E... args) {
+		insert(args);
 	}
 
-	public ExtendedSet(Iterable<E> element) {
-		insert(element);
+	/**
+	 * Creates an ExtendedSet the with the iterable elements.
+	 * @param iterable
+	 */
+	public ExtendedSet(Iterable<E> iterable) {
+		insert(iterable);
 	}
 
 	/*
@@ -68,7 +70,7 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	}
 
 	public FluentSet<E> delete(E... elements) {
-		removeAll(set(elements));
+		removeAll(FluentUtils.set(elements));
 		return this;
 	}
 

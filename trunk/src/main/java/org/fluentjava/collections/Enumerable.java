@@ -121,7 +121,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	<T> FluentList<T> map(Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to map.
+	 * Alias to {@link #map}.
 	 * 
 	 * @param <T>
 	 * @param closure
@@ -184,7 +184,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	E reduce(E initial, Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to reduce(Object closure).
+	 * Alias to {@link #reduce(Object closure)}.
 	 * 
 	 * @param closure
 	 * @return
@@ -193,7 +193,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	E inject(Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to reduce(E initial, Object closure).
+	 * Alias to {@link #reduce(E initial, Object closure)}.
 	 * 
 	 * @param closure
 	 * @return

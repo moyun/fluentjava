@@ -6,15 +6,15 @@ import static junit.framework.Assert.assertTrue;
 
 import java.util.Comparator;
 
+import org.fluentjava.FluentUtils;
 import org.fluentjava.collections.FluentList;
-import org.fluentjava.collections.Sequence;
 import org.junit.Test;
 
 public class ClosureTest {
 
 	@Test
 	public void testBasicCall() throws Exception {
-		final FluentList<Integer> list = Sequence.list(1, 2, 3);
+		final FluentList<Integer> list = FluentUtils.list(1, 2, 3);
 		Closure c = new Closure() {
 			public Object call(Object... args) throws Exception {
 				list.add(5);

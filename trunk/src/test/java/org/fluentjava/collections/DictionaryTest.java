@@ -1,6 +1,5 @@
 package org.fluentjava.collections;
 
-import static org.fluentjava.collections.Pair.pair;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
@@ -8,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.fluentjava.FluentUtils;
 import org.fluentjava.closures.Predicate;
 import org.junit.Test;
 
@@ -46,8 +46,8 @@ public class DictionaryTest {
 		.putAt("Item 2", 20)
 		.putAt("Item 3", 3);
 		FluentList<Pair<String, Integer>> x = new Sequence<Pair<String, Integer>>()
-		.insert(pair("Item 2", 20))
-		.insert(pair("Item 3", 3));
+		.insert(FluentUtils.pair("Item 2", 20))
+		.insert(FluentUtils.pair("Item 3", 3));
 		assertEquals(x.size(), map.toList().size());
 		assertEquals(set(x), set(map.toList()));
 	}
@@ -65,8 +65,8 @@ public class DictionaryTest {
 			}
 		});
 		assertEquals(new ExtendedSet<Pair<String, Integer>>()
-				.insert(pair("Item 2", 20))
-				.insert(pair("Item 3", 3)), result.toSet());
+				.insert(FluentUtils.pair("Item 2", 20))
+				.insert(FluentUtils.pair("Item 3", 3)), result.toSet());
 	}
 	
 	@Test
