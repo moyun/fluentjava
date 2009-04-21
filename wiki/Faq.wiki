@@ -1,6 +1,6 @@
-#Frequently_anticipated_questions
+#summary Frequentlyanticipated questions
 
-== What is this _type parameters of <T>T cannot be determined; no unique maximal instance exists for type variable T with ..._ error?==
+== What is this _type parameters of `<`T`>`T cannot be determined; no unique maximal instance exists for type variable T with ..._ error?==
 This can usually happen when using generic methods with primitives or generic types. For instance:
 
 {{{
@@ -15,8 +15,8 @@ Eclipse compile allows it, but javac doesn't. Some ways around this:
 E e = closure.<E>invoke();
 booean bol = closure.<Boolean>invoke();
 }}}
- * This only applies to primities, as they can't be generic types: do not use autoboxxing:
 
+ * This only applies to primities, as they can't be generic types: do not use autoboxxing:
 {{{
 Booean bol = closure.<Boolean>invoke();
 }}}
