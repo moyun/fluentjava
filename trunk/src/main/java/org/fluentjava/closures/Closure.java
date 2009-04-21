@@ -2,6 +2,7 @@ package org.fluentjava.closures;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.concurrent.Callable;
 
 /**
  * Approximation of the concept of closure on Java. It is not really a closure, as it does
@@ -96,5 +97,13 @@ public abstract class Closure {
 	public <T> T toInteface(Class<?> clazz) {
 		InvocationHandler handler = new InvocationHandlerAdapter(this, clazz);
 		return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, handler);
+	}
+
+	public Runnable asRunnable() {
+		return toInteface(Runnable.class);
+	}
+
+	public <T> Callable<T> asCallable() {
+		return toInteface(Callable.class);
 	}
 }

@@ -2,9 +2,11 @@ package org.fluentjava.closures;
 
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 import java.util.Comparator;
+import java.util.concurrent.Callable;
 
 import org.fluentjava.FluentUtils;
 import org.fluentjava.collections.FluentList;
@@ -51,6 +53,38 @@ public class ClosureTest {
 	public void testClosureToInterface() throws Exception {
 		Comparator<String> comparator = comparatorClosure().toInteface(Comparator.class);
 		assertTrue(comparator.compare("small", "very lage String") < 0);
+	}
+	
+	@Test
+	public void testClosureAsRunnable() throws Exception {
+		Runnable runnable = runnableClosure().asRunnable();
+		assertNotNull(runnable);
+	}
+	
+	@Test
+	public void testClosureAsCallable() throws Exception {
+		Callable<String> callable = callableClosure().asCallable();
+		assertTrue(callable.call().equals("Thet's the point!"));
+	}
+
+	private Closure callableClosure() {
+		Closure c = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				return "Thet's the point!";  
+			}
+		};
+		return c;
+	}
+
+	private Closure runnableClosure() {
+		Closure c = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				return first(args);  
+			}
+		};
+		return c;
 	}
 
 	public void testOnlyAdpatedInterfaceMethodsAreForwarded() throws Exception {
