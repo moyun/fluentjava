@@ -1,4 +1,4 @@
-#summary Frequentlyanticipated questions
+#summary Frequently anticipated questions
 
 == What is this _type parameters of `<`T`>`T cannot be determined; no unique maximal instance exists for type variable T with ..._ error?==
 This can usually happen when using generic methods with primitives or generic types. For instance:
