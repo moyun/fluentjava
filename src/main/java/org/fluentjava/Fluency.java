@@ -115,5 +115,13 @@ public abstract class Fluency {
 	protected Closure my(String methodName) {
 		return FluentUtils.my(this, methodName);
 	}
+	
+	protected FluentList<Integer> range(int range) {
+		return FluentUtils.range(range);
+	}
+	
+	protected FluentList<Integer> range(int start, int range) {
+		return FluentUtils.range(start, range);
+	}
 
 }
