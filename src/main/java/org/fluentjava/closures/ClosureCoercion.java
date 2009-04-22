@@ -3,6 +3,7 @@ package org.fluentjava.closures;
 import java.lang.reflect.Method;
 import java.util.Comparator;
 
+import org.fluentjava.FluentUtils;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.Sequence;
 import org.fluentjava.reflection.RuntimeReflectionException;
@@ -11,6 +12,11 @@ import org.fluentjava.reflection.RuntimeReflectionException;
  * Converts Objects do Closures, or throws ClosureCoercionException if can't.
  */
 public class ClosureCoercion {
+	/*
+	 * Constants
+	 */
+	private static String HamcrestMatcher = "org.hamcrest.BaseMatcher";
+	
 	/*
 	 * Public Class Methods
 	 */
@@ -29,6 +35,9 @@ public class ClosureCoercion {
 		}
 		if (closure instanceof Comparator) {
 			return comparatorToClosure(closure);
+		}
+		if (isFromHamcrest(closure)) {
+			return FluentUtils.my(closure, "matches");
 		}
 		throw new ClosureCoercionException("Argument does not coerce to closure: " + closure);
 		
@@ -62,5 +71,20 @@ public class ClosureCoercion {
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeReflectionException(e);
 		}
+	}
+	
+	private static boolean isFromHamcrest(Object o) {
+		return isFromHamcrest(o.getClass());
+	}
+	
+	private static boolean isFromHamcrest(Class<?> c) {
+		if (c == Object.class) {
+			return false;
+		}
+		Class<?> superclass = c.getSuperclass();
+		if (HamcrestMatcher.equals(superclass.getCanonicalName())) {
+			return true;
+		}
+		return isFromHamcrest(superclass);
 	}
 }
