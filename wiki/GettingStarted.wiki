@@ -1,0 +1,57 @@
+#summary Starting to use Fluent Java's power.
+
+= Getting Started =
+== Closure To Interfaces ==
+{{{
+Comparator<String> comparator = comparatorClosure().toInteface(Comparator.class);
+assertTrue(comparator.compare("small", "very lage String") < 0);
+}}}
+
+
+== Enumeration Protocol ==
+{{{
+Enumerable<Integer> list = list(1, 2, 3, 4, 5);
+assertTrue(list.exists(greaterThan(4)));
+
+private Predicate greaterThan(final int number) {
+	Predicate anyGreaterThan = new Predicate() {
+		@Override
+		public boolean eval(Object... args) throws Exception {
+			Integer i = first(args);
+			return i > number;
+		}
+	};
+	return anyGreaterThan;
+}
+}}}
+
+== Closure Coercion: from Hamcrest == 
+{{{
+import static org.fluentjava.FluentUtils.list;
+import static org.hamcrest.Matchers.endsWith;
+
+FluentList<String> output = list("a", "fool", "with", "a", "tool", "is", "still", "a", "fool")
+.select(endsWith("ol"));
+assertEquals(list("fool", "tool", "fool"), output);
+}}}
+== Closure Coercion: name method ==
+{{{
+import static org.fluentjava.FluentUtils.list;
+
+FluentList<String> list = list("a", "to", "you");
+assertEquals(list(1, 2, 3), list.map("length"));
+}}}
+== Closure Coercion: from private methods ==
+{{{
+public class FluencyTest extends Fluency {
+        private int squareOfInt(int i) {
+	        return i * i;
+        }
+
+	@Test
+	public void testClosureFromPrivateMethod() throws Exception {
+		FluentList<Integer> list = list(1, 2, 3);
+	        assertEquals(list(1, 4, 9), list.map(my("squareOfInt")));
+	}
+}
+}}}
