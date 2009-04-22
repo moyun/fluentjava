@@ -1,4 +1,5 @@
 #summary Starting to use Fluent Java's power.
+#labels Featured
 
 = Getting Started =
 == Closure To Interfaces ==
