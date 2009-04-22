@@ -55,3 +55,20 @@ public class FluencyTest extends Fluency {
 	}
 }
 }}}
+
+== Clsoure Coercion: annonymous inner class ==
+{{{
+import static org.fluentjava.FluentUtils.list;
+import org.apache.commons.collections.Predicate;
+
+Predicate endsWithOl = new Predicate { 
+       boolean 	evaluate(Object object)  {
+            String str = (String) object;
+            return str.endsWith("ol");
+       }
+}
+FluentList<String> output = list("a", "fool", "with", "a", "tool", "is", "still", "a", "fool")
+.select(endsWithOl);
+assertEquals(list("fool", "tool", "fool"), output);
+
+}}}
