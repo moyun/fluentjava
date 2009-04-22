@@ -1,6 +1,7 @@
 package org.fluentjava;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -52,6 +53,12 @@ public class FluencyTest extends Fluency {
 	@Test
 	public void testIRange() throws Exception {
 		assertEquals(list(0, 1 , 2 , 3), listFromIterable(irange(4)));
+	}
+	
+	@Test
+	public void testIfTheEndOfTheRangeIsGreaterThanItsStartReturnsEmpty() throws Exception {
+		FluentList<Integer> list = range(4, 0);
+		assertTrue(list.isEmpty());
 	}
 	
 	@Test
