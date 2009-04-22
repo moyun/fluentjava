@@ -13,8 +13,7 @@ public class FluencyDelegationTest {
 		assertEquals("Hello", delegator.my("getHelloString").call());
 	}
 	
-	private class SimpleClass {
-		
+	private static class SimpleClass {
 		public String getHelloString() {
 			return "Hello";
 		}
