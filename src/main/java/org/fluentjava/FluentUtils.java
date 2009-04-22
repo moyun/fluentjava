@@ -10,6 +10,7 @@ import org.fluentjava.collections.FluentSet;
 import org.fluentjava.collections.Pair;
 import org.fluentjava.collections.Sequence;
 import org.fluentjava.iterators.AbstractExtendedIterator;
+import org.fluentjava.iterators.ExtendedIterable;
 import org.fluentjava.iterators.ExtendedIterator;
 
 /**
@@ -118,11 +119,11 @@ public class FluentUtils {
 	 * </pre>
 	 * 
 	 * @see {@link FluentUtils#range(int, int)}
-	 * @param range
+	 * @param stop
 	 * @return
 	 */
-	public static FluentList<Integer> range(int range) {
-		return range(0, range);
+	public static FluentList<Integer> range(int stop) {
+		return range(0, stop);
 	}
 	
 	/**
@@ -147,6 +148,7 @@ public class FluentUtils {
 	public static FluentList<Integer> range(int start, int stop) {
 		return new Sequence<Integer>(irange(start, stop));
 	}
+	
 
 	/**
 	 * <pre>
@@ -154,15 +156,15 @@ public class FluentUtils {
 	 * </pre>
 	 * 
 	 * @see {@link FluentUtils#irange(int, int)}
-	 * @param range
+	 * @param stop
 	 * @return
 	 */
-	public static ExtendedIterator<Integer> irange(int range) {
-		return irange(0, range);
+	public static ExtendedIterable<Integer> irange(int stop) {
+		return irange(0, stop);
 	}
 	
 	/**
-	 * Like xrange in Phyton, this method creates a {@link ExtendedIterator} of a sequence of Integer
+	 * This method creates a {@link ExtendedIterator} of a sequence of Integer
 	 * starting from start (including) and ends at stop (excluding).
 	 * 
 	 * Examples:
@@ -180,9 +182,8 @@ public class FluentUtils {
 	 * @return [start,stop) 
 	 * 
 	 */
-	public static ExtendedIterator<Integer> irange(int start, int stop) {
-		ExtendedIterator<Integer> interable = new IRangeExtendedIterator(start, stop);
-		return interable;
+	public static ExtendedIterable<Integer> irange(int start, int stop) {
+		return new IRangeFactory(start, stop);
 	}
 	
 	/*
@@ -219,29 +220,52 @@ public class FluentUtils {
 		return null;
 	}
 	
+	/**
+	 * Inner class that makes iranges.
+	 */
 	private static class IRangeExtendedIterator extends AbstractExtendedIterator<Integer> {
-		
 		private final int stop;
-		private int step;
+		private int cur;
 		
 		public IRangeExtendedIterator(int start, int stop) {
-			this.step = start;
+			this.cur = start;
 			this.stop = stop;
 		}
 
 		public boolean hasNext() {
-			return step < stop;
+			return cur < stop;
 		}
 
 		public Integer next() {
 			if (!hasNext()) {
-				return null;
+				throw new NoSuchElementException();
 			}
-			Integer ret = new Integer(step);
-			step++;
+			int ret = cur;
+			cur++;
 			return ret;
+		}
+	}
+	
+	/**
+	 * Create IRangeExtendedIterators.
+	 */
+	private static class IRangeFactory implements ExtendedIterable<Integer> {
+		private int stop;
+		private int start;
+		
+		
+		public IRangeFactory(int start, int stop) {
+			super();
+			this.stop = stop;
+			this.start = start;
+		}
+
+		public ExtendedIterator<Integer> iterator() {
+			return new IRangeExtendedIterator(start, stop);
 		}
 		
 	}
+	
+	
 
 }
