@@ -7,7 +7,7 @@
  * Wrapped over Fork Join: 10 points
 
 = Closures Theme =
- * Full Coercion (includes detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces): 10  points
+ * Full Coercion. Includes detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces. [http://mxr.mozilla.org/mozilla/source/js/rhino/src/org/mozilla/javascript/NativeJavaMethod.java This] is how Rhino (javascript scripting in java) handled overloaded methods (important to closure of a string): 10  points
  * Numargs method (now questionable): 5 points
  * !TimeIt: 4  points
  * Compose: 6 points
