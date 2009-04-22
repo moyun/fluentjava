@@ -4,8 +4,8 @@
  * Closure of a String now differs arity overloded methods and can call varargs.
  * Hamcrest matchers supported! They coerce to closure now.
  * Convenient methods to create callables, runnables and threads from a closure.
- * Range and IRange from python down to Java. On FluentUtils, ubiquous facade.
+ * Range and IRange from python down to Java. On !FluentUtils, ubiquous facade.
  
 == Breaking Changes ==
  * Pair moved from iterators to collections package.
- * All factory methods from Sequence, Dictionary, Pair, etc, moved to a new Facade: FluentUtils.
+ * All factory methods from Sequence, Dictionary, Pair, etc, moved to a new Facade: !FluentUtils.
