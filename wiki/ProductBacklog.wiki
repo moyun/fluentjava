@@ -8,8 +8,7 @@
 
 = Closures Theme =
  * Full Coercion (includes detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces): 10  points
- * Numargs method: 5 points
- * .asThread: 2 points
+ * Numargs method (now questionable): 5 points
  * !TimeIt: 4  points
  * Compose: 6 points
  * Curry: 1 point
@@ -32,6 +31,7 @@ Hash.new => hash
 Hash.new(obj) => aHash
 Hash.new {|hash, key| block } => aHash
 }}}
+ * Look into using [http://codeworker.free.fr/ codeworker] to enable _eval_, and make closures out of it.
 
 == Mini release (0.21) ==
 === Done ===
