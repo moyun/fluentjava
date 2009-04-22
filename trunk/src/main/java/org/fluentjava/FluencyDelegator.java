@@ -2,9 +2,12 @@ package org.fluentjava;
 
 import org.fluentjava.closures.Closure;
 
+/**
+ * Fluency that delegates my to a target. 
+ */
 public class FluencyDelegator extends Fluency {
 
-	private Object target;
+	protected final Object target;
 	
 	public FluencyDelegator(Object target) {
 		this.target = target;
