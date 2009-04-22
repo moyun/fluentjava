@@ -32,18 +32,4 @@ Hash.new(obj) => aHash
 Hash.new {|hash, key| block } => aHash
 }}}
  * Look into using [http://codeworker.free.fr/ codeworker] to enable _eval_, and make closures out of it.
-
-== Mini release (0.21) ==
-=== Done ===
- * coercion de string para ClosureOfAString
- * static fluent utils (from fluency)
- * move Pair from iterators to collections
- * better lookup strategy to ClosureOfAString
-
-=== Working ===
- * fluency delegator
- * range(10), range(1, 10), and iterable versions
- * hamcrest support (too many good almost closures there)
- 
-=== Won't be Done ===
  * cache to o closure of a string
