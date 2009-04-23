@@ -1,6 +1,5 @@
 #summary Starting to use Fluent Java's power.
 #labels Featured
-#sidebar TableOfContents
 
 
 = Getting Started =
