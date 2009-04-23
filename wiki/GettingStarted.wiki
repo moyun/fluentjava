@@ -82,3 +82,15 @@ FluentList<String> output = list("a", "fool", "with", "a", "tool", "is", "still"
 assertEquals(list("fool", "tool", "fool"), output);
 
 }}}
+
+== Python's Range And Xrange in Java ==
+{{{
+import static org.fluentjava.FluentUtils.*;
+assertEquals(list(0, 1 , 2 , 3), range(4));
+}}}
+
+{{{
+import static org.fluentjava.FluentUtils.*;
+assertEquals(list(0, 1 , 2 , 3), listFromIterable(irange(4)));
+assertFalse(list(0, 1 , 2 , 3).equals(irange(4)));
+}}}
