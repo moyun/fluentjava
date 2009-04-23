@@ -1,10 +1,33 @@
 #summary Starting to use Fluent Java's power.
 #labels Featured
+#sidebar TableOfContents
 
 = Getting Started =
+== Closure Coercion: from private methods ==
+{{{
+public class FluencyTest extends Fluency {
+        private int squareOfInt(int i) {
+	        return i * i;
+        }
+
+	@Test
+	public void testClosureFromPrivateMethod() throws Exception {
+		FluentList<Integer> list = list(1, 2, 3);
+	        assertEquals(list(1, 4, 9), list.map(my("squareOfInt")));
+	}
+}
+}}}
+
 == Closure To Interfaces ==
 {{{
-Comparator<String> comparator = comparatorClosure().toInteface(Comparator.class);
+Closure comparatorClosure = new Closure() {
+	public Object call(Object... args) throws Exception {
+		String i = first(args);
+		String j = second(args);
+		return i.length() - j.length();
+	}
+};
+Comparator<String> comparator = comparatorClosure.toInteface(Comparator.class);
 assertTrue(comparator.compare("small", "very lage String") < 0);
 }}}
 
@@ -42,20 +65,7 @@ import static org.fluentjava.FluentUtils.list;
 FluentList<String> list = list("a", "to", "you");
 assertEquals(list(1, 2, 3), list.map("length"));
 }}}
-== Closure Coercion: from private methods ==
-{{{
-public class FluencyTest extends Fluency {
-        private int squareOfInt(int i) {
-	        return i * i;
-        }
 
-	@Test
-	public void testClosureFromPrivateMethod() throws Exception {
-		FluentList<Integer> list = list(1, 2, 3);
-	        assertEquals(list(1, 4, 9), list.map(my("squareOfInt")));
-	}
-}
-}}}
 
 == Clsoure Coercion: annonymous inner class (Reusing Apache Commons Library!) ==
 {{{
