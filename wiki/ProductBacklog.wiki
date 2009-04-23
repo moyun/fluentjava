@@ -2,7 +2,7 @@
 #labels backlog
 
 = Collection Theme =
- * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map etc): ??? points
+ * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map, max, min etc): ??? points
  * Wrapped extended collections: 9 points
  * Wrapped over Fork Join: 10 points
 
