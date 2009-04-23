@@ -1,7 +1,6 @@
 #summary Starting to use Fluent Java's power.
 #labels Featured
-
-
+<wiki:toc max_depth="3" />
 = Getting Started =
 == Closure Coercion: from private methods ==
 {{{
