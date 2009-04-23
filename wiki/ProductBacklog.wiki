@@ -33,3 +33,4 @@ Hash.new {|hash, key| block } => aHash
 }}}
  * Look into using [http://codeworker.free.fr/ codeworker] to enable _eval_, and make closures out of it.
  * cache to o closure of a string
+ * Closure softening exceptions
