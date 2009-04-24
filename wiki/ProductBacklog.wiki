@@ -8,7 +8,6 @@
 
 = Closures Theme =
  * Full Coercion. Includes detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces. [http://mxr.mozilla.org/mozilla/source/js/rhino/src/org/mozilla/javascript/NativeJavaMethod.java This] is how Rhino (javascript scripting in java) handled overloaded methods (important to closure of a string): 10  points
- * Numargs method (now questionable): 5 points
  * !TimeIt: 4  points
  * Compose: 6 points
  * Curry: 1 point
@@ -16,12 +15,8 @@
 = To think about it (need points and priorization) =
  * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by
  * sort_with_keys (python influence). Receiving a closure, of course.
- * Standard coercion to runnable and callable. One liner, with [http://fluentjava.googlecode.com/svn/trunk/apidocs/org/fluentjava/closures/Closure.html#toInteface(java.lang.Class) to interface]
  * Softening exceptions (on Closure)
- * Make it javac friendly (type inference on instance methods is incredible on eclipse compiler). Maybe I should make a wiki page about it?
- * range and xrange from python, on fluency
- * Fluency delegator
- * Static fluency methods. Thinking about an Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
+ * Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
  * Arithmethic operations (smalltalk inspiration, again) on enumerable
  * fluent set operations. possibly both immutable and muttable
  * Partiation and iterablePartition on list
@@ -32,5 +27,4 @@ Hash.new(obj) => aHash
 Hash.new {|hash, key| block } => aHash
 }}}
  * Look into using [http://codeworker.free.fr/ codeworker] or [http://www.janino.net/ janino] to enable _eval_, and make closures out of it.
- * cache to o closure of a string
- * Closure softening exceptions
+ * cache to o closure of a string based on signature.
