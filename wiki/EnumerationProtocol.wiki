@@ -1,4 +1,4 @@
-#summary SmallTalk enumeration Protocal. The original!
+#summary SmallTalk enumeration Protocol. The original!
 #labels enumeration,closure,collection
 
 = Introduction =
