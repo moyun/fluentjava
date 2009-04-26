@@ -5,7 +5,7 @@ import org.fluentjava.iterators.ExtendedIterable;
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
  * elements to be operated on with closures. All exceptions caught while iterating are
- * wrapped around the Runtime Excpetion EnumeratingException.
+ * wrapped around the Runtime Exception EnumeratingException.
  * 
  * @param <E>
  * Type of Elements.

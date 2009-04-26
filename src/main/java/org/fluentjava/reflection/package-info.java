@@ -1,4 +1,4 @@
 /**
- * Package with tools that make reflection less painfull to use.
+ * Package with tools that make reflection less painful to use.
  */
 package org.fluentjava.reflection;

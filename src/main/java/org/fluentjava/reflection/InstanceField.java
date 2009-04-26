@@ -3,7 +3,7 @@ package org.fluentjava.reflection;
 import java.lang.reflect.Field;
 
 /**
- * Represents a field of an instance. Unsaccessible fields are not retrieved.
+ * Represents a field of an instance. Unaccessible fields are not retrieved.
  */
 public class InstanceField {
 	private Object instance;

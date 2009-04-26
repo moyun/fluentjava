@@ -14,7 +14,7 @@ import org.fluentjava.iterators.ExtendedIterable;
 import org.fluentjava.iterators.ExtendedIterator;
 
 /**
- * Class with static methods that serves as facade to serveral objects of the api. If you
+ * Class with static methods that serves as facade to several objects of the API. If you
  * wish a more fluent way to use the methods on this class, mainly
  * {@link #my(Object, String)} without the need to keep on passing this, consider extending {@link Fluency}.
  * 
@@ -127,7 +127,7 @@ public class FluentUtils {
 	}
 	
 	/**
-	 * Like range in Phyton, this method creates a {@link FluentList} of a sequence of Integer
+	 * This method creates a {@link FluentList} of a sequence of Integer
 	 * starting from start (including) and ends at stop (excluding).
 	 * 
 	 * Examples:

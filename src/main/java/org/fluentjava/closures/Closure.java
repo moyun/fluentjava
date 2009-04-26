@@ -44,7 +44,7 @@ public abstract class Closure {
 	 * Convenient method that casts the args from call, invoke.
 	 * 
 	 * @param <T>
-	 * Desired Type. Usually infered.
+	 * Desired Type. Usually inferred.
 	 * @param i
 	 * index of args.
 	 * @param args
@@ -73,7 +73,7 @@ public abstract class Closure {
 	 * Utility method that returns arg(1, args).
 	 * 
 	 * @param <T>
-	 * Desired Type. Usually infered.
+	 * Desired Type. Usually inferred.
 	 * @param args
 	 * The args from call/invoke.
 	 * @return args[1] Casted
@@ -84,12 +84,12 @@ public abstract class Closure {
 
 	/**
 	 * Adapts self to a Interface. <b>IMPORTANT:</b> All methods invoked on the interface will trigger call,
-	 * so be carefull when adapting interfaces with several methods.
+	 * so be careful when adapting interfaces with several methods.
 	 * 
 	 * @param <T>
-	 * Infered type.
+	 * Inferred type.
 	 * @param clazz
-	 * Inteface to be adapted
+	 * Interface to be adapted
 	 * @return
 	 * A proxy to self.
 	 */
@@ -101,7 +101,7 @@ public abstract class Closure {
 
 	/**
 	 * Adapts self to a Callable. <b>IMPORTANT:</b> this methods will trigger call,
-	 * so be carefull.
+	 * so be careful.
 	 * 
 	 * @return
 	 * A {@link Callable} of self.
@@ -112,7 +112,7 @@ public abstract class Closure {
 
 	/**
 	 * Adapts self to a Runnable. <b>IMPORTANT:</b> this methods will trigger call,
-	 * so be carefull.
+	 * so be careful.
 	 * 
 	 * @return
 	 * A {@link Runnable} of self.

@@ -1,7 +1,7 @@
 package org.fluentjava.closures;
 
 /**
- * Adaptas a closure to a predicate. If the closure returns a Boolean, nulls are treated
+ * Adapts a closure to a predicate. If the closure returns a Boolean, nulls are treated
  * as false.
  */
 public class PredicateAdapter extends Predicate {

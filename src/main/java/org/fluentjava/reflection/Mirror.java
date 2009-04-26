@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * A class that that provides reflective facilities over an object. Throughout the
  * documentation, we refer to the subject of reflection as mirrored object. A mirror can
- * be priviliged (with access to private methods and fields) or unpriviliged (without).
+ * be privileged (with access to private methods and fields) or unprivileged (without).
  */
 public class Mirror {
 	/*
@@ -57,7 +57,7 @@ public class Mirror {
 	}
 
 	/**
-	 * Builds an unpriviliged mirror over mirroredObject.
+	 * Builds an unprivileged mirror over mirroredObject.
 	 * 
 	 * @param mirroredObject
 	 * subject of reflection
@@ -99,7 +99,7 @@ public class Mirror {
 	 * 
 	 * @param fieldName
 	 * The name of the field
-	 * @return An instance field of the mirrored obejct and of the corresponding field
+	 * @return An instance field of the mirrored object and of the corresponding field
 	 * name.
 	 */
 	public InstanceField field(String fieldName) {
