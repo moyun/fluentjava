@@ -10,8 +10,8 @@ import org.fluentjava.collections.Pair;
 import org.fluentjava.iterators.ExtendedIterable;
 
 /**
- * Class with no attributes that allows subclasses to easly create collections and
- * closures. A lot of type inference to make things go more fluent.
+ * Class with no attributes that allows subclasses to easily create collections and
+ * closures, without import static. A lot of type inference to make things go more fluent.
  * 
  * If you do not with to extend Fluency, FluentUtils with import static can be a good
  * enough replacement.

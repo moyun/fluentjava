@@ -11,7 +11,7 @@ public abstract class Predicate extends Closure {
 
 
 	/**
-	 * Generic evalutation.
+	 * Generic evaluation.
 	 * 
 	 * @param args
 	 * Function Arguments
@@ -23,7 +23,7 @@ public abstract class Predicate extends Closure {
 	public abstract boolean eval(Object... args) throws Exception;
 	
 	/**
-	 * Returns the oposite of eval.
+	 * Returns the opposite of eval.
 	 * 
 	 * @param args
 	 * Function Arguments

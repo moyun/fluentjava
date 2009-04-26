@@ -1,6 +1,7 @@
 package org.fluentjava;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class FluencyTest extends Fluency {
 	@Test
 	public void testRange() throws Exception {
 		assertEquals(list(0, 1 , 2 , 3), range(4));
+		assertFalse(list(0, 1 , 2 , 3).equals(irange(4)));
 	}
 	
 	@Test

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import org.fluentjava.collections.Pair;
 
 /**
- * Iterator that takes two Iterators, Iterables, or Arrays (not necesserily both of the
+ * Iterator that takes two Iterators, Iterables, or Arrays (not necessarily both of the
  * same type), and iterates through both, preserving the order. Cannot remove items.
  * Iterates while both the inner iterables have next elements.
  */

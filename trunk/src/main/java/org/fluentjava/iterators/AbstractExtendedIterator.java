@@ -1,7 +1,7 @@
 package org.fluentjava.iterators;
 
 /**
- * ExtendedIterator that does the default behaviour for iterator() and method: returns
+ * ExtendedIterator that does the default behavior for iterator() and method: returns
  * itself.
  */
 public abstract class AbstractExtendedIterator<T> implements ExtendedIterator<T> {
