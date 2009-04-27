@@ -24,7 +24,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	boolean exists(Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to exists.
+	 * Alias to {@link #exists(Object)}.
 	 * 
 	 * @param closure
 	 * @return
@@ -184,7 +184,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	E reduce(E initial, Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to {@link #reduce(Object closure)}.
+	 * Alias to {@link #reduce(Object))}.
 	 * 
 	 * @param closure
 	 * @return
@@ -193,7 +193,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	E inject(Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to {@link #reduce(E initial, Object closure)}.
+	 * Alias to {@link #reduce(Object, Object)}.
 	 * 
 	 * @param closure
 	 * @return

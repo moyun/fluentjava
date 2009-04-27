@@ -69,24 +69,23 @@ public class ClosureTest {
 	
 	@Test
 	public void testClosureAsThread() throws Exception {
-		Thread thread = threadClosure().asThread();
-		assertNotNull(thread);
+		final FluentList<Integer> list = FluentUtils.list(1, 2, 3);
+		Closure c = new Closure() {
+			public Object call(Object... args) throws Exception {
+				list.add(5);
+				return null;
+			}
+		};
+		Thread thread = c.asThread();
+		thread.run();
+		assertEquals(asList(1, 2, 3, 5), list); 
+		
 	}
 	
 	public void testOnlyAdpatedInterfaceMethodsAreForwarded() throws Exception {
 		Closure comparatorClosure = comparatorClosure();
 		Comparator<String> comparator = comparatorClosure.toInteface(Comparator.class);
 		assertEquals(comparatorClosure.hashCode(), comparator.hashCode());
-	}
-
-	private Closure threadClosure() {
-		Closure c = new Closure() {
-			@Override
-			public Object call(Object... args) throws Exception {
-				return first(args);
-			}
-		};
-		return c;
 	}
 
 	private Closure callableClosure() {

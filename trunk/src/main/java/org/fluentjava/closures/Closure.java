@@ -100,33 +100,31 @@ public abstract class Closure {
 	}
 
 	/**
-	 * Adapts self to a Callable. <b>IMPORTANT:</b> this methods will trigger call,
-	 * so be careful.
-	 * 
+	 * Adapts self to a Callable. 
 	 * @return
-	 * A {@link Callable} of self.
+	 * 
+	 * @see Callable
 	 */
 	public <T> Callable<T> asCallable() {
 		return toInteface(Callable.class);
 	}
 
 	/**
-	 * Adapts self to a Runnable. <b>IMPORTANT:</b> this methods will trigger call,
-	 * so be careful.
-	 * 
+	 * Adapts self to a Runnable. 
 	 * @return
-	 * A {@link Runnable} of self.
+	 * 
+	 * @ee Runnable
 	 */
 	public Runnable asRunnable() {
 		return toInteface(Runnable.class);
 	}
 	
 	/**
-	 * Adapts self to a Runnable. <b>IMPORTANT:</b> this methods will trigger call,
-	 * so be Thread.
+	 * Adapts self to a Thread.
 	 * 
 	 * @return
-	 * A {@link Runnable} of self.
+	 * 
+	 * @see Thread
 	 */
 	public Thread asThread() { 
 		return new Thread(asRunnable());
