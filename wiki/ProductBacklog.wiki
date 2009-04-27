@@ -30,4 +30,5 @@ Hash.new {|hash, key| block } => aHash
  * cache to o closure of a string based on signature.
  * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
  * Used wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned.
- * Batch processing: map#valuesAt.
+ * Batch processing: map#valuesAt, varargs set#contains and list#contains
+ * Builtin Common Closures (besides _my_)
