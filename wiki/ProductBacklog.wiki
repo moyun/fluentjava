@@ -32,3 +32,4 @@ Hash.new {|hash, key| block } => aHash
  * Used wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned.
  * Batch processing: map#valuesAt, varargs set#contains and list#contains
  * Builtin Common Closures (besides _my_)
+ * CharSequence to enumerable
