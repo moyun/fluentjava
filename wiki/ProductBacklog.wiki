@@ -19,7 +19,7 @@
  * Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
  * Arithmethic operations (smalltalk inspiration, again) on enumerable
  * fluent set operations. possibly both immutable and muttable
- * Partiation and iterablePartition on list
+ * Partition and iterablePartition on list
  * Ruby's hash constructor (maybe extended interface on map, as the defaults do not allow this):
 {{{
 Hash.new => hash
@@ -29,7 +29,7 @@ Hash.new {|hash, key| block } => aHash
  * Look into using [http://codeworker.free.fr/ codeworker] or [http://www.janino.net/ janino] to enable _eval_, and make closures out of it.
  * cache to o closure of a string based on signature.
  * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
- * Used wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned.
+ * Use wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned.
  * Batch processing: map#valuesAt, varargs set#contains and list#contains
  * Builtin Common Closures (besides _my_)
  * CharSequence to enumerable
