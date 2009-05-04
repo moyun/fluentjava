@@ -55,8 +55,7 @@ public class ClosureOfAString extends Closure {
 	private Object[] buildVarArgsArray(List<Object> argList, Class<?>[] argTypes, int nonVarArgsCount) {
 		Class<?> typeOfVarArgs = argTypes[nonVarArgsCount];
 		assert (typeOfVarArgs.isArray());
-		return (Object[]) Array.newInstance(typeOfVarArgs.getComponentType(), argList.size()
-				- argList.size());
+		return (Object[]) Array.newInstance(typeOfVarArgs.getComponentType(), argList.size() - argList.size());
 	}
 
 }

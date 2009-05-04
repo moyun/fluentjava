@@ -48,7 +48,7 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 	 * The elements returned by it are inserted.
 	 * @return self
 	 */
-	FluentSet<E> insert(Iterable<E> iterable);
+	FluentSet<E> insert(Iterable<? extends E> iterable);
 
 	/**
 	 * Fluent method (returns self). Removes all elements on the set.
@@ -66,6 +66,6 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 	 * The elements returned by it are removed.
 	 * @return self
 	 */
-	FluentSet<E> delete(Iterable<E> iterable);
+	FluentSet<E> delete(Iterable<? extends E> iterable);
 
 }

@@ -52,8 +52,18 @@ public class FluentUtils {
 	 * @param iterable
 	 * @return
 	 */
-	public static <T> FluentList<T> listFromIterable(Iterable<T> iterable) {
+	public static <T> FluentList<T> listFromIterable(Iterable<? extends T> iterable) {
 		return new Sequence<T>(iterable);
+	}
+	
+
+	/**
+	 * Creates a fluent list of object. 
+	 * @param args
+	 * @return
+	 */
+	public static FluentList<Object> alist(Object... args) {
+		return new Sequence<Object>(args);
 	}
 
 	/**
@@ -84,7 +94,7 @@ public class FluentUtils {
 	 * @param iterable
 	 * @return
 	 */
-	public static <T> FluentSet<T> setFromIterable(Iterable<T> iterable) {
+	public static <T> FluentSet<T> setFromIterable(Iterable<? extends T> iterable) {
 		return new ExtendedSet<T>(iterable);
 	}
 
@@ -265,7 +275,5 @@ public class FluentUtils {
 		}
 		
 	}
-	
-	
 
 }

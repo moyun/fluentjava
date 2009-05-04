@@ -1,9 +1,10 @@
 package org.fluentjava.collections;
 
+import static java.util.Arrays.asList;
+
 import java.lang.reflect.Array;
 import java.util.HashSet;
 
-import org.fluentjava.FluentUtils;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
@@ -37,7 +38,7 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	 * Creates an ExtendedSet the with the iterable elements.
 	 * @param iterable
 	 */
-	public ExtendedSet(Iterable<E> iterable) {
+	public ExtendedSet(Iterable<? extends E> iterable) {
 		insert(iterable);
 	}
 
@@ -56,26 +57,22 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	}
 
 	public FluentSet<E> insert(E... set) {
-		for (E e : set) {
-			add(e);
-		}
-		return this;
+		return insert(asList(set));
 	}
 
-	public FluentSet<E> insert(Iterable<E> iterable) {
-		for (E e : iterable) {
-			add(e);
-		}
+	public FluentSet<E> insert(Iterable<? extends E> iterable) {
+		addAll(new Sequence<E>(iterable));
 		return this;
 	}
 
 	public FluentSet<E> delete(E... elements) {
-		removeAll(FluentUtils.set(elements));
+		removeAll(asList(elements));
 		return this;
 	}
 
-	public FluentSet<E> delete(Iterable<E> iterable) {
-		return delete(new ExtendedSet<E>(iterable));
+	public FluentSet<E> delete(Iterable<? extends E> iterable) {
+		removeAll(new Sequence<E>(iterable));
+		return this;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -1,5 +1,6 @@
 package org.fluentjava.collections;
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.list;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class SequenceTest {
 	
 	@Test
 	public void testFactoryMethods() throws Exception {
-		assertEquals(asList(1, 2, 3), FluentUtils.list(1, 2, 3));
+		assertEquals(asList(1, 2, 3), list(1, 2, 3));
 	}
 	
 	@Test
@@ -42,7 +43,7 @@ public class SequenceTest {
 	
 	@Test(expected = Exception.class)
 	public void testCannotConvertEverything() throws Exception {
-		FluentList<Integer> list = FluentUtils.list(2, 4, 6);
+		FluentList<Integer> list = list(2, 4, 6);
 		list.array(String.class);
 	}
 	
@@ -50,7 +51,7 @@ public class SequenceTest {
 	public void testChangeOnInputArraysDoNotAffectSequence() throws Exception {
 		Integer[] array = {1, 2, 3};
 		List<Integer> asListResult = asList(array);
-		FluentList<Integer> list = FluentUtils.list(array);
+		FluentList<Integer> list = list(array);
 		array[0] = 10;
 		assertEquals(asList(10, 2, 3), asListResult);
 		assertEquals(asList(1, 2, 3), list);
@@ -58,11 +59,42 @@ public class SequenceTest {
 	
 	@Test
 	public void testToListCreatesACopy() throws Exception {
-		FluentList<Integer> list = FluentUtils.list(1, 2, 3);
+		FluentList<Integer> list = list(1, 2, 3);
 		FluentList<Integer> copy = list.toList();
 		assertEquals(copy, list);
 	}
-
+	
+	@Test
+	public void testFlatten() throws Exception {
+		FluentList<List<String>> list = list();
+		list.insert(list("a", "b")).insert(asList("1", "2", "3"));
+		assertEquals(asList("a", "b", "1", "2", "3"), list.flatten());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testFlattenDoesNotAllowRecursiveReferences() throws Exception {
+		FluentList<Object> a = list();
+		FluentList<Object> b = list();
+		a.insert(list("a", FluentUtils.alist(b)));
+		b.insert(a);
+		a.flatten();
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testSelfReferencesAreCaughtWhenYouFlatten() throws Exception {
+		FluentList<Object> a = list();
+		a.add(a);
+		a.flatten();
+	}
+	
+	@Test
+	public void testFlattenDoesNotFlatPrimitiveArrays() throws Exception {
+		Integer[] ar = new Integer[] {1, 2, 3};
+		FluentList<Object> a = FluentUtils.alist();
+		a.add(ar);
+		assertEquals(a, a.flatten());
+	}
+	
 	private List<Integer> half(Integer... array) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (Integer integer : array) {

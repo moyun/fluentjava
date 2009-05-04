@@ -14,7 +14,7 @@ public abstract class Closure {
 	 * Generic Call.
 	 * 
 	 * @param args
-	 * Function Arguments
+	 * Function Argumentsls
 	 * 
 	 * @return The result of Call
 	 * 

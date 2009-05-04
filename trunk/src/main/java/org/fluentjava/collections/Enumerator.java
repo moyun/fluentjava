@@ -26,7 +26,8 @@ public class Enumerator<E> implements Enumerable<E> {
 	/*
 	 * Constructors
 	 */
-	public Enumerator(Iterable<E> iterable) {
+	@SuppressWarnings("unchecked")
+	public Enumerator(Iterable<? extends E> iterable) {
 		if (iterable instanceof ExtendedIterable) {
 			this.iterable = (ExtendedIterable<E>) iterable;
 		}
