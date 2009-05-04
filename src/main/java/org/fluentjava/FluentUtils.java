@@ -16,7 +16,8 @@ import org.fluentjava.iterators.ExtendedIterator;
 /**
  * Class with static methods that serves as facade to several objects of the API. If you
  * wish a more fluent way to use the methods on this class, mainly
- * {@link #my(Object, String)} without the need to keep on passing this, consider extending {@link Fluency}.
+ * {@link #my(Object, String)} without the need to keep on passing this, consider
+ * extending {@link Fluency}.
  * 
  * @see Fluency
  */
@@ -55,10 +56,10 @@ public class FluentUtils {
 	public static <T> FluentList<T> listFromIterable(Iterable<? extends T> iterable) {
 		return new Sequence<T>(iterable);
 	}
-	
 
 	/**
-	 * Creates a fluent list of object. 
+	 * Creates a fluent list of object.
+	 * 
 	 * @param args
 	 * @return
 	 */
@@ -135,10 +136,10 @@ public class FluentUtils {
 	public static FluentList<Integer> range(int stop) {
 		return range(0, stop);
 	}
-	
+
 	/**
-	 * This method creates a {@link FluentList} of a sequence of Integer
-	 * starting from start (including) and ends at stop (excluding).
+	 * This method creates a {@link FluentList} of a sequence of Integer starting from
+	 * start (including) and ends at stop (excluding).
 	 * 
 	 * Examples:
 	 * 
@@ -148,17 +149,16 @@ public class FluentUtils {
 	 * </pre>
 	 * 
 	 * @param start
-	 * 	start of the sequence (including)
-	 * @param stop 	
-	 *  stop of a sequence (excluding)
-	 *  
-	 * @return [start,stop) 
+	 * start of the sequence (including)
+	 * @param stop
+	 * stop of a sequence (excluding)
+	 * 
+	 * @return [start,stop)
 	 * 
 	 */
 	public static FluentList<Integer> range(int start, int stop) {
 		return new Sequence<Integer>(irange(start, stop));
 	}
-	
 
 	/**
 	 * <pre>
@@ -172,10 +172,10 @@ public class FluentUtils {
 	public static ExtendedIterable<Integer> irange(int stop) {
 		return irange(0, stop);
 	}
-	
+
 	/**
-	 * This method creates a {@link ExtendedIterator} of a sequence of Integer
-	 * starting from start (including) and ends at stop (excluding).
+	 * This method creates a {@link ExtendedIterator} of a sequence of Integer starting
+	 * from start (including) and ends at stop (excluding).
 	 * 
 	 * Examples:
 	 * 
@@ -185,17 +185,17 @@ public class FluentUtils {
 	 * </pre>
 	 * 
 	 * @param start
-	 * 	start of the sequence (including)
-	 * @param stop 	
-	 *  stop of a sequence (excluding)
-	 *  
-	 * @return [start,stop) 
+	 * start of the sequence (including)
+	 * @param stop
+	 * stop of a sequence (excluding)
+	 * 
+	 * @return [start,stop)
 	 * 
 	 */
 	public static ExtendedIterable<Integer> irange(int start, int stop) {
 		return new IRangeFactory(start, stop);
 	}
-	
+
 	/*
 	 * Private Methods
 	 */
@@ -229,14 +229,14 @@ public class FluentUtils {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Inner class that makes iranges.
 	 */
 	private static class IRangeExtendedIterator extends AbstractExtendedIterator<Integer> {
 		private final int stop;
 		private int cur;
-		
+
 		public IRangeExtendedIterator(int start, int stop) {
 			this.cur = start;
 			this.stop = stop;
@@ -255,15 +255,14 @@ public class FluentUtils {
 			return ret;
 		}
 	}
-	
+
 	/**
 	 * Create IRangeExtendedIterators.
 	 */
 	private static class IRangeFactory implements ExtendedIterable<Integer> {
 		private int stop;
 		private int start;
-		
-		
+
 		public IRangeFactory(int start, int stop) {
 			super();
 			this.stop = stop;
@@ -273,7 +272,7 @@ public class FluentUtils {
 		public ExtendedIterator<Integer> iterator() {
 			return new IRangeExtendedIterator(start, stop);
 		}
-		
+
 	}
 
 }

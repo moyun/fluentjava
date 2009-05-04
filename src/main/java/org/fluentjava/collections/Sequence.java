@@ -12,12 +12,13 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
 /**
  * Standard implementation of FluentList.
+ * 
  * @param <E>
  * Type of elements
  */
 public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	private static final long serialVersionUID = 1L;
-	
+
 	/*
 	 * Constructors
 	 */
@@ -29,6 +30,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 
 	/**
 	 * Creates a Sequence with elements args.
+	 * 
 	 * @param args
 	 */
 	public Sequence(E... args) {
@@ -37,6 +39,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 
 	/**
 	 * Creates a Sequence the with the iterable elements.
+	 * 
 	 * @param iterable
 	 */
 	public Sequence(Iterable<? extends E> iterable) {
@@ -162,7 +165,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	public FluentSet<E> toSet() {
 		return enumerator().toSet();
 	}
-	
+
 	@Override
 	public FluentList<Object> flatten() {
 		FluentList<Object> ret = new Sequence<Object>();
@@ -177,9 +180,9 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return new Enumerator<E>(this);
 	}
 
-
-	
-	private void recFlatten(FluentList<Object> ret, IdentityHashMap<Object, Boolean> visitedLists, List<?> target) {
+	private void recFlatten(FluentList<Object> ret,
+			IdentityHashMap<Object, Boolean> visitedLists,
+			List<?> target) {
 		if (visitedLists.containsKey(target)) {
 			throw new IllegalArgumentException("Circular references");
 		}

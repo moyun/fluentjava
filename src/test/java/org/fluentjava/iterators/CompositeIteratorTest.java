@@ -20,8 +20,8 @@ public class CompositeIteratorTest {
 	public void testIteratesUpToSmallestCollection() throws Exception {
 		List<String> l1 = asList("one", "two", "never reached", "too far", "way too far");
 		List<String> l2 = asList("one", "three");
-		CompositeIterator<String, String> iterator = new CompositeIterator<String, String>(
-				new CountingIterator<String>(l1),
+		CompositeIterator<String, String> iterator = 
+			new CompositeIterator<String, String>(new CountingIterator<String>(l1),
 				new CountingIterator<String>(l2));
 		ArrayList<String> ret = new ArrayList<String>();
 		for (Pair<String, String> pair : iterator.iterator()) {

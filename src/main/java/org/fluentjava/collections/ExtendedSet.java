@@ -16,7 +16,7 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  */
 public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	private static final long serialVersionUID = 1L;
-	
+
 	/*
 	 * Constructors
 	 */
@@ -28,6 +28,7 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 
 	/**
 	 * Creates an ExtendedSet with elements args.
+	 * 
 	 * @param args
 	 */
 	public ExtendedSet(E... args) {
@@ -36,6 +37,7 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 
 	/**
 	 * Creates an ExtendedSet the with the iterable elements.
+	 * 
 	 * @param iterable
 	 */
 	public ExtendedSet(Iterable<? extends E> iterable) {
@@ -166,6 +168,5 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	private Enumerator<E> enumerator() {
 		return new Enumerator<E>(this);
 	}
-
 
 }

@@ -37,7 +37,7 @@ public abstract class Fluency {
 	 * @return
 	 */
 	protected <T> FluentList<T> list() {
-		return FluentUtils.<T> list();
+		return FluentUtils.<T>list();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public abstract class Fluency {
 	 * @return
 	 */
 	protected <T> FluentList<T> list(T... args) {
-		return FluentUtils.<T> list(args);
+		return FluentUtils.<T>list(args);
 	}
 
 	/**
@@ -59,7 +59,17 @@ public abstract class Fluency {
 	 * @return
 	 */
 	protected <T> FluentList<T> listFromIterable(Iterable<? extends T> iterable) {
-		return FluentUtils.<T> listFromIterable(iterable);
+		return FluentUtils.<T>listFromIterable(iterable);
+	}
+
+	/**
+	 * Delegates to {@link FluentUtils#alist(Object...)}.
+	 * 
+	 * @param args
+	 * @return
+	 */
+	public static FluentList<Object> alist(Object... args) {
+		return FluentUtils.alist(args);
 	}
 
 	/**
@@ -81,7 +91,7 @@ public abstract class Fluency {
 	 * @return
 	 */
 	protected <T> FluentSet<T> set(T... args) {
-		return FluentUtils.<T> set(args);
+		return FluentUtils.<T>set(args);
 	}
 
 	/**
@@ -92,7 +102,7 @@ public abstract class Fluency {
 	 * @return
 	 */
 	protected <T> FluentSet<T> setFromIterable(Iterable<? extends T> iterable) {
-		return FluentUtils.<T> setFromIterable(iterable);
+		return FluentUtils.<T>setFromIterable(iterable);
 	}
 
 	/**
