@@ -58,7 +58,7 @@ public abstract class Fluency {
 	 * @param iterable
 	 * @return
 	 */
-	protected <T> FluentList<T> listFromIterable(Iterable<T> iterable) {
+	protected <T> FluentList<T> listFromIterable(Iterable<? extends T> iterable) {
 		return FluentUtils.<T> listFromIterable(iterable);
 	}
 
@@ -91,7 +91,7 @@ public abstract class Fluency {
 	 * @param iterable
 	 * @return
 	 */
-	protected <T> FluentSet<T> setFromIterable(Iterable<T> iterable) {
+	protected <T> FluentSet<T> setFromIterable(Iterable<? extends T> iterable) {
 		return FluentUtils.<T> setFromIterable(iterable);
 	}
 
@@ -116,7 +116,7 @@ public abstract class Fluency {
 	protected Closure my(String methodName) {
 		return FluentUtils.my(this, methodName);
 	}
-	
+
 	/**
 	 * Delegates to {@link FluentUtils#range(int)}, passing range as argument.
 	 * 
@@ -125,16 +125,17 @@ public abstract class Fluency {
 	protected FluentList<Integer> range(int range) {
 		return FluentUtils.range(range);
 	}
-	
+
 	/**
-	 * Delegates to {@link FluentUtils#range(int, int)}, passing start and stop as argument.
+	 * Delegates to {@link FluentUtils#range(int, int)}, passing start and stop as
+	 * argument.
 	 * 
 	 * @return
 	 */
 	protected FluentList<Integer> range(int start, int stop) {
 		return FluentUtils.range(start, stop);
 	}
-	
+
 	/**
 	 * Delegates to {@link FluentUtils#irange(int)}, passing range as argument.
 	 * 
@@ -143,9 +144,10 @@ public abstract class Fluency {
 	protected ExtendedIterable<Integer> irange(int range) {
 		return FluentUtils.irange(range);
 	}
-	
+
 	/**
-	 * Delegates to {@link FluentUtils#range(int, int)}, passing start and stop as argument.
+	 * Delegates to {@link FluentUtils#range(int, int)}, passing start and stop as
+	 * argument.
 	 * 
 	 * @return
 	 */

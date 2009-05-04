@@ -3,13 +3,13 @@ package org.fluentjava.closures;
 import java.lang.reflect.Method;
 
 /**
- * Wraps around an object instance and a method of its class. 
+ * Wraps around an object instance and a method of its class.
  */
 public class ClosureOfAMethod extends Closure {
 
 	protected Method method;
 	protected Object target;
-	
+
 	public ClosureOfAMethod(Object target, Method method) {
 		this.target = target;
 		this.method = method;

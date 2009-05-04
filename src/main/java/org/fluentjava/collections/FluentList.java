@@ -48,7 +48,7 @@ public interface FluentList<E> extends List<E>, Enumerable<E> {
 	 * The elements returned by it are inserted.
 	 * @return self
 	 */
-	FluentList<E> insert(Iterable<E> iterable);
+	FluentList<E> insert(Iterable<? extends E> iterable);
 
 	/**
 	 * Fluent method (returns self). Removes all elements on the list.
@@ -66,5 +66,14 @@ public interface FluentList<E> extends List<E>, Enumerable<E> {
 	 * The elements returned by it are removed.
 	 * @return self
 	 */
-	FluentList<E> delete(Iterable<E> iterable);
+	FluentList<E> delete(Iterable<? extends E> iterable);
+
+	/**
+	 * Returns a new list that is a one-dimensional flattening of this list (recursively).
+	 * This means: for every element that is a list, extract its elements into the new
+	 * array.
+	 * 
+	 * @return
+	 */
+	FluentList<Object> flatten();
 }

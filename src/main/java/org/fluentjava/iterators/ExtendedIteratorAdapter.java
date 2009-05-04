@@ -14,16 +14,16 @@ public class ExtendedIteratorAdapter<T> extends AbstractExtendedIterator<T> {
 	/*
 	 * Variables
 	 */
-	private Iterator<T> iterator;
+	private Iterator<? extends T> iterator;
 
 	/*
 	 * Constructors
 	 */
-	public ExtendedIteratorAdapter(Iterator<T> iterator) {
+	public ExtendedIteratorAdapter(Iterator<? extends T> iterator) {
 		this.iterator = iterator;
 	}
 	
-	public ExtendedIteratorAdapter(Iterable<T> iterable) {
+	public ExtendedIteratorAdapter(Iterable<? extends T> iterable) {
 		this(iterable.iterator());
 	}
 	

@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
+import java.util.List;
 
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
@@ -37,7 +39,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	 * Creates a Sequence the with the iterable elements.
 	 * @param iterable
 	 */
-	public Sequence(Iterable<E> iterable) {
+	public Sequence(Iterable<? extends E> iterable) {
 		insert(iterable);
 	}
 
@@ -59,7 +61,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return insert(asList(list));
 	}
 
-	public FluentList<E> insert(Iterable<E> iterable) {
+	public FluentList<E> insert(Iterable<? extends E> iterable) {
 		for (E e : iterable) {
 			add(e);
 		}
@@ -71,8 +73,9 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return this;
 	}
 
-	public FluentList<E> delete(Iterable<E> iterable) {
-		return delete(new Sequence<E>(iterable));
+	public FluentList<E> delete(Iterable<? extends E> iterable) {
+		removeAll(new Sequence<E>(iterable));
+		return this;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -159,11 +162,36 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	public FluentSet<E> toSet() {
 		return enumerator().toSet();
 	}
+	
+	@Override
+	public FluentList<Object> flatten() {
+		FluentList<Object> ret = new Sequence<Object>();
+		recFlatten(ret, new IdentityHashMap<Object, Boolean>(), this);
+		return ret;
+	}
 
 	/*
 	 * Other Methods
 	 */
 	private Enumerator<E> enumerator() {
 		return new Enumerator<E>(this);
+	}
+
+
+	
+	private void recFlatten(FluentList<Object> ret, IdentityHashMap<Object, Boolean> visitedLists, List<?> target) {
+		if (visitedLists.containsKey(target)) {
+			throw new IllegalArgumentException("Circular references");
+		}
+		visitedLists.put(target, true);
+		for (Object e : target) {
+			if (e instanceof List) {
+				List<?> subList = (List<?>) e;
+				recFlatten(ret, visitedLists, subList);
+			}
+			else {
+				ret.add(e);
+			}
+		}
 	}
 }

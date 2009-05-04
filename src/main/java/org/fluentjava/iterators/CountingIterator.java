@@ -11,11 +11,11 @@ public class CountingIterator<T> extends ExtendedIteratorAdapter<T> {
 	/*
 	 * Constructors
 	 */
-	public CountingIterator(Iterable<T> iterable) {
+	public CountingIterator(Iterable<? extends T> iterable) {
 		super(iterable);
 	}
 
-	public CountingIterator(Iterator<T> iterator) {
+	public CountingIterator(Iterator<? extends T> iterator) {
 		super(iterator);
 	}
 

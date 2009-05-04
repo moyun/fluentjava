@@ -7,9 +7,9 @@ package org.fluentjava.iterators;
  */
 public class ExtendedIterableAdapter<T> implements ExtendedIterable<T> {
 	
-	private Iterable<T> iterable;
+	private Iterable<? extends T> iterable;
 	
-	public ExtendedIterableAdapter(Iterable<T> iterable) {
+	public ExtendedIterableAdapter(Iterable<? extends T> iterable) {
 		super();
 		this.iterable = iterable;
 	}
