@@ -4,11 +4,10 @@ package org.fluentjava.closures;
  * A predicate is a closure that always returns a boolean (primitive).
  */
 public abstract class Predicate extends Closure {
-	
+
 	public Object call(Object... args) throws Exception {
 		return eval(args);
 	}
-
 
 	/**
 	 * Generic evaluation.
@@ -21,7 +20,7 @@ public abstract class Predicate extends Closure {
 	 * @throws Exception
 	 */
 	public abstract boolean eval(Object... args) throws Exception;
-	
+
 	/**
 	 * Returns the opposite of eval.
 	 * 
@@ -35,7 +34,6 @@ public abstract class Predicate extends Closure {
 	public boolean notEval(Object... args) throws Exception {
 		return !eval(args);
 	}
-
 
 	public Predicate negated() {
 		return new NegatedPredicate(this);

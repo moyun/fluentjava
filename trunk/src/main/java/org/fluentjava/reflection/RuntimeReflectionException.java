@@ -23,7 +23,5 @@ public class RuntimeReflectionException extends RuntimeException {
 	public RuntimeReflectionException(Throwable cause) {
 		super(cause);
 	}
-	
-	
-	
+
 }

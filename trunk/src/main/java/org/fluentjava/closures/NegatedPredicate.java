@@ -9,6 +9,7 @@ class NegatedPredicate extends Predicate {
 
 	/**
 	 * Receives the predicate to be adapted.
+	 * 
 	 * @param predicate
 	 */
 	public NegatedPredicate(Predicate predicate) {
@@ -19,10 +20,10 @@ class NegatedPredicate extends Predicate {
 	public boolean eval(Object... args) throws Exception {
 		return !this.adaptedPredicate.eval(args);
 	}
-	
+
 	@Override
 	public Predicate negated() {
 		return adaptedPredicate;
 	}
-	
+
 }

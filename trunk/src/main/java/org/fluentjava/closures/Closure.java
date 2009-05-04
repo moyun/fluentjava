@@ -83,15 +83,14 @@ public abstract class Closure {
 	}
 
 	/**
-	 * Adapts self to a Interface. <b>IMPORTANT:</b> All methods invoked on the interface will trigger call,
-	 * so be careful when adapting interfaces with several methods.
+	 * Adapts self to a Interface. <b>IMPORTANT:</b> All methods invoked on the interface
+	 * will trigger call, so be careful when adapting interfaces with several methods.
 	 * 
 	 * @param <T>
 	 * Inferred type.
 	 * @param clazz
 	 * Interface to be adapted
-	 * @return
-	 * A proxy to self.
+	 * @return A proxy to self.
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T toInteface(Class<?> clazz) {
@@ -100,7 +99,8 @@ public abstract class Closure {
 	}
 
 	/**
-	 * Adapts self to a Callable. 
+	 * Adapts self to a Callable.
+	 * 
 	 * @return
 	 * 
 	 * @see Callable
@@ -110,7 +110,8 @@ public abstract class Closure {
 	}
 
 	/**
-	 * Adapts self to a Runnable. 
+	 * Adapts self to a Runnable.
+	 * 
 	 * @return
 	 * 
 	 * @ee Runnable
@@ -118,7 +119,7 @@ public abstract class Closure {
 	public Runnable asRunnable() {
 		return toInteface(Runnable.class);
 	}
-	
+
 	/**
 	 * Adapts self to a Thread.
 	 * 
@@ -126,8 +127,8 @@ public abstract class Closure {
 	 * 
 	 * @see Thread
 	 */
-	public Thread asThread() { 
+	public Thread asThread() {
 		return new Thread(asRunnable());
 	}
-	
+
 }

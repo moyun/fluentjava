@@ -42,14 +42,12 @@ public class MirrorTest {
 		assertEquals("new public name", mirror.get("publicName"));
 	}
 
-
 	@Test(expected = RuntimeReflectionException.class)
 	public void testOneMirrorsPriviligedDoesNotMakeAllMirrorsPriviliged() throws Exception {
 		Mirror.priviligedMirror(mock);
 		mock.setPrivateString("private string value");
 		mirror.get("privateString");
 	}
-
 
 	@Test
 	public void testGetInstanceField() throws Exception {
@@ -61,8 +59,7 @@ public class MirrorTest {
 		mirror.field("publicName").set("new name, set by mirror");
 		assertEquals("new name, set by mirror", mock.publicName);
 	}
-	
-	
+
 	@Test
 	public void testSetsFieldsAsWell() throws Exception {
 		priviligedMirror.set("privateString", "mock's private string, set by mirror").set("publicName",
@@ -70,25 +67,24 @@ public class MirrorTest {
 		assertEquals("mock's private string, set by mirror", mock.getPrivateString());
 		assertEquals("new name, set by mirror", mock.publicName);
 	}
-	
+
 	@Test
 	public void testPriviledgedMirrorDoesAccessPrivateFields() throws Exception {
 		mock.setPrivateString("private string value");
 		assertEquals("private string value", priviligedMirror.get("privateString"));
 	}
-	
+
 	@Test
 	public void testInstanceFieldGetsMirrorsPrivileges() throws Exception {
 		priviligedMirror.field("privateString").set("mock's private string, set by mirror");
 		assertEquals("mock's private string, set by mirror", mock.getPrivateString());
 	}
-	
-	
+
 	@Test(expected = RuntimeReflectionException.class)
 	public void testCannotGetAFieldThatDoesNotExist() throws Exception {
 		priviligedMirror.get("doesNotExist!");
 	}
-	
+
 	@Test(expected = RuntimeReflectionException.class)
 	public void testCannotGetPrivateFieldsOnParentOrAncestors() throws Exception {
 		priviligedMirror.field("privateFieldOnParent");
@@ -99,12 +95,11 @@ public class MirrorTest {
 		priviligedMirror.field("publicFieldOnParent").set("aValue");
 		assertEquals("aValue", mock.publicFieldOnParent);
 	}
-	
+
 	@Test
 	public void testCanAcessStaticFields() throws Exception {
 		priviligedMirror.field("ClassField").set("aValue");
 		assertEquals("aValue", Mock.getValue());
 	}
-
 
 }

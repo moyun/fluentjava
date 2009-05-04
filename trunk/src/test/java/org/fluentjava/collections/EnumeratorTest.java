@@ -12,15 +12,14 @@ import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.Predicate;
 import org.junit.Test;
 
-
 public class EnumeratorTest {
-	
+
 	@Test
 	public void testExistsWithClosures() {
 		Enumerable<Integer> list = list(1, 2, 3, 4, 5);
 		assertTrue(list.exists(greaterThan(4)));
 	}
-	
+
 	@Test(expected = EnumeratingException.class)
 	public void testClosureMustReturnBooleanWhenUsingExists() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 4, 5);
@@ -32,68 +31,67 @@ public class EnumeratorTest {
 		};
 		list.exists(badClosure);
 	}
-	
+
 	@Test
 	public void testAllSatisfy() throws Exception {
 		Enumerable<Integer> list = list(5, 6, 7);
 		assertTrue(list.allSatisfy(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testAnySatisfy() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
 		assertFalse(list.anySatisfy(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testAnySatisfyWithOneSatifying() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 30);
 		assertTrue(list.anySatisfy(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testNoneSatisfy() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
 		assertTrue(list.noneSatisfy(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testSelect() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
 		assertEquals(asList(5, 6, 7), list.select(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testReject() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
 		assertEquals(asList(1, 2, 3), list.reject(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testDetectNonExistant() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
 		assertNull(list.detect(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testDetect() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 8, 9, 10);
 		assertEquals(8, list.detect(greaterThan(4)));
 	}
-	
-	
+
 	@Test
 	public void testDetectIfNone() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
 		assertEquals(8, list.detectIfNone(greaterThan(4), 8));
 	}
-	
+
 	@Test
 	public void testCount() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
 		assertEquals(3, list.count(greaterThan(4)));
 	}
-	
+
 	@Test
 	public void testName() throws Exception {
 		final FluentList<Integer> acummulated = new Sequence<Integer>();
@@ -110,7 +108,7 @@ public class EnumeratorTest {
 		});
 		assertEquals(asList(2, 4, 6), acummulated);
 	}
-	
+
 	@Test
 	public void testMap() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
@@ -121,9 +119,9 @@ public class EnumeratorTest {
 				return i * 3;
 			}
 		});
-		assertEquals(asList(3, 6, 9), ret);	
+		assertEquals(asList(3, 6, 9), ret);
 	}
-	
+
 	@Test
 	public void testMapToDifferentTypes() throws Exception {
 		Enumerable<String> list = list("I", "am", "one");
@@ -134,9 +132,9 @@ public class EnumeratorTest {
 				return i.length();
 			}
 		});
-		assertEquals(asList(1, 2, 3), ret);	
+		assertEquals(asList(1, 2, 3), ret);
 	}
-	
+
 	@Test
 	public void testSortWithClosure() throws Exception {
 		Enumerable<String> list = list("big", "ones", "always come", "before");
@@ -148,15 +146,15 @@ public class EnumeratorTest {
 				return j.length() - i.length();
 			}
 		});
-		assertEquals(asList("always come", "before", "ones", "big"), ret);	
+		assertEquals(asList("always come", "before", "ones", "big"), ret);
 	}
-	
+
 	@Test
 	public void testSortingWithNaturalOrder() throws Exception {
 		Enumerable<Integer> list = list(3, 2, 1);
 		assertEquals(asList(1, 2, 3), list.sort());
 	}
-	
+
 	@Test
 	public void testReduce() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
@@ -169,8 +167,6 @@ public class EnumeratorTest {
 		Enumerable<Integer> list = emptyEnum();
 		assertNull(list.reduce(sumBlock()));
 	}
-	
-	
 
 	@Test
 	public void testReduceWithStartingElement() throws Exception {
@@ -178,7 +174,7 @@ public class EnumeratorTest {
 		Integer resultado = list.reduce(10, sumBlock());
 		assertEquals(16, resultado);
 	}
-	
+
 	@Test
 	public void testReducewithEmtpyListAndStartingEelment() throws Exception {
 		Enumerable<Integer> list = emptyEnum();
@@ -195,7 +191,7 @@ public class EnumeratorTest {
 		};
 		return anyGreaterThan;
 	}
-	
+
 	private Closure sumBlock() {
 		Closure sumBlock = new Closure() {
 			@Override
@@ -211,8 +207,7 @@ public class EnumeratorTest {
 	private <T> Enumerable<T> emptyEnum() {
 		return new Enumerator<T>(new ArrayList<T>());
 	}
-	
-	
+
 	private <T> Enumerable<T> list(T... args) {
 		ArrayList<T> ret = new ArrayList<T>();
 		ret.addAll(asList(args));

@@ -2,7 +2,6 @@ package org.fluentjava.collections;
 
 import java.util.Map;
 
-
 /**
  * Map that has a fluent interface on methods. All Enumerable methods are also
  * implemented.
@@ -33,15 +32,17 @@ public interface FluentMap<K, V> extends Enumerable<Pair<K, V>>, Map<K, V> {
 	FluentMap<K, V> insert(Map<? extends K, ? extends V> m);
 
 	/**
-	 * Like keySet(), but returns a copy of the set, which is safe to iterate. Also returns a fluent version of set.
+	 * Like keySet(), but returns a copy of the set, which is safe to iterate. Also
+	 * returns a fluent version of set.
 	 * 
 	 * @return
 	 */
 	FluentSet<K> keys();
-	
+
 	/**
-	 * Like values(),  but returns a copy of the values, which is safe to iterate.
-	 * Also returns a fluent version instead of a simple Collection. 
+	 * Like values(), but returns a copy of the values, which is safe to iterate. Also
+	 * returns a fluent version instead of a simple Collection.
+	 * 
 	 * @return
 	 */
 	FluentList<V> allValues();

@@ -35,13 +35,12 @@ public class ClosureCoercionTest {
 		Integer result = closure.invoke("one", "two");
 		assertEquals(0, result);
 	}
-	
-	
+
 	@Test(expected = ClosureCoercionException.class)
 	public void testClassesWithTwoInterfacesEvenWithOneMethodEachDoNotCoerce() throws Exception {
 		ClosureCoercion.toClosure(new SwissArmyKnife());
 	}
-	
+
 	private class SwissArmyKnife implements Runnable, Callable<String> {
 		public void run() {
 		}

@@ -18,7 +18,7 @@ public class CountingIteratorTest {
 		extendedIterator = new CountingIterator<Integer>(1, 2, 3);
 		ret = new ArrayList<Integer>();
 	}
-	
+
 	@Test
 	public void testAdaptIterator() {
 		for (Integer integer : extendedIterator) {
@@ -26,7 +26,7 @@ public class CountingIteratorTest {
 		}
 		assertEquals(asList(1, 2, 3), ret);
 	}
-	
+
 	@Test
 	public void testForEachIterationStyleOnAExtendedIterator() throws Exception {
 		for (Integer integer : extendedIterator.iterator().iterator()) {
@@ -34,7 +34,7 @@ public class CountingIteratorTest {
 		}
 		assertEquals(asList(1, 2, 3), ret);
 	}
-	
+
 	@Test
 	public void testSkippingSecondElement() throws Exception {
 		for (Integer integer : extendedIterator) {
@@ -42,17 +42,17 @@ public class CountingIteratorTest {
 				continue;
 			}
 			ret.add(integer);
-			
+
 		}
 		assertEquals(asList(1, 3), ret);
 	}
-	
+
 	@Test
 	public void testIterationNumberIsZeroAtTheStart() throws Exception {
 		assertEquals(0, extendedIterator.iterationNumber());
-		
+
 	}
-	
+
 	@Test
 	public void testExtendedIteratorsAreStillNotReusable() throws Exception {
 		for (Integer integer : extendedIterator) {

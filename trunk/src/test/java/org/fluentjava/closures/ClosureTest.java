@@ -54,19 +54,19 @@ public class ClosureTest {
 		Comparator<String> comparator = comparatorClosure().toInteface(Comparator.class);
 		assertTrue(comparator.compare("small", "very lage String") < 0);
 	}
-	
+
 	@Test
 	public void testClosureAsRunnable() throws Exception {
 		Runnable runnable = runnableClosure().asRunnable();
 		assertNotNull(runnable);
 	}
-	
+
 	@Test
 	public void testClosureAsCallable() throws Exception {
 		Callable<String> callable = callableClosure().asCallable();
 		assertTrue(callable.call().equals("Thet's the point!"));
 	}
-	
+
 	@Test
 	public void testClosureAsThread() throws Exception {
 		final FluentList<Integer> list = FluentUtils.list(1, 2, 3);
@@ -78,10 +78,10 @@ public class ClosureTest {
 		};
 		Thread thread = c.asThread();
 		thread.run();
-		assertEquals(asList(1, 2, 3, 5), list); 
-		
+		assertEquals(asList(1, 2, 3, 5), list);
+
 	}
-	
+
 	public void testOnlyAdpatedInterfaceMethodsAreForwarded() throws Exception {
 		Closure comparatorClosure = comparatorClosure();
 		Comparator<String> comparator = comparatorClosure.toInteface(Comparator.class);
@@ -92,7 +92,7 @@ public class ClosureTest {
 		Closure c = new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
-				return "Thet's the point!";  
+				return "Thet's the point!";
 			}
 		};
 		return c;
@@ -102,7 +102,7 @@ public class ClosureTest {
 		Closure c = new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
-				return first(args);  
+				return first(args);
 			}
 		};
 		return c;

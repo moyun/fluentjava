@@ -22,11 +22,11 @@ public class ExtendedIteratorAdapter<T> extends AbstractExtendedIterator<T> {
 	public ExtendedIteratorAdapter(Iterator<? extends T> iterator) {
 		this.iterator = iterator;
 	}
-	
+
 	public ExtendedIteratorAdapter(Iterable<? extends T> iterable) {
 		this(iterable.iterator());
 	}
-	
+
 	public ExtendedIteratorAdapter(T... iterator) {
 		this(asList(iterator));
 	}

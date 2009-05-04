@@ -16,7 +16,7 @@ public class ClosureCoercion {
 	 * Constants
 	 */
 	private static String HamcrestMatcher = "org.hamcrest.BaseMatcher";
-	
+
 	/*
 	 * Public Class Methods
 	 */
@@ -40,15 +40,16 @@ public class ClosureCoercion {
 			return FluentUtils.my(closure, "matches");
 		}
 		throw new ClosureCoercionException("Argument does not coerce to closure: " + closure);
-		
+
 	}
+
 	public static Predicate toPredicate(Object predicate) {
 		if (predicate instanceof Predicate) {
 			return (Predicate) predicate;
 		}
 		return new PredicateAdapter(toClosure(predicate));
 	}
-	
+
 	/*
 	 * Private Class Methods
 	 */
@@ -64,19 +65,20 @@ public class ClosureCoercion {
 		}
 		return null;
 	}
-	
+
 	private static Closure comparatorToClosure(Object closure) {
 		try {
-			return new ClosureOfAMethod(closure, Comparator.class.getMethod("compare", Object.class, Object.class));
+			return new ClosureOfAMethod(closure, Comparator.class.getMethod("compare", Object.class,
+					Object.class));
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeReflectionException(e);
 		}
 	}
-	
+
 	private static boolean isFromHamcrest(Object o) {
 		return isFromHamcrest(o.getClass());
 	}
-	
+
 	private static boolean isFromHamcrest(Class<?> c) {
 		if (c == Object.class) {
 			return false;

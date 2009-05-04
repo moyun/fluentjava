@@ -28,7 +28,7 @@ public class FluencyTest extends Fluency {
 		assertEquals(esperado, list.map(my("squareOfInt")));
 		assertEquals(list(1, 4, 9), list.map(my("squareOfInt")));
 	}
-	
+
 	@Test
 	public void testClosureFrmomAString() throws Exception {
 		FluentList<String> list = list("a", "to", "you");
@@ -39,7 +39,7 @@ public class FluencyTest extends Fluency {
 		assertEquals(esperado, list.map("length"));
 		assertEquals(list(1, 2, 3), list.map("length"));
 	}
-	
+
 	@Test(expected = EnumeratingException.class)
 	public void testDontUseMethoOfAStringToLookOverNonPublicMethods() throws Exception {
 		FluentList<Mock> list = list(new Mock("a mock"));
@@ -48,21 +48,21 @@ public class FluencyTest extends Fluency {
 
 	@Test
 	public void testRange() throws Exception {
-		assertEquals(list(0, 1 , 2 , 3), range(4));
-		assertFalse(list(0, 1 , 2 , 3).equals(irange(4)));
+		assertEquals(list(0, 1, 2, 3), range(4));
+		assertFalse(list(0, 1, 2, 3).equals(irange(4)));
 	}
-	
+
 	@Test
 	public void testIRange() throws Exception {
-		assertEquals(list(0, 1 , 2 , 3), listFromIterable(irange(4)));
+		assertEquals(list(0, 1, 2, 3), listFromIterable(irange(4)));
 	}
-	
+
 	@Test
 	public void testIfTheEndOfTheRangeIsGreaterThanItsStartReturnsEmpty() throws Exception {
 		FluentList<Integer> list = range(4, 0);
 		assertTrue(list.isEmpty());
 	}
-	
+
 	@Test
 	public void testIRangeWithStartAndStopParameters() throws Exception {
 		assertEquals(list(1, 2, 3), listFromIterable(irange(1, 4)));
