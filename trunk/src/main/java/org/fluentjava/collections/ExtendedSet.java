@@ -20,7 +20,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	private static final long serialVersionUID = 2L;
 
 	protected final HashSet<E> delegateSet = new HashSet<E>();
-	
+
 	/*
 	 * Constructors
 	 */
@@ -46,6 +46,10 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	 */
 	public ExtendedSet(Iterable<? extends E> iterable) {
 		insert(iterable);
+	}
+
+	public Object clone() {
+		return toSet();
 	}
 
 	/*
@@ -100,10 +104,6 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		delegateSet.clear();
 	}
 
-	public Object clone() {
-		return delegateSet.clone();
-	}
-
 	public boolean contains(Object o) {
 		return delegateSet.contains(o);
 	}
@@ -153,6 +153,64 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 
 	public String toString() {
 		return delegateSet.toString();
+	}
+
+	@Override
+	public FluentSet<E> intersect(Iterable<? extends E> iterable) {
+		FluentSet<E> clone = toSet();
+		clone.retainAll(iterableToCollection(iterable));
+		return clone;
+	}
+
+	@Override
+	public FluentSet<E> and(Iterable<? extends E> iterable) {
+		return intersect(iterable);
+	}
+
+	@Override
+	public FluentSet<E> union(Iterable<? extends E> iterable) {
+		FluentSet<E> clone = toSet();
+		clone.addAll(iterableToCollection(iterable));
+		return clone;
+	}
+
+	@Override
+	public FluentSet<E> or(Iterable<? extends E> iterable) {
+		return union(iterable);
+	}
+
+	@Override
+	public FluentSet<E> symmetricDifference(Iterable<? extends E> iterable) {
+		FluentSet<E> union = union(iterable);
+		union.removeAll(intersect(iterable));
+		return union;
+	}
+
+	@Override
+	public FluentSet<E> xor(Iterable<? extends E> iterable) {
+		return symmetricDifference(iterable);
+	}
+
+	@Override
+	public FluentSet<E> difference(Iterable<? extends E> iterable) {
+		FluentSet<E> clone = toSet();
+		clone.removeAll(iterableToCollection(iterable));
+		return clone;
+	}
+
+	@Override
+	public FluentSet<E> minus(Iterable<? extends E> iterable) {
+		return difference(iterable);
+	}
+
+	/*
+	 * Other Methods
+	 */
+	private Collection<? extends E> iterableToCollection(Iterable<? extends E> iterable) {
+		if (iterable instanceof Collection) {
+			return (Collection<? extends E>) iterable;
+		}
+		return new ExtendedSet<E>(iterable);
 	}
 
 }

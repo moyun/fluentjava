@@ -68,4 +68,71 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 	 */
 	FluentSet<E> delete(Iterable<? extends E> iterable);
 
+	/**
+	 * Returns a new Fluent Set with the intersection of this and the set of elements from
+	 * the iterable.
+	 * 
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> intersect(Iterable<? extends E> iterable);
+
+	/**
+	 * Alias to {@link #intersect(Iterable)}.
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> and(Iterable<? extends E> iterable);
+	
+	/**
+	 * Returns a new Fluent Set with the union of this and the set of elements from the
+	 * iterable.
+	 * 
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> union(Iterable<? extends E> iterable);
+	
+	/**
+	 * Alias to {@link #union(Iterable)}.
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> or(Iterable<? extends E> iterable);
+
+
+	/**
+	 * Returns a new Fluent Set with the elements ofthis minus the ones from the set of
+	 * elements from the iterable.
+	 * 
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> difference(Iterable<? extends E> iterable);
+	
+	/**
+	 * Alias to {@link #difference(Iterable)}.
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> minus(Iterable<? extends E> iterable);
+
+	/**
+	 * Returns a new Fluent Set with the symmetric difference of this and the set of
+	 * elements from the iterable. That is: the union of this and iterable minus the
+	 * intersection of this and iterable.
+	 * 
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> symmetricDifference(Iterable<? extends E> iterable);
+
+	/**
+	 * Alias to {@link #symmetricDifference(Iterable)}.
+	 * 
+	 * @param iterable
+	 * @return
+	 */
+	FluentSet<E> xor(Iterable<? extends E> iterable);
+
 }

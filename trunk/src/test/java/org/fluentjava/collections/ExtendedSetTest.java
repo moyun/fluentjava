@@ -1,11 +1,11 @@
 package org.fluentjava.collections;
 
+import static org.fluentjava.FluentUtils.set;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.fluentjava.FluentUtils;
 import org.junit.Test;
 
 public class ExtendedSetTest {
@@ -18,7 +18,7 @@ public class ExtendedSetTest {
 
 	@Test
 	public void testFactoryMethods() throws Exception {
-		assertEquals(asSet(1, 2, 3, 3), FluentUtils.set(1, 2, 3, 3));
+		assertEquals(asSet(1, 2, 3, 3), set(1, 2, 3, 3));
 	}
 
 	@Test
@@ -37,15 +37,39 @@ public class ExtendedSetTest {
 
 	@Test(expected = Exception.class)
 	public void testCannotConvertEverything() throws Exception {
-		FluentSet<Integer> set = FluentUtils.set(2, 4, 4, 6);
+		FluentSet<Integer> set = set(2, 4, 4, 6);
 		set.array(String.class);
 	}
+	
+	@Test
+	public void testFluentIntersect() throws Exception {
+		FluentSet<String> xp = set("tdd", "planning", "refactoring");
+		FluentSet<String> scrum = set("restrospective", "planning", "scrum of scrums");
+		assertEquals(set("planning"), xp.intersect(scrum));
+	}
+	
+	@Test
+	public void testUnion() throws Exception {
+		FluentSet<String> xp = set("tdd", "planning", "refactoring");
+		FluentSet<String> scrum = set("restrospective", "planning", "scrum of scrums");
+		assertEquals(set("tdd", "planning", "refactoring", "restrospective", "scrum of scrums"), 
+				xp.union(scrum));
+	}
+	
+	@Test
+	public void testMinus() throws Exception {
+		FluentSet<String> xp = set("tdd", "planning", "refactoring");
+		FluentSet<String> scrum = set("restrospective", "planning", "scrum of scrums");
+		assertEquals(set("tdd", "refactoring"),	xp.minus(scrum));
+	}
+	
+	@Test
+	public void testXor() throws Exception {
+		FluentSet<String> xp = set("tdd", "planning", "refactoring");
+		FluentSet<String> scrum = set("restrospective", "planning", "scrum of scrums");
+		assertEquals(set("tdd", "refactoring", "restrospective", "scrum of scrums"), xp.xor(scrum));
+	}
 
-	// @Test
-	// public void testExistsWithClosures() {
-	// FluentList<Integer> list = Sequence.list(1, 2, 3, 4, 5);
-	// assertTrue(list.exists(greaterThan4()));
-	// }
 
 	private Set<Integer> half(Integer... array) {
 		Set<Integer> set = new HashSet<Integer>();

@@ -1,6 +1,7 @@
 package org.fluentjava.collections;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -71,12 +72,31 @@ public class DictionaryTest {
 		}
 		assertEquals(new ExtendedSet<String>("Item 2", "Item 3"), result);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testClone() throws Exception {
+		Dictionary<String, Integer> map = new Dictionary<String, Integer>();
+		map.put("Item 2", 20);
+		map.put("Item 3", 3);
+		Dictionary<String, Integer> clone = (Dictionary<String, Integer>) map.clone();
+		map.clear();
+		mapKey(clone, "Item 2", 20);
+		mapKey(clone, "Item 3", 3);
+		assertTrue(map.isEmpty());
+	}
 
 	private HashSet<Pair<String, Integer>> set(List<Pair<String, Integer>> array) {
 		return new HashSet<Pair<String, Integer>>(array);
 	}
 
-	private void mapKey(FluentMap<CharSequence, Integer> dictionary, String key, int value) {
+	/**
+	 * Custom assertion.
+	 * @param dictionary
+	 * @param key
+	 * @param value
+	 */
+	private void mapKey(Map<? extends CharSequence, Integer> dictionary, CharSequence key, int value) {
 		assertEquals(value, dictionary.get(key));
 	}
 
