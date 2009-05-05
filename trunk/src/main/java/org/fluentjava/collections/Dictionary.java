@@ -1,8 +1,11 @@
 package org.fluentjava.collections;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.fluentjava.iterators.AbstractExtendedIterator;
 import org.fluentjava.iterators.ExtendedIterator;
@@ -15,25 +18,30 @@ import org.fluentjava.iterators.ExtendedIterator;
  * @param <V>
  * Type of Values
  */
-public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
+public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
+		implements
+			Cloneable,
+			Serializable,
+			FluentMap<K, V> {
 
-	private static final long serialVersionUID = 7553752893723422794L;
+	private static final long serialVersionUID = 2L;
+
+	protected final HashMap<K, V> delegateMap;
 
 	/*
 	 * Constructors
 	 */
 	public Dictionary() {
-		super();
+		delegateMap = new HashMap<K, V>();
 	}
 
-	public Dictionary(Map<? extends K, ? extends V> m) {
-		super(m);
+	public Dictionary(Map<? extends K, ? extends V> map) {
+		delegateMap = new HashMap<K, V>(map);
 	}
 
 	/*
 	 * Public Methods
 	 */
-
 	public FluentList<V> allValues() {
 		return new Sequence<V>(values());
 	}
@@ -43,12 +51,12 @@ public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
 	}
 
 	public FluentMap<K, V> putAt(K key, V value) {
-		super.put(key, value);
+		put(key, value);
 		return this;
 	}
 
 	public FluentMap<K, V> insert(Map<? extends K, ? extends V> m) {
-		super.putAll(m);
+		putAll(m);
 		return this;
 	}
 
@@ -65,91 +73,71 @@ public class Dictionary<K, V> extends HashMap<K, V> implements FluentMap<K, V> {
 		};
 	}
 
-	public boolean allSatisfy(Object closure) throws EnumeratingException {
-		return enumerator().allSatisfy(closure);
-	}
-
-	public boolean anySatisfy(Object closure) throws EnumeratingException {
-		return enumerator().anySatisfy(closure);
-	}
-
-	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
-		return enumerator().collect(closure);
-	}
-
-	public int count(Object closure) throws EnumeratingException {
-		return enumerator().count(closure);
-	}
-
-	public Pair<K, V> detect(Object closure) throws EnumeratingException {
-		return enumerator().detect(closure);
-	}
-
-	public Pair<K, V> detectIfNone(Object closure, Pair<K, V> ifNone) throws EnumeratingException {
-		return enumerator().detectIfNone(closure, ifNone);
-	}
-
-	public boolean exists(Object closure) throws EnumeratingException {
-		return enumerator().exists(closure);
-	}
-
-	public void foreach(Object closure) throws EnumeratingException {
-		enumerator().foreach(closure);
-	}
-
-	public Pair<K, V> inject(Object closure) throws EnumeratingException {
-		return enumerator().inject(closure);
-	}
-
-	public Pair<K, V> inject(Pair<K, V> initial, Object closure) throws EnumeratingException {
-		return enumerator().inject(initial, closure);
-	}
-
-	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
-		return enumerator().map(closure);
-	}
-
-	public boolean noneSatisfy(Object closure) throws EnumeratingException {
-		return enumerator().noneSatisfy(closure);
-	}
-
-	public Pair<K, V> reduce(Object closure) throws EnumeratingException {
-		return enumerator().reduce(closure);
-	}
-
-	public Pair<K, V> reduce(Pair<K, V> initial, Object closure) throws EnumeratingException {
-		return enumerator().reduce(initial, closure);
-	}
-
-	public FluentList<Pair<K, V>> reject(Object closure) throws EnumeratingException {
-		return enumerator().reject(closure);
-	}
-
-	public FluentList<Pair<K, V>> select(Object closure) throws EnumeratingException {
-		return enumerator().select(closure);
-	}
-
-	public FluentList<Pair<K, V>> sort() {
-		return enumerator().sort();
-	}
-
-	public FluentList<Pair<K, V>> sort(Object closure) throws EnumeratingException {
-		return enumerator().sort(closure);
-	}
-
-	public FluentList<Pair<K, V>> toList() {
-		return enumerator().toList();
-	}
-
-	public FluentSet<Pair<K, V>> toSet() {
-		return enumerator().toSet();
-	}
-
 	/*
-	 * Other Methods
+	 * Delegate Methods
 	 */
-	private Enumerator<Pair<K, V>> enumerator() {
-		return new Enumerator<Pair<K, V>>(this);
+	public void clear() {
+		delegateMap.clear();
+	}
+
+	public Object clone() {
+		return delegateMap.clone();
+	}
+
+	public boolean containsKey(Object key) {
+		return delegateMap.containsKey(key);
+	}
+
+	public boolean containsValue(Object value) {
+		return delegateMap.containsValue(value);
+	}
+
+	public Set<java.util.Map.Entry<K, V>> entrySet() {
+		return delegateMap.entrySet();
+	}
+
+	public boolean equals(Object o) {
+		return delegateMap.equals(o);
+	}
+
+	public V get(Object key) {
+		return delegateMap.get(key);
+	}
+
+	public int hashCode() {
+		return delegateMap.hashCode();
+	}
+
+	public boolean isEmpty() {
+		return delegateMap.isEmpty();
+	}
+
+	public Set<K> keySet() {
+		return delegateMap.keySet();
+	}
+
+	public V put(K key, V value) {
+		return delegateMap.put(key, value);
+	}
+
+	public void putAll(Map<? extends K, ? extends V> m) {
+		delegateMap.putAll(m);
+	}
+
+	public V remove(Object key) {
+		return delegateMap.remove(key);
+	}
+
+	public int size() {
+		return delegateMap.size();
+	}
+
+	public String toString() {
+		return delegateMap.toString();
+	}
+
+	public Collection<V> values() {
+		return delegateMap.values();
 	}
 
 }

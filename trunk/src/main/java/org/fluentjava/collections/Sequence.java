@@ -2,10 +2,14 @@ package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.RandomAccess;
 
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
@@ -16,8 +20,15 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  * @param <E>
  * Type of elements
  */
-public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
-	private static final long serialVersionUID = 1L;
+public class Sequence<E> extends AbstractEnumerable<E>
+		implements
+			FluentList<E>,
+			RandomAccess,
+			Cloneable,
+			Serializable {
+	private static final long serialVersionUID = 2L;
+
+	protected final ArrayList<E> delegateList = new ArrayList<E>();
 
 	/*
 	 * Constructors
@@ -52,7 +63,7 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 
 	@Override
 	public ExtendedIterator<E> iterator() {
-		return new ExtendedIteratorAdapter<E>(super.iterator());
+		return new ExtendedIteratorAdapter<E>(delegateList.iterator());
 	}
 
 	public FluentList<E> insert(E e) {
@@ -86,86 +97,6 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 		return toArray((T[]) Array.newInstance(clazz, size()));
 	}
 
-	public boolean allSatisfy(Object closure) throws EnumeratingException {
-		return enumerator().allSatisfy(closure);
-	}
-
-	public boolean anySatisfy(Object closure) throws EnumeratingException {
-		return enumerator().anySatisfy(closure);
-	}
-
-	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
-		return enumerator().collect(closure);
-	}
-
-	public int count(Object closure) throws EnumeratingException {
-		return enumerator().count(closure);
-	}
-
-	public E detect(Object closure) throws EnumeratingException {
-		return enumerator().detect(closure);
-	}
-
-	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
-		return enumerator().detectIfNone(closure, ifNone);
-	}
-
-	public boolean exists(Object closure) throws EnumeratingException {
-		return enumerator().exists(closure);
-	}
-
-	public void foreach(Object closure) throws EnumeratingException {
-		enumerator().foreach(closure);
-	}
-
-	public E inject(E initial, Object closure) throws EnumeratingException {
-		return enumerator().inject(initial, closure);
-	}
-
-	public E inject(Object closure) throws EnumeratingException {
-		return enumerator().inject(closure);
-	}
-
-	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
-		return enumerator().map(closure);
-	}
-
-	public boolean noneSatisfy(Object closure) throws EnumeratingException {
-		return enumerator().noneSatisfy(closure);
-	}
-
-	public E reduce(E initial, Object closure) throws EnumeratingException {
-		return enumerator().reduce(initial, closure);
-	}
-
-	public E reduce(Object closure) throws EnumeratingException {
-		return enumerator().reduce(closure);
-	}
-
-	public FluentList<E> reject(Object closure) throws EnumeratingException {
-		return enumerator().reject(closure);
-	}
-
-	public FluentList<E> select(Object closure) throws EnumeratingException {
-		return enumerator().select(closure);
-	}
-
-	public FluentList<E> sort() {
-		return enumerator().sort();
-	}
-
-	public FluentList<E> sort(Object closure) throws EnumeratingException {
-		return enumerator().sort(closure);
-	}
-
-	public FluentList<E> toList() {
-		return enumerator().toList();
-	}
-
-	public FluentSet<E> toSet() {
-		return enumerator().toSet();
-	}
-
 	@Override
 	public FluentList<Object> flatten() {
 		FluentList<Object> ret = new Sequence<Object>();
@@ -176,10 +107,6 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 	/*
 	 * Other Methods
 	 */
-	private Enumerator<E> enumerator() {
-		return new Enumerator<E>(this);
-	}
-
 	private void recFlatten(FluentList<Object> ret,
 			IdentityHashMap<Object, Boolean> visitedLists,
 			List<?> target) {
@@ -196,5 +123,120 @@ public class Sequence<E> extends ArrayList<E> implements FluentList<E> {
 				ret.add(e);
 			}
 		}
+	}
+
+	/*
+	 * Delegate Methods
+	 */
+	public boolean add(E e) {
+		return delegateList.add(e);
+	}
+
+	public void add(int index, E element) {
+		delegateList.add(index, element);
+	}
+
+	public boolean addAll(Collection<? extends E> c) {
+		return delegateList.addAll(c);
+	}
+
+	public boolean addAll(int index, Collection<? extends E> c) {
+		return delegateList.addAll(index, c);
+	}
+
+	public void clear() {
+		delegateList.clear();
+	}
+
+	public Object clone() {
+		return delegateList.clone();
+	}
+
+	public boolean contains(Object o) {
+		return delegateList.contains(o);
+	}
+
+	public boolean containsAll(Collection<?> c) {
+		return delegateList.containsAll(c);
+	}
+
+	public void ensureCapacity(int minCapacity) {
+		delegateList.ensureCapacity(minCapacity);
+	}
+
+	public boolean equals(Object o) {
+		return delegateList.equals(o);
+	}
+
+	public E get(int index) {
+		return delegateList.get(index);
+	}
+
+	public int hashCode() {
+		return delegateList.hashCode();
+	}
+
+	public int indexOf(Object o) {
+		return delegateList.indexOf(o);
+	}
+
+	public boolean isEmpty() {
+		return delegateList.isEmpty();
+	}
+
+	public int lastIndexOf(Object o) {
+		return delegateList.lastIndexOf(o);
+	}
+
+	public ListIterator<E> listIterator() {
+		return delegateList.listIterator();
+	}
+
+	public ListIterator<E> listIterator(int index) {
+		return delegateList.listIterator(index);
+	}
+
+	public E remove(int index) {
+		return delegateList.remove(index);
+	}
+
+	public boolean remove(Object o) {
+		return delegateList.remove(o);
+	}
+
+	public boolean removeAll(Collection<?> c) {
+		return delegateList.removeAll(c);
+	}
+
+	public boolean retainAll(Collection<?> c) {
+		return delegateList.retainAll(c);
+	}
+
+	public E set(int index, E element) {
+		return delegateList.set(index, element);
+	}
+
+	public int size() {
+		return delegateList.size();
+	}
+
+	public List<E> subList(int fromIndex, int toIndex) {
+		return delegateList.subList(fromIndex, toIndex);
+	}
+
+	public Object[] toArray() {
+		return delegateList.toArray();
+	}
+
+	public <T> T[] toArray(T[] a) {
+		return delegateList.toArray(a);
+	}
+
+	public String toString() {
+		return delegateList.toString();
+	}
+
+	public void trimToSize() {
+		delegateList.trimToSize();
 	}
 }
