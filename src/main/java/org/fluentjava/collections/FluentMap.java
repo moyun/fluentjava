@@ -3,7 +3,7 @@ package org.fluentjava.collections;
 import java.util.Map;
 
 /**
- * Map that has a fluent interface on methods. All Enumerable methods are also
+ * {@link Map} that has a fluent interface on methods. All {@link Enumerable} methods are also
  * implemented.
  * 
  * @param <K>

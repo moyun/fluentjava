@@ -5,8 +5,8 @@ import java.lang.reflect.Proxy;
 import java.util.concurrent.Callable;
 
 /**
- * Approximation of the concept of closure on Java. It is not really a closure, as it does
- * not close around the environment.
+ * Approximation of the concept of closure on Java, abstracting a function defintion. It
+ * is not really a closure, as it does not close around the environment.
  */
 public abstract class Closure {
 

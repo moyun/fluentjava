@@ -11,7 +11,7 @@ import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
 /**
- * Standard implementation of FluentList.
+ * Standard implementation of {@link FluentList}.
  * 
  * @param <E>
  * Type of elements

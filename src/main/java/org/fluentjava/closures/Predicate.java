@@ -1,7 +1,7 @@
 package org.fluentjava.closures;
 
 /**
- * A predicate is a closure that always returns a boolean (primitive).
+ * A predicate is a {@link Closure} that always returns a boolean (primitive).
  */
 public abstract class Predicate extends Closure {
 

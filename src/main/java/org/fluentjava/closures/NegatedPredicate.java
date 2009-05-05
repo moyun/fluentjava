@@ -1,7 +1,7 @@
 package org.fluentjava.closures;
 
 /**
- * Returns the opposite of the predicate on eval calls.
+ * Returns the opposite of the {@link Predicate} on eval calls.
  */
 class NegatedPredicate extends Predicate {
 

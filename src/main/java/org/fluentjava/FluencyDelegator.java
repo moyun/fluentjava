@@ -3,7 +3,7 @@ package org.fluentjava;
 import org.fluentjava.closures.Closure;
 
 /**
- * Fluency that delegates my to a target.
+ * {@link Fluency} that delegates my to a target.
  */
 public class FluencyDelegator extends Fluency {
 

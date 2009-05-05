@@ -16,7 +16,7 @@ public class InvocationHandlerAdapter implements InvocationHandler {
 	protected final Closure closure;
 	protected final Class<?> adpatedInteface;
 
-	protected InvocationHandlerAdapter(Closure closure, Class<?> adpatedInteface) {
+	public InvocationHandlerAdapter(Closure closure, Class<?> adpatedInteface) {
 		this.closure = closure;
 		this.adpatedInteface = adpatedInteface;
 	}

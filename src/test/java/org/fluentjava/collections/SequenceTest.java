@@ -90,7 +90,13 @@ public class SequenceTest {
 		a.add(ar);
 		assertEquals(a, a.flatten());
 	}
-
+	
+	@Test
+	public void testSequenceOfAlist() throws Exception {
+		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
+		assertEquals(asList(1, 2, 3), list);
+	}
+	
 	private List<Integer> half(Integer... array) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (Integer integer : array) {
@@ -99,10 +105,6 @@ public class SequenceTest {
 		return ret;
 	}
 
-	@Test
-	public void testSequenceOfAlist() throws Exception {
-		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
-		assertEquals(asList(1, 2, 3), list);
-	}
+	
 
 }

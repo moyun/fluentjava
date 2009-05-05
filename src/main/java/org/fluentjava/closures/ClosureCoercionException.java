@@ -1,7 +1,7 @@
 package org.fluentjava.closures;
 
 /**
- * Indicates an Object could not be converted to a Closure.
+ * Indicates an Object could not be converted to a {@link Closure}.
  */
 public class ClosureCoercionException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

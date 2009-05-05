@@ -6,7 +6,7 @@ package org.fluentjava.collections;
 import java.util.Comparator;
 
 /**
- * Comparator that takes any type that is comparable, and uses its natural order. The
+ * {@link Comparator} that takes any type that is comparable, and uses its natural order. The
  * check is made at runtime though, so that this comparator can be used on Generic
  * classes, as you cannot cast a type E to a Comparable<? super E>
  * 
