@@ -8,7 +8,7 @@ import org.fluentjava.iterators.AbstractExtendedIterator;
 import org.fluentjava.iterators.ExtendedIterator;
 
 /**
- * Standard Implementation of Fluent map.
+ * Standard Implementation of {@link FluentMap}.
  * 
  * @param <K>
  * Type of keys.

@@ -26,7 +26,7 @@ public class FluentUtils {
 	 * Factory Methods
 	 */
 	/**
-	 * Creates an empty FluentList of type T.
+	 * Creates an empty {@link FluentList} of type T.
 	 * 
 	 * @param <T>
 	 * @return
@@ -36,7 +36,7 @@ public class FluentUtils {
 	}
 
 	/**
-	 * Create a FluentList with elements args.
+	 * Create a {@link FluentList} with elements args.
 	 * 
 	 * @param <T>
 	 * @param args
@@ -47,7 +47,7 @@ public class FluentUtils {
 	}
 
 	/**
-	 * Creates a FluentList the with the iterable elements.
+	 * Creates a {@link FluentList} the with the iterable elements.
 	 * 
 	 * @param <T>
 	 * @param iterable
@@ -58,7 +58,7 @@ public class FluentUtils {
 	}
 
 	/**
-	 * Creates a fluent list of object.
+	 * Creates a fluent list of objects.
 	 * 
 	 * @param args
 	 * @return
@@ -68,7 +68,7 @@ public class FluentUtils {
 	}
 
 	/**
-	 * Creates an empty FluentSet of type T.
+	 * Creates an empty {@link FluentSet} of type T.
 	 * 
 	 * @param <T>
 	 * @return
@@ -78,7 +78,7 @@ public class FluentUtils {
 	}
 
 	/**
-	 * Create a FluentSet with elements args.
+	 * Create a {@link FluentSet} with elements args.
 	 * 
 	 * @param <T>
 	 * @param args
@@ -87,9 +87,19 @@ public class FluentUtils {
 	public static <T> FluentSet<T> set(T... args) {
 		return new ExtendedSet<T>(args);
 	}
+	
+	/**
+	 * Creates a {@link FluentSet} of objects.
+	 * 
+	 * @param args
+	 * @return
+	 */
+	public static FluentSet<Object> aSet(Object... args) {
+		return new ExtendedSet<Object>(args);
+	}
 
 	/**
-	 * Creates a FluentSet the with the iterable elements.
+	 * Creates a {@link FluentSet} the with the iterable elements.
 	 * 
 	 * @param <T>
 	 * @param iterable
@@ -100,7 +110,7 @@ public class FluentUtils {
 	}
 
 	/**
-	 * Creates a simple pair.
+	 * Creates a simple {@link Pair}.
 	 * 
 	 * @param <F>
 	 * @param <S>
@@ -121,6 +131,18 @@ public class FluentUtils {
 	 * @return
 	 */
 	public static ClosureOfAMethod my(Object target, String methodName) {
+		return new ClosureOfAMethod(target, findMethod(target, methodName));
+	}
+	
+	/**
+	 * Alias to {@link #my(Object, String)}.
+	 * 
+	 * @param target
+	 * @param methodName
+	 * 
+	 * @return
+	 */
+	public static ClosureOfAMethod call(Object target, String methodName) {
 		return new ClosureOfAMethod(target, findMethod(target, methodName));
 	}
 

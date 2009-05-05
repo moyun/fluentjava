@@ -63,7 +63,9 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 	}
 
 	public FluentSet<E> insert(Iterable<? extends E> iterable) {
-		addAll(new Sequence<E>(iterable));
+		for (E e : iterable) {
+			add(e);
+		}
 		return this;
 	}
 

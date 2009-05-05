@@ -9,7 +9,7 @@ import org.fluentjava.collections.Sequence;
 import org.fluentjava.reflection.RuntimeReflectionException;
 
 /**
- * Converts Objects do Closures, or throws ClosureCoercionException if can't.
+ * Converts Objects do Closures, or throws {@link ClosureCoercionException} if can't.
  */
 public class ClosureCoercion {
 	/*

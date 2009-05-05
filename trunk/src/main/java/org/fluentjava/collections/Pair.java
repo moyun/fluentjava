@@ -3,7 +3,7 @@ package org.fluentjava.collections;
 import java.util.Map.Entry;
 
 /**
- * Simple Pair of types F and S. Similar to Map.Entry, but does not have the same
+ * Simple Pair of types F and S. Similar to {@link Entry}, but does not have the same
  * semantics: it is not necessarily a key and a value. But, for backwards compatibility,
  * it implements Entry.
  * 
