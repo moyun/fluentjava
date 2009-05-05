@@ -2,7 +2,9 @@ package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.HashSet;
 
 import org.fluentjava.iterators.ExtendedIterator;
@@ -14,9 +16,11 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  * @param <E>
  * Type of elements
  */
-public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
-	private static final long serialVersionUID = 1L;
+public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E>, Cloneable, Serializable {
+	private static final long serialVersionUID = 2L;
 
+	protected final HashSet<E> delegateSet = new HashSet<E>();
+	
 	/*
 	 * Constructors
 	 */
@@ -50,7 +54,7 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 
 	@Override
 	public ExtendedIterator<E> iterator() {
-		return new ExtendedIteratorAdapter<E>(super.iterator());
+		return new ExtendedIteratorAdapter<E>(delegateSet.iterator());
 	}
 
 	public FluentSet<E> insert(E element) {
@@ -84,91 +88,71 @@ public class ExtendedSet<E> extends HashSet<E> implements FluentSet<E> {
 		return toArray((T[]) Array.newInstance(clazz, size()));
 	}
 
-	public boolean allSatisfy(Object closure) throws EnumeratingException {
-		return enumerator().allSatisfy(closure);
+	public boolean add(E e) {
+		return delegateSet.add(e);
 	}
 
-	public boolean anySatisfy(Object closure) throws EnumeratingException {
-		return enumerator().anySatisfy(closure);
+	public boolean addAll(Collection<? extends E> c) {
+		return delegateSet.addAll(c);
 	}
 
-	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
-		return enumerator().collect(closure);
+	public void clear() {
+		delegateSet.clear();
 	}
 
-	public int count(Object closure) throws EnumeratingException {
-		return enumerator().count(closure);
+	public Object clone() {
+		return delegateSet.clone();
 	}
 
-	public E detect(Object closure) throws EnumeratingException {
-		return enumerator().detect(closure);
+	public boolean contains(Object o) {
+		return delegateSet.contains(o);
 	}
 
-	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
-		return enumerator().detectIfNone(closure, ifNone);
+	public boolean containsAll(Collection<?> c) {
+		return delegateSet.containsAll(c);
 	}
 
-	public boolean exists(Object closure) throws EnumeratingException {
-		return enumerator().exists(closure);
+	public boolean equals(Object o) {
+		return delegateSet.equals(o);
 	}
 
-	public void foreach(Object closure) throws EnumeratingException {
-		enumerator().foreach(closure);
-	}
-
-	public E inject(E initial, Object closure) throws EnumeratingException {
-		return enumerator().inject(initial, closure);
-	}
-
-	public E inject(Object closure) throws EnumeratingException {
-		return enumerator().inject(closure);
-	}
-
-	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
-		return enumerator().map(closure);
-	}
-
-	public boolean noneSatisfy(Object closure) throws EnumeratingException {
-		return enumerator().noneSatisfy(closure);
-	}
-
-	public E reduce(E initial, Object closure) throws EnumeratingException {
-		return enumerator().reduce(initial, closure);
-	}
-
-	public E reduce(Object closure) throws EnumeratingException {
-		return enumerator().reduce(closure);
-	}
-
-	public FluentList<E> reject(Object closure) throws EnumeratingException {
-		return enumerator().reject(closure);
-	}
-
-	public FluentList<E> select(Object closure) throws EnumeratingException {
-		return enumerator().select(closure);
-	}
-
-	public FluentList<E> sort() {
-		return enumerator().sort();
-	}
-
-	public FluentList<E> sort(Object closure) throws EnumeratingException {
-		return enumerator().sort(closure);
-	}
-
-	public FluentList<E> toList() {
-		return enumerator().toList();
-	}
-
-	public FluentSet<E> toSet() {
-		return enumerator().toSet();
+	public int hashCode() {
+		return delegateSet.hashCode();
 	}
 
 	/*
-	 * Other Methods
+	 * Delegate Methods
 	 */
-	private Enumerator<E> enumerator() {
-		return new Enumerator<E>(this);
+	public boolean isEmpty() {
+		return delegateSet.isEmpty();
+	}
+
+	public boolean remove(Object o) {
+		return delegateSet.remove(o);
+	}
+
+	public boolean removeAll(Collection<?> c) {
+		return delegateSet.removeAll(c);
+	}
+
+	public boolean retainAll(Collection<?> c) {
+		return delegateSet.retainAll(c);
+	}
+
+	public int size() {
+		return delegateSet.size();
+	}
+
+	public Object[] toArray() {
+		return delegateSet.toArray();
+	}
+
+	public <T> T[] toArray(T[] a) {
+		return delegateSet.toArray(a);
+	}
+
+	public String toString() {
+		return delegateSet.toString();
 	}
 
 }
