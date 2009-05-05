@@ -103,6 +103,11 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		}
 
 	}
+	
+	@Override
+	public FluentList<E> findAll(Object closure) throws EnumeratingException {
+		return select(closure);
+	}
 
 	public FluentList<E> reject(Object closure) throws EnumeratingException {
 		return select(toPredicate(closure).negated());

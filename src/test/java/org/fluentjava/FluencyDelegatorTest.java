@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class FluencyDelegationTest {
+public class FluencyDelegatorTest {
 
 	@Test
 	public void testDelegationOfMy() throws Exception {
@@ -16,7 +16,6 @@ public class FluencyDelegationTest {
 		public String getHelloString() {
 			return "Hello";
 		}
-
 	}
 
 }
