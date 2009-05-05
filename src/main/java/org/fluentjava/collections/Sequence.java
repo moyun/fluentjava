@@ -103,6 +103,10 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		recFlatten(ret, new IdentityHashMap<Object, Boolean>(), this);
 		return ret;
 	}
+	
+	public Object clone() {
+		return toList();
+	}
 
 	/*
 	 * Other Methods
@@ -146,10 +150,6 @@ public class Sequence<E> extends AbstractEnumerable<E>
 
 	public void clear() {
 		delegateList.clear();
-	}
-
-	public Object clone() {
-		return delegateList.clone();
 	}
 
 	public boolean contains(Object o) {

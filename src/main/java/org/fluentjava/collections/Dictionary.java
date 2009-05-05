@@ -73,15 +73,15 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 		};
 	}
 
+	public Object clone() {
+		return new Dictionary<K, V>(delegateMap);
+	}
+
 	/*
 	 * Delegate Methods
 	 */
 	public void clear() {
 		delegateMap.clear();
-	}
-
-	public Object clone() {
-		return delegateMap.clone();
 	}
 
 	public boolean containsKey(Object key) {
