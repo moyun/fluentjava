@@ -27,7 +27,7 @@ public class ClosureCoercion {
 		}
 		if (closure instanceof String) {
 			String nameOfAMethod = (String) closure;
-			return new ClosureOfAString(nameOfAMethod);
+			return new ClosureOfAMethodName(nameOfAMethod);
 		}
 		Method method = getSingleAbstractMethod(closure);
 		if (method != null) {

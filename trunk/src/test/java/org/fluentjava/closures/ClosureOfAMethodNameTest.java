@@ -1,15 +1,25 @@
 package org.fluentjava.closures;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import org.junit.Test;
 
-public class ClosureOfAStringTest {
+public class ClosureOfAMethodNameTest {
+	
+	@Test
+	public void testJustInvokingToString() throws Exception {
+		List<Integer> list = asList(1, 2, 3);
+		ClosureOfAMethodName cl = new ClosureOfAMethodName("toString");
+		assertEquals("[1, 2, 3]", cl.invoke(list));
+	}
 
 	@Test
 	public void testAClassWithOverloadedMethodsArgwise() throws Exception {
 		OverloadedMethodsArgwise mock = new OverloadedMethodsArgwise();
-		ClosureOfAString closure = new ClosureOfAString("inc");
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("inc");
 		Integer oneArgRet = closure.invoke(mock, 0);
 		assertEquals(1, oneArgRet);
 
@@ -21,7 +31,7 @@ public class ClosureOfAStringTest {
 	@Test
 	public void testSimpleVarArgs() throws Exception {
 		SimpleVarArrgs mock = new SimpleVarArrgs();
-		ClosureOfAString closure = new ClosureOfAString("inc");
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("inc");
 		Integer ret = closure.invoke(mock, 0, "one", "two");
 		assertEquals(1, ret);
 	}
@@ -29,7 +39,7 @@ public class ClosureOfAStringTest {
 	@Test
 	public void testWithOverloadedVarARgs() throws Exception {
 		OverloadedVarArgs mock = new OverloadedVarArgs();
-		ClosureOfAString closure = new ClosureOfAString("inc");
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("inc");
 		Integer oneArgRet = closure.invoke(mock, 0);
 		assertEquals(1, oneArgRet);
 

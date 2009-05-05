@@ -2,6 +2,8 @@ package org.fluentjava.collections;
 
 import org.fluentjava.iterators.ExtendedIterable;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
  * elements to be operated on with closures. All exceptions caught while iterating are
@@ -71,6 +73,15 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @throws EnumeratingException
 	 */
 	FluentList<E> select(Object closure) throws EnumeratingException;
+	
+	
+	/**
+	 * Alias to {@link Select}.
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	FluentList<E> findAll(Object closure) throws EnumeratingException;
 
 	/**
 	 * Filter returning a FluentList with the elements such but the ones that the closure

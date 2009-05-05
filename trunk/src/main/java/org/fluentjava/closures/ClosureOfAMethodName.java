@@ -8,14 +8,15 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Wraps around a public method name. The first argument of call must always be a class
- * such that method can be invoked on it.
+ * Whenever this {@link #call(Object...)} is invoked, it reflectively invokes the
+ * {@link #methodName} into the first argument passed, passing the rest of the arguments
+ * to the actual method.
  */
-public class ClosureOfAString extends Closure {
+public class ClosureOfAMethodName extends Closure {
 
 	protected final String methodName;
 
-	public ClosureOfAString(String methodName) {
+	public ClosureOfAMethodName(String methodName) {
 		this.methodName = methodName;
 	}
 
