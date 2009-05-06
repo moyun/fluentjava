@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.fluentjava.collections.EnumeratingException;
 import org.fluentjava.collections.FluentList;
@@ -71,6 +72,13 @@ public class FluencyTest extends Fluency {
 	@Test
 	public void testRangeWithStartAndStopParameters() throws Exception {
 		assertEquals(list(1, 2, 3), range(1, 4));
+	}
+	
+	@Test
+	public void testFluentCast() throws Exception {
+		List<Object> upCasted = list();
+		FluentList<Object> fluentCasted = as(upCasted);
+		assertEquals(upCasted, fluentCasted);
 	}
 
 	private int squareOfInt(int i) {

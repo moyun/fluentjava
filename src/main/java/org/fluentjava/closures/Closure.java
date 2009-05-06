@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.concurrent.Callable;
 
+import org.fluentjava.FluentUtils;
+
 /**
  * Approximation of the concept of closure on Java, abstracting a function defintion. It
  * is not really a closure, as it does not close around the environment.
@@ -92,10 +94,9 @@ public abstract class Closure {
 	 * Interface to be adapted
 	 * @return A proxy to self.
 	 */
-	@SuppressWarnings("unchecked")
 	public <T> T toInteface(Class<?> clazz) {
 		InvocationHandler handler = new InvocationHandlerAdapter(this, clazz);
-		return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, handler);
+		return FluentUtils.<T>as(Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, handler));
 	}
 
 	/**

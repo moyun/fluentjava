@@ -1,6 +1,7 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.as;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -60,7 +61,6 @@ public class Sequence<E> extends AbstractEnumerable<E>
 	/*
 	 * Public Methods
 	 */
-
 	@Override
 	public boolean containsAny(E... list) {
 		return containsAny(asList(list));
@@ -101,28 +101,28 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		return new ExtendedIteratorAdapter<E>(delegateList.iterator());
 	}
 
-	public FluentList<E> insert(E e) {
+	public Sequence<E> insert(E e) {
 		add(e);
 		return this;
 	}
 
-	public FluentList<E> insert(E... list) {
+	public Sequence<E> insert(E... list) {
 		return insert(asList(list));
 	}
 
-	public FluentList<E> insert(Iterable<? extends E> iterable) {
+	public Sequence<E> insert(Iterable<? extends E> iterable) {
 		for (E e : iterable) {
 			add(e);
 		}
 		return this;
 	}
 
-	public FluentList<E> delete(E... list) {
+	public Sequence<E> delete(E... list) {
 		removeAll(asList(list));
 		return this;
 	}
 
-	public FluentList<E> delete(Iterable<? extends E> iterable) {
+	public Sequence<E> delete(Iterable<? extends E> iterable) {
 		removeAll(new Sequence<E>(iterable));
 		return this;
 	}
@@ -155,7 +155,7 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		visitedLists.put(target, true);
 		for (Object e : target) {
 			if (e instanceof List) {
-				List<?> subList = (List<?>) e;
+				List<?> subList = as(e);
 				recFlatten(ret, visitedLists, subList);
 			}
 			else {

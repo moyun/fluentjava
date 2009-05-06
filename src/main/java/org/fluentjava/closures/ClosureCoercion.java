@@ -1,5 +1,6 @@
 package org.fluentjava.closures;
 
+import static org.fluentjava.FluentUtils.as;
 import java.lang.reflect.Method;
 import java.util.Comparator;
 
@@ -22,11 +23,11 @@ public class ClosureCoercion {
 	 */
 	public static Closure toClosure(Object closure) {
 		if (closure instanceof Closure) {
-			Closure function = (Closure) closure;
+			Closure function = as(closure);
 			return function;
 		}
 		if (closure instanceof String) {
-			String nameOfAMethod = (String) closure;
+			String nameOfAMethod = as(closure);
 			return new ClosureOfAMethodName(nameOfAMethod);
 		}
 		Method method = getSingleAbstractMethod(closure);
@@ -45,7 +46,7 @@ public class ClosureCoercion {
 
 	public static Predicate toPredicate(Object predicate) {
 		if (predicate instanceof Predicate) {
-			return (Predicate) predicate;
+			return as(predicate);
 		}
 		return new PredicateAdapter(toClosure(predicate));
 	}

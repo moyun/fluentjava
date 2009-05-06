@@ -1,5 +1,7 @@
 package org.fluentjava.closures;
 
+import org.fluentjava.FluentUtils;
+
 /**
  * Adapts a {@link Closure} to a {@link Predicate}. If the closure returns a Boolean, nulls are treated as
  * false.
@@ -19,7 +21,7 @@ public class PredicateAdapter extends Predicate {
 			throw new IllegalArgumentException("The apdated closure " + adaptedClosure
 					+ " does not return Booleans, so is can't be adapted to Predicate");
 		}
-		Boolean bol = (Boolean) result;
+		Boolean bol = FluentUtils.as(result);
 		if (bol == null) {
 			return false;
 		}

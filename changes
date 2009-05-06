@@ -1,15 +1,17 @@
 = Release 0.3 (WIP) =
 == New Features ==
  * Better generic support all together
- * Better javadoc
  * ExtendedCollection is now super interface of FluentList and FluentSet. Both now
  implement containsAny, and several varargs facilities of Collection methods.
  * FluentSet now have all set operations, without collateral effect.
  * Enumerable.take, Enumerable.any
  * FluentList.flatten
+ * FluentMap.valuesAt (batch operation)
  * FluentUtils.aSet and FluentUtils.aList, create the collections disregarding type
  safety. Usefull for creating set of sets or list of lists, or set of lists of sets of
  maps, and so on.
+ * FluentUtils.as (and Fluncy.as, as usual): fluent cast with type inference.
+ * Better javadoc
 
 === Method Aliases ===
  * Closure.as is alias to Closure.toInterface

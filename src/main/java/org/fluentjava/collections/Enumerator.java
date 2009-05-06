@@ -1,5 +1,7 @@
 package org.fluentjava.collections;
 
+import static org.fluentjava.FluentUtils.as;
+
 import org.fluentjava.iterators.ExtendedIterable;
 import org.fluentjava.iterators.ExtendedIterator;
 import org.fluentjava.iterators.ExtendedIteratorAdapter;
@@ -20,10 +22,9 @@ public class Enumerator<E> extends AbstractEnumerable<E> implements Enumerable<E
 	/*
 	 * Constructors
 	 */
-	@SuppressWarnings("unchecked")
 	public Enumerator(Iterable<? extends E> iterable) {
 		if (iterable instanceof ExtendedIterable) {
-			this.iterable = (ExtendedIterable<E>) iterable;
+			this.iterable = as(iterable);
 		}
 		else {
 			this.iterable = new ExtendedIteratorAdapter<E>(iterable);
