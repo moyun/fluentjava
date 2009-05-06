@@ -106,7 +106,7 @@ public abstract class Closure {
 	 * @return
 	 */
 	public <T> T as(Class<?> clazz) {
-		return toInteface(clazz);
+		return this.<T>toInteface(clazz);
 	}
 
 	/**
