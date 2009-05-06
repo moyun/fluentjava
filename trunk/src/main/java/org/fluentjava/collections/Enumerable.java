@@ -2,8 +2,6 @@ package org.fluentjava.collections;
 
 import org.fluentjava.iterators.ExtendedIterable;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
  * elements to be operated on with closures. All exceptions caught while iterating are
