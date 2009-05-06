@@ -193,5 +193,14 @@ public abstract class Fluency {
 	protected <T> T as(Object o) {
 		return FluentUtils.<T>as(o);
 	}
-
+	
+	/**
+	 * Delegates to {@link FluentUtils#cast(Object)}.
+	 * @param <T>
+	 * @param o
+	 * @return
+	 */
+	protected <T> T cast(Object o) {
+		return FluentUtils.<T>cast(o);
+	}
 }
