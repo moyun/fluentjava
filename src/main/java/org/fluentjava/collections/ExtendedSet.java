@@ -60,6 +60,41 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	public ExtendedIterator<E> iterator() {
 		return new ExtendedIteratorAdapter<E>(delegateSet.iterator());
 	}
+	
+	@Override
+	public boolean containsAny(E... list) {
+		return containsAny(asList(list));
+	}
+
+	@Override
+	public boolean containsAny(Collection<?> c) {
+		for (Object object : c) {
+			if (contains(object)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean addAll(E... list) {
+		return addAll(asList(list));
+	}
+
+	@Override
+	public boolean containsAll(E... list) {
+		return containsAll(asList(list));
+	}
+
+	@Override
+	public boolean removeAll(E... list) {
+		return removeAll(asList(list));
+	}
+
+	@Override
+	public boolean retainAll(E... list) {
+		return retainAll(asList(list));
+	}
 
 	public FluentSet<E> insert(E element) {
 		add(element);
@@ -212,5 +247,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		}
 		return new ExtendedSet<E>(iterable);
 	}
+
+
 
 }

@@ -2,7 +2,7 @@ package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +95,12 @@ public class SequenceTest {
 	public void testSequenceOfAlist() throws Exception {
 		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
 		assertEquals(asList(1, 2, 3), list);
+	}
+	
+	@Test
+	public void testContainsAny() throws Exception {
+		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
+		assertTrue(list.containsAny(9, 8, 7, 5, 4, 3));
 	}
 	
 	private List<Integer> half(Integer... array) {

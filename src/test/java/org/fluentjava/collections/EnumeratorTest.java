@@ -93,7 +93,7 @@ public class EnumeratorTest {
 	}
 
 	@Test
-	public void testName() throws Exception {
+	public void testForEach() throws Exception {
 		final FluentList<Integer> acummulated = new Sequence<Integer>();
 		Enumerable<Integer> list = list(1, 2, 3, 4, 5, 6, 7);
 		list.foreach(new Closure() {
@@ -180,6 +180,13 @@ public class EnumeratorTest {
 		Enumerable<Integer> list = emptyEnum();
 		assertEquals(10, list.reduce(10, sumBlock()));
 	}
+	
+	@Test
+	public void testTake() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 4);
+		assertEquals(asList(1, 2), list.take(2));
+	}
+	
 
 	private Predicate greaterThan(final int number) {
 		Predicate anyGreaterThan = new Predicate() {

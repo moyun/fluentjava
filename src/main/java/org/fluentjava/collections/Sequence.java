@@ -62,6 +62,41 @@ public class Sequence<E> extends AbstractEnumerable<E>
 	 */
 
 	@Override
+	public boolean containsAny(E... list) {
+		return containsAny(asList(list));
+	}
+
+	@Override
+	public boolean containsAny(Collection<?> c) {
+		for (Object object : c) {
+			if (contains(object)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean addAll(E... list) {
+		return addAll(asList(list));
+	}
+
+	@Override
+	public boolean containsAll(E... list) {
+		return containsAll(asList(list));
+	}
+
+	@Override
+	public boolean removeAll(E... list) {
+		return removeAll(asList(list));
+	}
+
+	@Override
+	public boolean retainAll(E... list) {
+		return retainAll(asList(list));
+	}
+
+	@Override
 	public ExtendedIterator<E> iterator() {
 		return new ExtendedIteratorAdapter<E>(delegateList.iterator());
 	}
@@ -239,4 +274,5 @@ public class Sequence<E> extends AbstractEnumerable<E>
 	public void trimToSize() {
 		delegateList.trimToSize();
 	}
+
 }

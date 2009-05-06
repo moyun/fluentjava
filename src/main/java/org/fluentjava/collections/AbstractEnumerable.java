@@ -103,7 +103,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		}
 
 	}
-	
+
 	@Override
 	public FluentList<E> findAll(Object closure) throws EnumeratingException {
 		return select(closure);
@@ -187,6 +187,29 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	public E inject(E initial, Object closure) throws EnumeratingException {
 		return reduce(initial, closure);
+	}
+
+	public FluentList<E> take(int n) {
+		if (n < 0) {
+			throw new IllegalArgumentException("Cannot take negative ammount of elements:" + n);
+		}
+		FluentList<E> ret = new Sequence<E>();
+		for (E e : iterator()) {
+			if (n-- == 0) {
+				break;
+			}
+			ret.add(e);
+		}
+		return ret; 
+	}
+	
+	@Override
+	public E any() {
+		ExtendedIterator<E> i = iterator();
+		if (!i.hasNext()) {
+			return null;
+		}
+		return i.next();
 	}
 
 	/*

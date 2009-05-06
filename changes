@@ -1,0 +1,36 @@
+= Release 0.3 (WIP) =
+== New Features ==
+ * Better generic support all together
+ * Better javadoc
+ * ExtendedCollection is now super interface of FluentList and FluentSet. Both now
+ implement containsAny, and several varargs facilities of Collection methods.
+ * FluentSet now have all set operations, without collateral effect.
+ * Enumerable.take, Enumerable.any
+ * FluentList.flatten
+ * FluentUtils.aSet and FluentUtils.aList, create the collections disregarding type
+ safety. Usefull for creating set of sets or list of lists, or set of lists of sets of
+ maps, and so on.
+
+=== Method Aliases ===
+ * Closure.as is alias to Closure.toInterface
+ * Fluentutils.call is alias to Fluentutils.my
+ * Enumerable.findAll is alias to Enumerable.select
+
+== Breaking Changes ==
+ * Fluent Collections no longer extend java.util classes. That is: Sequence does not
+ extend ArrayList, Dictionary does not extend HashMap, and ExtendedSet does not extend
+ HashSet.
+ * ClosureOfAString renamed to ClosureOfAMethodName. Just to make things clearer, although
+ the prefered way is to always call ClosureCoercion.toClosure.
+
+= Release 0.2.1 =
+== New ones ==
+ * _my_ is callable as static method on fluent Utils
+ * Closure of a String now differs arity overloded methods and can call varargs.
+ * Hamcrest matchers supported! They coerce to closure now.
+ * Convenient methods to create callables, runnables and threads from a closure.
+ * Range and IRange from python down to Java. On !FluentUtils, ubiquous facade.
+
+== Breaking Changes ==
+ * Pair moved from iterators to collections package.
+ * All factory methods from Sequence, Dictionary, Pair, etc, moved to a new Facade: !FluentUtils.
