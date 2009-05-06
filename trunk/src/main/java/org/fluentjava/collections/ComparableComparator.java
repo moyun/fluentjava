@@ -3,6 +3,8 @@
  */
 package org.fluentjava.collections;
 
+import static org.fluentjava.FluentUtils.as;
+
 import java.util.Comparator;
 
 /**
@@ -18,10 +20,9 @@ public class ComparableComparator<T> implements Comparator<T> {
 	public ComparableComparator() {
 	}
 
-	@SuppressWarnings("unchecked")
 	public int compare(T o1, T o2) {
 		if (o1 instanceof Comparable) {
-			Comparable<T> c1 = (Comparable<T>) o1;
+			Comparable<T> c1 = as(o1);
 			return c1.compareTo(o2);
 		}
 		throw new IllegalArgumentException(o1 + " does not have a natural order");

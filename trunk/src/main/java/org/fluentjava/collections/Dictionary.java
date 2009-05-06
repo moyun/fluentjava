@@ -52,12 +52,12 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return new ExtendedSet<K>(keySet());
 	}
 
-	public FluentMap<K, V> putAt(K key, V value) {
+	public Dictionary<K, V> putAt(K key, V value) {
 		put(key, value);
 		return this;
 	}
 
-	public FluentMap<K, V> insert(Map<? extends K, ? extends V> m) {
+	public Dictionary<K, V> insert(Map<? extends K, ? extends V> m) {
 		putAll(m);
 		return this;
 	}

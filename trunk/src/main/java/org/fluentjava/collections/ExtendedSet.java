@@ -1,6 +1,7 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.as;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -96,28 +97,28 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		return retainAll(asList(list));
 	}
 
-	public FluentSet<E> insert(E element) {
+	public ExtendedSet<E> insert(E element) {
 		add(element);
 		return this;
 	}
 
-	public FluentSet<E> insert(E... set) {
+	public ExtendedSet<E> insert(E... set) {
 		return insert(asList(set));
 	}
 
-	public FluentSet<E> insert(Iterable<? extends E> iterable) {
+	public ExtendedSet<E> insert(Iterable<? extends E> iterable) {
 		for (E e : iterable) {
 			add(e);
 		}
 		return this;
 	}
 
-	public FluentSet<E> delete(E... elements) {
+	public ExtendedSet<E> delete(E... elements) {
 		removeAll(asList(elements));
 		return this;
 	}
 
-	public FluentSet<E> delete(Iterable<? extends E> iterable) {
+	public ExtendedSet<E> delete(Iterable<? extends E> iterable) {
 		removeAll(new Sequence<E>(iterable));
 		return this;
 	}
@@ -146,50 +147,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	public boolean containsAll(Collection<?> c) {
 		return delegateSet.containsAll(c);
 	}
-
-	public boolean equals(Object o) {
-		return delegateSet.equals(o);
-	}
-
-	public int hashCode() {
-		return delegateSet.hashCode();
-	}
-
-	/*
-	 * Delegate Methods
-	 */
-	public boolean isEmpty() {
-		return delegateSet.isEmpty();
-	}
-
-	public boolean remove(Object o) {
-		return delegateSet.remove(o);
-	}
-
-	public boolean removeAll(Collection<?> c) {
-		return delegateSet.removeAll(c);
-	}
-
-	public boolean retainAll(Collection<?> c) {
-		return delegateSet.retainAll(c);
-	}
-
-	public int size() {
-		return delegateSet.size();
-	}
-
-	public Object[] toArray() {
-		return delegateSet.toArray();
-	}
-
-	public <T> T[] toArray(T[] a) {
-		return delegateSet.toArray(a);
-	}
-
-	public String toString() {
-		return delegateSet.toString();
-	}
-
+	
 	@Override
 	public FluentSet<E> intersect(Iterable<? extends E> iterable) {
 		FluentSet<E> clone = toSet();
@@ -239,11 +197,54 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	}
 
 	/*
+	 * Delegate Methods
+	 */
+	public boolean equals(Object o) {
+		return delegateSet.equals(o);
+	}
+
+	public int hashCode() {
+		return delegateSet.hashCode();
+	}
+	
+	public boolean isEmpty() {
+		return delegateSet.isEmpty();
+	}
+
+	public boolean remove(Object o) {
+		return delegateSet.remove(o);
+	}
+
+	public boolean removeAll(Collection<?> c) {
+		return delegateSet.removeAll(c);
+	}
+
+	public boolean retainAll(Collection<?> c) {
+		return delegateSet.retainAll(c);
+	}
+
+	public int size() {
+		return delegateSet.size();
+	}
+
+	public Object[] toArray() {
+		return delegateSet.toArray();
+	}
+
+	public <T> T[] toArray(T[] a) {
+		return delegateSet.toArray(a);
+	}
+
+	public String toString() {
+		return delegateSet.toString();
+	}
+
+	/*
 	 * Other Methods
 	 */
 	private Collection<? extends E> iterableToCollection(Iterable<? extends E> iterable) {
 		if (iterable instanceof Collection) {
-			return (Collection<? extends E>) iterable;
+			return as(iterable);
 		}
 		return new ExtendedSet<E>(iterable);
 	}

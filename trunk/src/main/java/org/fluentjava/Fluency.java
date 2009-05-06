@@ -184,4 +184,14 @@ public abstract class Fluency {
 		return FluentUtils.irange(start, stop);
 	}
 
+	/**
+	 * Delegates to {@link FluentUtils#as(Object)}.
+	 * @param <T>
+	 * @param o
+	 * @return
+	 */
+	protected <T> T as(Object o) {
+		return FluentUtils.<T>as(o);
+	}
+
 }

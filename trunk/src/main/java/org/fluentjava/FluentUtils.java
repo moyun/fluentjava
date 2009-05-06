@@ -217,6 +217,17 @@ public class FluentUtils {
 	public static ExtendedIterable<Integer> irange(int start, int stop) {
 		return new IRangeFactory(start, stop);
 	}
+	
+	/**
+	 * Fluent Cast any object to a type T. Natural type inference.
+	 * @param <T>
+	 * @param o
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T as(Object o) {
+		return (T) o;
+	}
 
 	/*
 	 * Private Methods
