@@ -73,10 +73,10 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @throws EnumeratingException
 	 */
 	FluentList<E> select(Object closure) throws EnumeratingException;
-	
-	
+
 	/**
 	 * Alias to {@link Select}.
+	 * 
 	 * @param closure
 	 * @return
 	 * @throws EnumeratingException
@@ -211,4 +211,19 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @throws EnumeratingException
 	 */
 	E inject(E initial, Object closure) throws EnumeratingException;
+
+	/**
+	 * Takes the first n elements. In case the iterable has less than n elements, returns
+	 * as much as possible.
+	 * 
+	 * @param n
+	 * @return
+	 */
+	FluentList<E> take(int n);
+	
+	/**
+	 * Return any element of the iterable. If there are no elements, return null.
+	 * @return
+	 */
+	E any();
 }

@@ -12,7 +12,7 @@ import java.util.Set;
  * @param <E>
  * Type of elements
  */
-public interface FluentSet<E> extends Set<E>, Enumerable<E> {
+public interface FluentSet<E> extends Set<E>, Enumerable<E>, ExtendedCollection<E> {
 	/**
 	 * Similar to the method toArray, but receives no args and is type safe. Also, the
 	 * returned array is just a copy. Note that the class is necessary, as Gererics by
@@ -79,11 +79,12 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 
 	/**
 	 * Alias to {@link #intersect(Iterable)}.
+	 * 
 	 * @param iterable
 	 * @return
 	 */
 	FluentSet<E> and(Iterable<? extends E> iterable);
-	
+
 	/**
 	 * Returns a new Fluent Set with the union of this and the set of elements from the
 	 * iterable.
@@ -92,14 +93,14 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 	 * @return
 	 */
 	FluentSet<E> union(Iterable<? extends E> iterable);
-	
+
 	/**
 	 * Alias to {@link #union(Iterable)}.
+	 * 
 	 * @param iterable
 	 * @return
 	 */
 	FluentSet<E> or(Iterable<? extends E> iterable);
-
 
 	/**
 	 * Returns a new Fluent Set with the elements ofthis minus the ones from the set of
@@ -109,9 +110,10 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 	 * @return
 	 */
 	FluentSet<E> difference(Iterable<? extends E> iterable);
-	
+
 	/**
 	 * Alias to {@link #difference(Iterable)}.
+	 * 
 	 * @param iterable
 	 * @return
 	 */
@@ -120,7 +122,8 @@ public interface FluentSet<E> extends Set<E>, Enumerable<E> {
 	/**
 	 * Returns a new Fluent Set with the symmetric difference of this and the set of
 	 * elements from the iterable. That is: the union of this and iterable minus the
-	 * intersection of this and iterable.
+	 * intersection of this and iterable. In other words: a set with what is exclusive to
+	 * this and the set of elements of iterable.
 	 * 
 	 * @param iterable
 	 * @return

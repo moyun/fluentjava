@@ -11,17 +11,7 @@ import java.util.List;
  * @param <E>
  * Type of elements
  */
-public interface FluentList<E> extends List<E>, Enumerable<E> {
-
-	/**
-	 * Similar to the method toArray, but receives no args and is type safe. Also, the
-	 * returned array is just a copy. Note that the class is necessary, as Generics by
-	 * themselves cannot solve this problem alone. For more info:
-	 * http://www.ibm.com/developerworks/java/library/j-jtp01255.html
-	 * 
-	 * @return A copy of the list as an array.
-	 */
-	<T> T[] array(Class<T> clazz);
+public interface FluentList<E> extends List<E>, Enumerable<E>, ExtendedCollection<E> {
 
 	/**
 	 * Fluent method (returns self). Adds all elements on the list.

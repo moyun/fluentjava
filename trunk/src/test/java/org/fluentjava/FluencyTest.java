@@ -72,7 +72,7 @@ public class FluencyTest extends Fluency {
 	public void testRangeWithStartAndStopParameters() throws Exception {
 		assertEquals(list(1, 2, 3), range(1, 4));
 	}
-	
+
 	private int squareOfInt(int i) {
 		return i * i;
 	}

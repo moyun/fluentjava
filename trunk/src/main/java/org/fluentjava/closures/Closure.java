@@ -99,6 +99,17 @@ public abstract class Closure {
 	}
 
 	/**
+	 * Alias to {@link #toInteface(Class)}.
+	 * 
+	 * @param <T>
+	 * @param clazz
+	 * @return
+	 */
+	public <T> T as(Class<?> clazz) {
+		return toInteface(clazz);
+	}
+
+	/**
 	 * Adapts self to a Callable.
 	 * 
 	 * @return
