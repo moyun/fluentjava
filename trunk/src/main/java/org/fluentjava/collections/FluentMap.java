@@ -46,4 +46,8 @@ public interface FluentMap<K, V> extends Enumerable<Pair<K, V>>, Map<K, V> {
 	 * @return
 	 */
 	FluentList<V> allValues();
+	
+	FluentList<V> valuesAt(Iterable<? extends K> keys);
+	
+	FluentList<V> valuesAt(K... keys);
 }
