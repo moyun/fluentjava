@@ -225,8 +225,18 @@ public class FluentUtils {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T as(Object o) {
+	public static <T> T cast(Object o) {
 		return (T) o;
+	}
+	
+	/**
+	 * Alias to {@link #cast(Object)}.
+	 * @param <T>
+	 * @param o
+	 * @return
+	 */
+	public static <T> T as(Object o) {
+		return FluentUtils.<T>cast(o);
 	}
 
 	/*
@@ -305,7 +315,9 @@ public class FluentUtils {
 		public ExtendedIterator<Integer> iterator() {
 			return new IRangeExtendedIterator(start, stop);
 		}
-
+	}
+	
+	private FluentUtils() {
 	}
 
 }
