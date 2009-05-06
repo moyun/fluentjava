@@ -1,5 +1,7 @@
 package org.fluentjava.collections;
 
+import static java.util.Arrays.asList;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -72,6 +74,20 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 			}
 		};
 	}
+	
+	@Override
+	public FluentList<V> valuesAt(Iterable<? extends K> keys) {
+		FluentList<V> ret = new Sequence<V>();
+		for (K key : keys) {
+			ret.add(get(key));
+		}
+		return ret;
+	}
+
+	@Override
+	public FluentList<V> valuesAt(K... keys) {
+		return valuesAt(asList(keys));
+	}
 
 	public Object clone() {
 		return new Dictionary<K, V>(delegateMap);
@@ -139,5 +155,7 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 	public Collection<V> values() {
 		return delegateMap.values();
 	}
+
+
 
 }

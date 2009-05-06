@@ -85,6 +85,14 @@ public class DictionaryTest {
 		mapKey(clone, "Item 3", 3);
 		assertTrue(map.isEmpty());
 	}
+	
+	@Test
+	public void testValuesAt() throws Exception {
+		FluentMap<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>()
+			.putAt("Item 1", 1)
+			.putAt("Item 2", 2);
+		assertEquals(FluentUtils.list(1, null, 1), dictionary.valuesAt("Item 1", "not included", "Item 1"));
+	}
 
 	private HashSet<Pair<String, Integer>> set(List<Pair<String, Integer>> array) {
 		return new HashSet<Pair<String, Integer>>(array);
