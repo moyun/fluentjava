@@ -1,11 +1,13 @@
 package org.fluentjava.collections;
 
+import static org.fluentjava.FluentUtils.as;
 import static org.fluentjava.closures.ClosureCoercion.toClosure;
 import static org.fluentjava.closures.ClosureCoercion.toPredicate;
 
 import java.util.Collections;
 import java.util.Comparator;
 
+import org.fluentjava.Closures;
 import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.Predicate;
 import org.fluentjava.iterators.ExtendedIterator;
@@ -225,13 +227,36 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	@Override
 	public E maxBy(Object closure) {
+		return getMax(closure, new ComparableComparator<Object>());
+	}
+	
+	@Override
+	public E min() {
+		return doMin(new ComparableComparator<E>());
+	}
+
+	@Override
+	public E min(Object closure) {
+		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
+		return doMin(comparator);
+	}
+	
+	@Override
+	public E minBy(Object closure) {
+		return getMax(closure, reverse(new ComparableComparator<Object>()));
+	}
+
+	/*
+	 * Other Methods
+	 */
+	private E getMax(Object valueFunction, Comparator<?> comparatorOfValue) {
 		ExtendedIterator<E> it = iterator();
 		if (!it.hasNext()) {
 			return null;
 		}
 		try {
-			Closure function = toClosure(closure);
-			ComparableComparator<Object> comp = new ComparableComparator<Object>();
+			Comparator<Object> comp = as(comparatorOfValue);
+			Closure function = toClosure(valueFunction);
 			E ret = it.next();
 			Object retValue = function.call(ret);
 			for (E cur : it) {
@@ -246,59 +271,17 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 			throw new EnumeratingException(e);
 		}
 	}
-
-	@Override
-	public E min() {
-		return doMin(new ComparableComparator<E>());
-	}
-
-	@Override
-	public E min(Object closure) {
-		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
-		return doMin(comparator);
-	}
 	
-	@Override
-	public E minBy(Object closure) {
-		ExtendedIterator<E> it = iterator();
-		if (!it.hasNext()) {
-			return null;
-		}
-		try {
-			Closure function = toClosure(closure);
-			ComparableComparator<Object> comp = new ComparableComparator<Object>();
-			E ret = it.next();
-			Object retValue = function.call(ret);
-			for (E cur : it) {
-				Object curValue = function.call(cur);
-				if (comp.compare(curValue, retValue) < 0) {
-					ret = cur;
-					retValue = curValue;
-				}
-			}
-			return ret;
-		} catch (Exception e) {
-			throw new EnumeratingException(e);
-		}
-	}
-
-	/*
-	 * Other Methods
-	 */
 	private E doMax(Comparator<E> comparator) {
-		FluentList<E> list = toList();
-		if (list.isEmpty()) {
-			return null;
-		}
-		return Collections.max(list, comparator);
+		return getMax(Closures.identity(), comparator);
 	}
 
 	private E doMin(Comparator<E> comparator) {
-		FluentList<E> list = toList();
-		if (list.isEmpty()) {
-			return null;
-		}
-		return Collections.min(list, comparator);
+		return doMax(reverse(comparator));
+	}
+
+	private <T> Comparator<T> reverse(Comparator<T> comparator) {
+		return new ReversedComparator<T>(comparator);
 	}
 
 	private E doReduce(E initial, Object closure, ExtendedIterator<E> it) {

@@ -8,6 +8,8 @@ import java.util.Comparator;
  * 
  * @param <T>
  * Comparable type.
+ * 
+ * @see ComparableComparator
  */
 public class CheckedComparableComparator<T extends Comparable<? super T>> implements Comparator<T> {
 

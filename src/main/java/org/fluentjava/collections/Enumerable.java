@@ -244,7 +244,14 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @return
 	 */
 	E max(Object closure);
-	
+
+	/**
+	 * Returns the maximum element e such that closure.call(e) is the minimum. Returns
+	 * null if there are no elements.
+	 * 
+	 * @param closure
+	 * @return
+	 */
 	E maxBy(Object closure);
 
 	/**
@@ -263,12 +270,13 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @return
 	 */
 	E min(Object closure);
-	
+
 	/**
-	 * TODO: javadoc
+	 * Returns the minimum element e such that closure.call(e) is the minimum. Returns
+	 * null if there are no elements.
+	 * 
 	 * @param closure
 	 * @return
 	 */
 	E minBy(Object closure);
 }
-
