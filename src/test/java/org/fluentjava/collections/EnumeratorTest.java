@@ -1,6 +1,7 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.pair;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -138,14 +139,7 @@ public class EnumeratorTest {
 	@Test
 	public void testSortWithClosure() throws Exception {
 		Enumerable<String> list = list("big", "ones", "always come", "before");
-		Enumerable<String> ret = list.sort(new Closure() {
-			@Override
-			public Object call(Object... args) throws Exception {
-				String i = first(args);
-				String j = second(args);
-				return j.length() - i.length();
-			}
-		});
+		Enumerable<String> ret = list.sort(stringLengthReversedComparatorClosure());
 		assertEquals(asList("always come", "before", "ones", "big"), ret);
 	}
 
@@ -180,13 +174,74 @@ public class EnumeratorTest {
 		Enumerable<Integer> list = emptyEnum();
 		assertEquals(10, list.reduce(10, sumBlock()));
 	}
-	
+
 	@Test
 	public void testTake() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 4);
 		assertEquals(asList(1, 2), list.take(2));
 	}
+
+	@Test
+	public void testMaxWithoutClosure() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 4);
+		assertEquals(4, list.max());
+	}
+
+	@Test
+	public void testMaxReturnsNullOnEmptyLists() throws Exception {
+		Enumerable<Object> list = list();
+		assertEquals(null, list.max());
+	}
+
+	@Test
+	public void testMaxWithClosures() throws Exception {
+		Enumerable<String> list = list("big", "ones", "always come", "before");
+		assertEquals("big", list.max(stringLengthReversedComparatorClosure()));
+	}
+
+	@Test
+	public void testMinWithClosures() throws Exception {
+		Enumerable<String> list = list("big", "ones", "always come", "before");
+		assertEquals("always come", list.min(stringLengthReversedComparatorClosure()));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testMaxWithKeysGivenByClosure() throws Exception {
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
+				-300));
+		assertEquals(pair(300, -300), list.maxBy(clousureThatGetsTheFirstFromPair()));
+		assertEquals(pair(1, -1), list.maxBy(clousureThatGetsTheSecondFromPair()));
+		
+	}
 	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testMinByTest() throws Exception {
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
+				-300));
+		assertEquals(pair(1, -1), list.minBy(clousureThatGetsTheFirstFromPair()));
+	}
+	
+	private Closure clousureThatGetsTheFirstFromPair() {
+		return new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				Pair<Integer, Integer> pair = first(args);
+				return pair.first;
+			}
+		};
+	}
+
+	private Closure clousureThatGetsTheSecondFromPair() {
+		return new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				Pair<Integer, Integer> pair = first(args);
+				return pair.second;
+			}
+		};
+	}
 
 	private Predicate greaterThan(final int number) {
 		Predicate anyGreaterThan = new Predicate() {
@@ -219,5 +274,17 @@ public class EnumeratorTest {
 		ArrayList<T> ret = new ArrayList<T>();
 		ret.addAll(asList(args));
 		return new Enumerator<T>(ret);
+	}
+
+	private Closure stringLengthReversedComparatorClosure() {
+		Closure cl = new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				String i = first(args);
+				String j = second(args);
+				return j.length() - i.length();
+			}
+		};
+		return cl;
 	}
 }
