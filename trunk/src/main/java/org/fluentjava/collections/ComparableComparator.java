@@ -14,6 +14,8 @@ import java.util.Comparator;
  * 
  * @param <T>
  * Types to be compared using the natural order of T.
+ * 
+ * @see ComparableComparator
  */
 public class ComparableComparator<T> implements Comparator<T> {
 
