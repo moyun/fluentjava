@@ -3,8 +3,8 @@ package org.fluentjava.collections;
 import static org.fluentjava.FluentUtils.as;
 
 import org.fluentjava.iterators.ExtendedIterable;
+import org.fluentjava.iterators.ExtendedIterableAdapter;
 import org.fluentjava.iterators.ExtendedIterator;
-import org.fluentjava.iterators.ExtendedIteratorAdapter;
 
 /**
  * Class that takes an iterable, and implements all {@link Enumerable} methods using only
@@ -27,7 +27,7 @@ public class Enumerator<E> extends AbstractEnumerable<E> implements Enumerable<E
 			this.iterable = as(iterable);
 		}
 		else {
-			this.iterable = new ExtendedIteratorAdapter<E>(iterable);
+			this.iterable = new ExtendedIterableAdapter<E>(iterable);
 		}
 
 	}

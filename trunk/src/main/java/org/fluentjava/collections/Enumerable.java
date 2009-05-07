@@ -2,6 +2,8 @@ package org.fluentjava.collections;
 
 import org.fluentjava.iterators.ExtendedIterable;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
  * elements to be operated on with closures. All exceptions caught while iterating are
@@ -140,6 +142,14 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	<T> FluentList<T> collect(Object closure) throws EnumeratingException;
 
 	/**
+	 * Returns a list containing the sorted elements of the Enumerator, according to its
+	 * natural order.
+	 * 
+	 * @return
+	 */
+	FluentList<E> sort();
+
+	/**
 	 * Sort the objects using closure as a comparator. Always returns a new list.
 	 * 
 	 * @param closure
@@ -161,14 +171,6 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @return
 	 */
 	FluentSet<E> toSet();
-
-	/**
-	 * Returns a list containing the sorted elements of the Enumerator, according to its
-	 * natural order.
-	 * 
-	 * @return
-	 */
-	FluentList<E> sort();
 
 	/**
 	 * As reduce(E initial, Object closure), but uses the first element of the collection
@@ -218,10 +220,55 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @return
 	 */
 	FluentList<E> take(int n);
-	
+
 	/**
 	 * Return any element of the iterable. If there are no elements, return null.
+	 * 
 	 * @return
 	 */
 	E any();
+
+	/**
+	 * Returns the maximum element according to the element's natural order (if any).
+	 * Returns null if there are no elements.
+	 * 
+	 * @return
+	 */
+	E max();
+
+	/**
+	 * Returns the maximum element according to the order imposed by the Closure as a
+	 * comparator. Returns null if there are no elements.
+	 * 
+	 * @param closure
+	 * @return
+	 */
+	E max(Object closure);
+	
+	E maxBy(Object closure);
+
+	/**
+	 * Returns the minimum element according to the element's natural order (if any).
+	 * Returns null if there are no elements.
+	 * 
+	 * @return
+	 */
+	E min();
+
+	/**
+	 * Returns the minimum element according to the order imposed by the Closure as a
+	 * comparator. Returns null if there are no elements.
+	 * 
+	 * @param closure
+	 * @return
+	 */
+	E min(Object closure);
+	
+	/**
+	 * TODO: javadoc
+	 * @param closure
+	 * @return
+	 */
+	E minBy(Object closure);
 }
+
