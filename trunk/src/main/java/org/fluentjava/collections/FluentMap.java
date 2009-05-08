@@ -30,6 +30,13 @@ public interface FluentMap<K, V> extends Enumerable<Pair<K, V>>, Map<K, V> {
 	 * @return
 	 */
 	FluentMap<K, V> insert(Map<? extends K, ? extends V> m);
+	
+	/**
+	 * Alias to putAt(entry.getKey(), entry.getValue()).
+	 * @param entry
+	 * @return
+	 */
+	FluentMap<K, V> insert(Entry<? extends K, ? extends V> entry);
 
 	/**
 	 * Like keySet(), but returns a copy of the set, which is safe to iterate. Also

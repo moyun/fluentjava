@@ -5,10 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.fluentjava.collections.EnumeratingException;
 import org.fluentjava.collections.FluentList;
+import org.fluentjava.collections.FluentMap;
 import org.fluentjava.reflection.Mock;
 import org.junit.Test;
 
@@ -79,6 +82,15 @@ public class FluencyTest extends Fluency {
 		List<Object> upCasted = list();
 		FluentList<Object> fluentCasted = as(upCasted);
 		assertEquals(upCasted, fluentCasted);
+	}
+	
+	@Test
+	public void testMap() throws Exception {
+		FluentMap<Integer, Integer> map = map(pair(1, 1), pair(2, 2));
+		Map<Integer, Integer> expected = new HashMap<Integer, Integer>();
+		expected.put(1, 1);
+		expected.put(2, 2);
+		assertEquals(expected, map);
 	}
 
 	private int squareOfInt(int i) {

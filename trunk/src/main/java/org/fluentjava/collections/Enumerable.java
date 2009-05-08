@@ -1,5 +1,8 @@
 package org.fluentjava.collections;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.fluentjava.iterators.ExtendedIterable;
 
 import com.sun.org.apache.bcel.internal.generic.Select;
@@ -142,6 +145,18 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	<T> FluentList<T> collect(Object closure) throws EnumeratingException;
 
 	/**
+	 * Similar to {@link #map(Object)}, but returns a list where the elements are pairs
+	 * whose first element is the element from the Enumerable, and the second one is the
+	 * result of the closure applied to such element. If you want a {@link Map}, just use
+	 * {@link #toMap()} afterwards.
+	 * 
+	 * @param <V>
+	 * @param closure
+	 * @return
+	 */
+	<V> FluentList<Entry<E, V>> mapWithKeys(Object closure);
+
+	/**
 	 * Returns a list containing the sorted elements of the Enumerator, according to its
 	 * natural order.
 	 * 
@@ -181,6 +196,27 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @return
 	 */
 	FluentSet<E> toSet();
+
+	/**
+	 * Returns a map with the elements of the Enumerator, <b>provided</b> they are all a
+	 * type of {@link Entry}.
+	 * 
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
+	<K, V> FluentMap<K, V> toMap() throws EnumeratingException;
+
+	/**
+	 * Convinience method to cascading calls of {@link #mapWithKeys(Object)} and
+	 * {@link #toMap()}.
+	 * 
+	 * @param closure
+	 * @param <V>
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	<V> FluentMap<E, V> toMapBy(Object closure) throws EnumeratingException;
 
 	/**
 	 * As reduce(E initial, Object closure), but uses the first element of the collection
@@ -228,8 +264,9 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * 
 	 * @param n
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	FluentList<E> take(int n);
+	FluentList<E> take(int n) throws EnumeratingException;
 
 	/**
 	 * Return any element of the iterable. If there are no elements, return null.

@@ -1,5 +1,7 @@
 package org.fluentjava;
 
+import java.util.Map.Entry;
+
 import org.fluentjava.closures.Closure;
 import org.fluentjava.collections.Dictionary;
 import org.fluentjava.collections.ExtendedSet;
@@ -206,5 +208,17 @@ public abstract class Fluency {
 	 */
 	protected <T> T cast(Object o) {
 		return FluentUtils.<T>cast(o);
+	}
+	
+	/**
+	 * Delegates to {@link FluentUtils#map(Entry...)}.
+	 * @param <K>
+	 * @param <V>
+	 * @param args
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	protected <K, V> FluentMap<K, V> map(Entry... args) {
+		return FluentUtils.<K, V>map(args);
 	}
 }
