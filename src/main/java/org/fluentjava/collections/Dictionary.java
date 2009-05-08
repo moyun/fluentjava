@@ -62,6 +62,7 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return this;
 	}
 
+	@Override
 	public ExtendedIterator<Pair<K, V>> iterator() {
 		final Iterator<Entry<K, V>> i = entrySet().iterator();
 		return new AbstractExtendedIterator<Pair<K, V>>() {
@@ -74,7 +75,7 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 			}
 		};
 	}
-	
+
 	@Override
 	public FluentList<V> valuesAt(Iterable<? extends K> keys) {
 		FluentList<V> ret = new Sequence<V>();
@@ -88,12 +89,13 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 	public FluentList<V> valuesAt(K... keys) {
 		return valuesAt(asList(keys));
 	}
-	
+
 	@Override
 	public FluentMap<K, V> insert(java.util.Map.Entry<? extends K, ? extends V> entry) {
 		return putAt(entry.getKey(), entry.getValue());
 	}
 
+	@Override
 	public Object clone() {
 		return new Dictionary<K, V>(delegateMap);
 	}
@@ -117,6 +119,7 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return delegateMap.entrySet();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return delegateMap.equals(o);
 	}
@@ -125,6 +128,7 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return delegateMap.get(key);
 	}
 
+	@Override
 	public int hashCode() {
 		return delegateMap.hashCode();
 	}
@@ -153,6 +157,7 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return delegateMap.size();
 	}
 
+	@Override
 	public String toString() {
 		return delegateMap.toString();
 	}
@@ -160,7 +165,5 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 	public Collection<V> values() {
 		return delegateMap.values();
 	}
-
-
 
 }

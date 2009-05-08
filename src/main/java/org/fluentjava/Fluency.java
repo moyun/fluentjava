@@ -15,16 +15,15 @@ import org.fluentjava.iterators.ExtendedIterable;
  * Class with no attributes that allows subclasses to easily create collections and
  * closures, without import static. A lot of type inference to make things go more fluent.
  * 
- * If you do not with to extend Fluency, {@link FluentUtils} with import static can be a good
- * enough replacement.
+ * If you do not with to extend Fluency, {@link FluentUtils} with import static can be a
+ * good enough replacement.
  * 
  * @see FluentUtils
  */
 public abstract class Fluency {
 	public static void main(String[] args) {
 	}
-	
-	
+
 	/**
 	 * Creates an empty map.
 	 * 
@@ -99,9 +98,10 @@ public abstract class Fluency {
 	protected <T> FluentSet<T> set(T... args) {
 		return FluentUtils.<T>set(args);
 	}
-	
+
 	/**
 	 * Delegates to {@link FluentUtils#aSet(Object...)}.
+	 * 
 	 * @param args
 	 * @return
 	 */
@@ -141,7 +141,7 @@ public abstract class Fluency {
 	protected Closure my(String methodName) {
 		return FluentUtils.my(this, methodName);
 	}
-	
+
 	/**
 	 * Delegates to {@link FluentUtils#call(Object, String)}.
 	 * 
@@ -150,7 +150,6 @@ public abstract class Fluency {
 	protected Closure call(Object target, String methodName) {
 		return FluentUtils.call(target, methodName);
 	}
-
 
 	/**
 	 * Delegates to {@link FluentUtils#range(int)}, passing range as argument.
@@ -192,6 +191,7 @@ public abstract class Fluency {
 
 	/**
 	 * Delegates to {@link FluentUtils#as(Object)}.
+	 * 
 	 * @param <T>
 	 * @param o
 	 * @return
@@ -199,9 +199,10 @@ public abstract class Fluency {
 	protected <T> T as(Object o) {
 		return FluentUtils.<T>as(o);
 	}
-	
+
 	/**
 	 * Delegates to {@link FluentUtils#cast(Object)}.
+	 * 
 	 * @param <T>
 	 * @param o
 	 * @return
@@ -209,9 +210,10 @@ public abstract class Fluency {
 	protected <T> T cast(Object o) {
 		return FluentUtils.<T>cast(o);
 	}
-	
+
 	/**
 	 * Delegates to {@link FluentUtils#map(Entry...)}.
+	 * 
 	 * @param <K>
 	 * @param <V>
 	 * @param args

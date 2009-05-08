@@ -37,8 +37,8 @@ public class ClosureOfAMethodName extends Closure {
 
 			}
 		}
-		throw new IllegalArgumentException("Method of name " + methodName + " could not be found on "
-				+ target);
+		throw new IllegalArgumentException("Method of name " + methodName
+				+ " could not be found on " + target);
 	}
 
 	private Object invokeVarArgs(Object target, List<Object> argList, Method method)
@@ -53,10 +53,13 @@ public class ClosureOfAMethodName extends Closure {
 		return method.invoke(target, toInvoke);
 	}
 
-	private Object[] buildVarArgsArray(List<Object> argList, Class<?>[] argTypes, int nonVarArgsCount) {
+	private Object[] buildVarArgsArray(List<Object> argList,
+			Class<?>[] argTypes,
+			int nonVarArgsCount) {
 		Class<?> typeOfVarArgs = argTypes[nonVarArgsCount];
 		assert (typeOfVarArgs.isArray());
-		return (Object[]) Array.newInstance(typeOfVarArgs.getComponentType(), argList.size() - argList.size());
+		return (Object[]) Array.newInstance(typeOfVarArgs.getComponentType(),
+				argList.size() - argList.size());
 	}
 
 }

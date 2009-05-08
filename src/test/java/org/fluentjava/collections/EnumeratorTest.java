@@ -211,8 +211,8 @@ public class EnumeratorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testMaxWithKeysGivenByClosure() throws Exception {
-		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
-				-300));
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(
+				300, -300));
 		assertEquals(pair(300, -300), list.maxBy(clousureThatGetsTheFirstFromPair()));
 		assertEquals(pair(1, -1), list.maxBy(clousureThatGetsTheSecondFromPair()));
 
@@ -221,14 +221,16 @@ public class EnumeratorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testMinByTest() throws Exception {
-		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300, -300));
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(
+				300, -300));
 		assertEquals(pair(1, -1), list.minBy(clousureThatGetsTheFirstFromPair()));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSortBy() throws Exception {
-		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300, -300));
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(
+				300, -300));
 		FluentList<Pair<Integer, Integer>> ret = list.sortBy(clousureThatGetsTheSecondFromPair());
 		assertEquals(FluentUtils.list(pair(300, -300), pair(20, -20), pair(1, -1)), ret);
 	}
@@ -236,8 +238,10 @@ public class EnumeratorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testToMap() throws Exception {
-		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300, -300));
-		FluentMap<Integer, Integer> expected = map(pair(1, -1), pair(20, -20), pair(300, -300));
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(
+				300, -300));
+		FluentMap<Integer, Integer> expected = map(pair(1, -1), pair(20, -20), pair(300,
+				-300));
 		assertEquals(expected, list.toMap());
 	}
 
@@ -255,7 +259,7 @@ public class EnumeratorTest {
 		expected.insert(pair(1, 1)).insert(pair(2, 4)).insert(pair(3, 9));
 		assertEquals(expected, result);
 	}
-	
+
 	@Test
 	public void testToMapBy() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);

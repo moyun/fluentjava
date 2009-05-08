@@ -37,7 +37,8 @@ public class ClosureCoercionTest {
 	}
 
 	@Test(expected = ClosureCoercionException.class)
-	public void testClassesWithTwoInterfacesEvenWithOneMethodEachDoNotCoerce() throws Exception {
+	public void testClassesWithTwoInterfacesEvenWithOneMethodEachDoNotCoerce()
+			throws Exception {
 		ClosureCoercion.toClosure(new SwissArmyKnife());
 	}
 

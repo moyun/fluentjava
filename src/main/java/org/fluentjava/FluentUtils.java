@@ -21,8 +21,8 @@ import org.fluentjava.iterators.ExtendedIterator;
  * wish a more fluent way to use the methods on this class, mainly
  * {@link #my(Object, String)} without the need to keep on passing this, consider
  * extending {@link Fluency}. Otherwise, look on <a
- * href=http://code.google.com/p/fluentjava/wiki/Faq>this</a> page on
- * tips to making <code>import statics</code> more easy to use.
+ * href=http://code.google.com/p/fluentjava/wiki/Faq>this</a> page on tips to making
+ * <code>import statics</code> more easy to use.
  * 
  * @see Fluency
  */
@@ -275,7 +275,8 @@ public class FluentUtils {
 		if (method != null) {
 			return method;
 		}
-		throw new NoSuchElementException("The method " + methodName + " was not found on " + target);
+		throw new NoSuchElementException("The method " + methodName
+				+ " was not found on " + target);
 	}
 
 	private static Method findOnInhenrited(Object target, String methodName) {

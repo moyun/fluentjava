@@ -5,6 +5,7 @@ package org.fluentjava.closures;
  */
 public abstract class Predicate extends Closure {
 
+	@Override
 	public Object call(Object... args) throws Exception {
 		return eval(args);
 	}

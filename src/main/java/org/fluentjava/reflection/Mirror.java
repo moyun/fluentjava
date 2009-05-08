@@ -50,7 +50,8 @@ public class Mirror {
 			for (Field field : mirroredObject.getClass().getDeclaredFields()) {
 				if (!allFields.containsKey(field.getName())) {
 					field.setAccessible(true);
-					allFields.put(field.getName(), new InstanceField(mirroredObject, field));
+					allFields.put(field.getName(), new InstanceField(mirroredObject,
+							field));
 				}
 			}
 		}

@@ -2,7 +2,8 @@ package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.list;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,8 @@ public class SequenceTest {
 	@Test
 	public void testFluentStyle() throws Exception {
 		Sequence<Integer> list = new Sequence<Integer>();
-		list.insert(1).insert(2, 3).insert(4, 4, 4, 5).insert(asList(6, 7, 8)).delete(4, 5, 6, 7, 8).delete(
-				110).add(3);
+		list.insert(1).insert(2, 3).insert(4, 4, 4, 5).insert(asList(6, 7, 8)).delete(4,
+				5, 6, 7, 8).delete(110).add(3);
 		assertEquals(asList(1, 2, 3, 3), list);
 	}
 
@@ -90,19 +91,19 @@ public class SequenceTest {
 		a.add(ar);
 		assertEquals(a, a.flatten());
 	}
-	
+
 	@Test
 	public void testSequenceOfAlist() throws Exception {
 		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
 		assertEquals(asList(1, 2, 3), list);
 	}
-	
+
 	@Test
 	public void testContainsAny() throws Exception {
 		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
 		assertTrue(list.containsAny(9, 8, 7, 5, 4, 3));
 	}
-	
+
 	private List<Integer> half(Integer... array) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (Integer integer : array) {
@@ -110,7 +111,5 @@ public class SequenceTest {
 		}
 		return ret;
 	}
-
-	
 
 }

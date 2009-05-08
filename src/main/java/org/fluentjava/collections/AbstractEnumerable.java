@@ -110,7 +110,6 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	}
 
-	@Override
 	public FluentList<E> findAll(Object closure) throws EnumeratingException {
 		return select(closure);
 	}
@@ -167,7 +166,6 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	}
 
-	@Override
 	public FluentList<E> sortBy(Object closure) throws EnumeratingException {
 		Closure keyGenerator = toClosure(closure);
 		try {
@@ -196,7 +194,6 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		return new ExtendedSet<E>(this);
 	}
 
-	@Override
 	public <K, V> FluentMap<K, V> toMap() {
 		FluentMap<K, V> ret = new Dictionary<K, V>();
 		for (E e : iterator()) {
@@ -205,14 +202,13 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		}
 		return ret;
 	}
-	
-	@Override
+
 	public <V> FluentMap<E, V> toMapBy(Object closure) throws EnumeratingException {
 		return mapWithKeys(closure).toMap();
 	}
 
-	@Override
-	public <V> FluentList<Entry<E, V>> mapWithKeys(Object closure) throws EnumeratingException {
+	public <V> FluentList<Entry<E, V>> mapWithKeys(Object closure)
+			throws EnumeratingException {
 		Closure function = toClosure(closure);
 		try {
 			FluentList<Entry<E, V>> map = new Sequence<Entry<E, V>>();
@@ -248,7 +244,8 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	public FluentList<E> take(int n) throws EnumeratingException {
 		if (n < 0) {
-			throw new IllegalArgumentException("Cannot take negative ammount of elements:" + n);
+			throw new IllegalArgumentException("Cannot take negative ammount of elements:"
+					+ n);
 		}
 		FluentList<E> ret = new Sequence<E>();
 		for (E e : iterator()) {
@@ -260,7 +257,6 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		return ret;
 	}
 
-	@Override
 	public E any() throws EnumeratingException {
 		ExtendedIterator<E> i = iterator();
 		if (!i.hasNext()) {
@@ -269,34 +265,28 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		return i.next();
 	}
 
-	@Override
 	public E max() throws EnumeratingException {
 		return doMax(new ComparableComparator<E>());
 	}
 
-	@Override
 	public E max(Object closure) throws EnumeratingException {
 		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
 		return doMax(comparator);
 	}
 
-	@Override
 	public E maxBy(Object closure) throws EnumeratingException {
 		return getMax(closure, new ComparableComparator<Object>());
 	}
 
-	@Override
 	public E min() throws EnumeratingException {
 		return doMin(new ComparableComparator<E>());
 	}
 
-	@Override
 	public E min(Object closure) throws EnumeratingException {
 		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
 		return doMin(comparator);
 	}
 
-	@Override
 	public E minBy(Object closure) throws EnumeratingException {
 		return getMax(closure, reverse(new ComparableComparator<Object>()));
 	}

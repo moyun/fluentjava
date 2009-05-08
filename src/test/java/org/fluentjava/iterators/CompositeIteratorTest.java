@@ -1,7 +1,7 @@
 package org.fluentjava.iterators;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class CompositeIteratorTest {
 	public void testIteratesUpToSmallestCollection() throws Exception {
 		List<String> l1 = asList("one", "two", "never reached", "too far", "way too far");
 		List<String> l2 = asList("one", "three");
-		CompositeIterator<String, String> iterator = 
+		CompositeIterator<String, String> iterator =
 			new CompositeIterator<String, String>(new CountingIterator<String>(l1),
 				new CountingIterator<String>(l2));
 		ArrayList<String> ret = new ArrayList<String>();

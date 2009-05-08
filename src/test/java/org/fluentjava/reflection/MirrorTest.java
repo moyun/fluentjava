@@ -43,7 +43,8 @@ public class MirrorTest {
 	}
 
 	@Test(expected = RuntimeReflectionException.class)
-	public void testOneMirrorsPriviligedDoesNotMakeAllMirrorsPriviliged() throws Exception {
+	public void testOneMirrorsPriviligedDoesNotMakeAllMirrorsPriviliged()
+			throws Exception {
 		Mirror.priviligedMirror(mock);
 		mock.setPrivateString("private string value");
 		mirror.get("privateString");
@@ -62,8 +63,8 @@ public class MirrorTest {
 
 	@Test
 	public void testSetsFieldsAsWell() throws Exception {
-		priviligedMirror.set("privateString", "mock's private string, set by mirror").set("publicName",
-				"new name, set by mirror");
+		priviligedMirror.set("privateString", "mock's private string, set by mirror").set(
+				"publicName", "new name, set by mirror");
 		assertEquals("mock's private string, set by mirror", mock.getPrivateString());
 		assertEquals("new name, set by mirror", mock.publicName);
 	}
@@ -76,7 +77,8 @@ public class MirrorTest {
 
 	@Test
 	public void testInstanceFieldGetsMirrorsPrivileges() throws Exception {
-		priviligedMirror.field("privateString").set("mock's private string, set by mirror");
+		priviligedMirror.field("privateString").set(
+				"mock's private string, set by mirror");
 		assertEquals("mock's private string, set by mirror", mock.getPrivateString());
 	}
 

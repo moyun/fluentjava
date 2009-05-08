@@ -62,7 +62,8 @@ public class FluencyTest extends Fluency {
 	}
 
 	@Test
-	public void testIfTheEndOfTheRangeIsGreaterThanItsStartReturnsEmpty() throws Exception {
+	public void testIfTheEndOfTheRangeIsGreaterThanItsStartReturnsEmpty()
+			throws Exception {
 		FluentList<Integer> list = range(4, 0);
 		assertTrue(list.isEmpty());
 	}
@@ -76,14 +77,14 @@ public class FluencyTest extends Fluency {
 	public void testRangeWithStartAndStopParameters() throws Exception {
 		assertEquals(list(1, 2, 3), range(1, 4));
 	}
-	
+
 	@Test
 	public void testFluentCast() throws Exception {
 		List<Object> upCasted = list();
 		FluentList<Object> fluentCasted = as(upCasted);
 		assertEquals(upCasted, fluentCasted);
 	}
-	
+
 	@Test
 	public void testMap() throws Exception {
 		FluentMap<Integer, Integer> map = map(pair(1, 1), pair(2, 2));
