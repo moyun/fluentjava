@@ -3,8 +3,8 @@ package org.fluentjava.collections;
 import java.util.Map;
 
 /**
- * {@link Map} that has a fluent interface on methods. All {@link Enumerable} methods are also
- * implemented.
+ * {@link Map} that has a fluent interface on methods. All {@link Enumerable} methods are
+ * also implemented.
  * 
  * @param <K>
  * Type of keys.
@@ -30,9 +30,10 @@ public interface FluentMap<K, V> extends Enumerable<Pair<K, V>>, Map<K, V> {
 	 * @return
 	 */
 	FluentMap<K, V> insert(Map<? extends K, ? extends V> m);
-	
+
 	/**
 	 * Alias to putAt(entry.getKey(), entry.getValue()).
+	 * 
 	 * @param entry
 	 * @return
 	 */
@@ -53,8 +54,8 @@ public interface FluentMap<K, V> extends Enumerable<Pair<K, V>>, Map<K, V> {
 	 * @return
 	 */
 	FluentList<V> allValues();
-	
+
 	FluentList<V> valuesAt(Iterable<? extends K> keys);
-	
+
 	FluentList<V> valuesAt(K... keys);
 }

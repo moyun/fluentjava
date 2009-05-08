@@ -31,6 +31,7 @@ public class CountingIterator<T> extends ExtendedIteratorAdapter<T> {
 	/*
 	 * Public Methods
 	 */
+	@Override
 	public T next() {
 		iterationNumber++;
 		return super.next();

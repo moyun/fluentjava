@@ -18,6 +18,7 @@ public class ClosureTest {
 	public void testBasicCall() throws Exception {
 		final FluentList<Integer> list = FluentUtils.list(1, 2, 3);
 		Closure c = new Closure() {
+			@Override
 			public Object call(Object... args) throws Exception {
 				list.add(5);
 				return null;
@@ -30,6 +31,7 @@ public class ClosureTest {
 	@Test
 	public void testInvokeWithCast() throws Exception {
 		Closure c = new Closure() {
+			@Override
 			public Object call(Object... args) throws Exception {
 				return 5;
 			}
@@ -42,6 +44,7 @@ public class ClosureTest {
 	@Test(expected = ClassCastException.class)
 	public void testInvokeWithCastFail() throws Exception {
 		Closure c = new Closure() {
+			@Override
 			public Object call(Object... args) throws Exception {
 				return 5;
 			}
@@ -71,6 +74,7 @@ public class ClosureTest {
 	public void testClosureAsThread() throws Exception {
 		final FluentList<Integer> list = FluentUtils.list(1, 2, 3);
 		Closure c = new Closure() {
+			@Override
 			public Object call(Object... args) throws Exception {
 				list.add(5);
 				return null;
@@ -110,6 +114,7 @@ public class ClosureTest {
 
 	private Closure comparatorClosure() {
 		Closure c = new Closure() {
+			@Override
 			public Object call(Object... args) throws Exception {
 				String i = first(args);
 				String j = second(args);

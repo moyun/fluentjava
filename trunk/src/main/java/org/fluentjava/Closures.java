@@ -9,12 +9,10 @@ public class Closures {
 	public static Closure identity() {
 		return new Identity();
 	}
-	
-	
+
 	private Closures() {
 	}
-	
-	
+
 	/**
 	 * Returns the first element of the args.
 	 */

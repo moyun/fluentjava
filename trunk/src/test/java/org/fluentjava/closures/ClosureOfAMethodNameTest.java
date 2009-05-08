@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 public class ClosureOfAMethodNameTest {
-	
+
 	@Test
 	public void testJustInvokingToString() throws Exception {
 		List<Integer> list = asList(1, 2, 3);

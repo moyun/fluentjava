@@ -75,7 +75,7 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean addAll(E... list) {
 		return addAll(asList(list));
@@ -138,7 +138,8 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		recFlatten(ret, new IdentityHashMap<Object, Boolean>(), this);
 		return ret;
 	}
-	
+
+	@Override
 	public Object clone() {
 		return toList();
 	}
@@ -199,6 +200,7 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		delegateList.ensureCapacity(minCapacity);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return delegateList.equals(o);
 	}
@@ -207,6 +209,7 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		return delegateList.get(index);
 	}
 
+	@Override
 	public int hashCode() {
 		return delegateList.hashCode();
 	}
@@ -267,6 +270,7 @@ public class Sequence<E> extends AbstractEnumerable<E>
 		return delegateList.toArray(a);
 	}
 
+	@Override
 	public String toString() {
 		return delegateList.toString();
 	}

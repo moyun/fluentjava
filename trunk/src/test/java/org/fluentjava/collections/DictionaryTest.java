@@ -16,8 +16,8 @@ public class DictionaryTest {
 
 	@Test
 	public void testFluentStyle() {
-		FluentMap<String, Integer> dictionary = new Dictionary<String, Integer>().putAt("Item 1", 1).putAt(
-				"Item 2", 2);
+		FluentMap<String, Integer> dictionary = new Dictionary<String, Integer>().putAt(
+				"Item 1", 1).putAt("Item 2", 2);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Item 1", 1);
 		map.put("Item 2", 2);
@@ -26,10 +26,10 @@ public class DictionaryTest {
 
 	@Test
 	public void testFluentPutAll() throws Exception {
-		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt("Item 2", 20).putAt(
-				"Item 3", 3);
-		FluentMap<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>().putAt("Item 1",
-				1).putAt("Item 2", 2).insert(map);
+		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt(
+				"Item 2", 20).putAt("Item 3", 3);
+		FluentMap<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>().putAt(
+				"Item 1", 1).putAt("Item 2", 2).insert(map);
 		mapKey(dictionary, "Item 1", 1);
 		mapKey(dictionary, "Item 2", 20);
 		mapKey(dictionary, "Item 3", 3);
@@ -38,8 +38,8 @@ public class DictionaryTest {
 
 	@Test
 	public void testToList() throws Exception {
-		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt("Item 2", 20).putAt(
-				"Item 3", 3);
+		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt(
+				"Item 2", 20).putAt("Item 3", 3);
 		FluentList<Pair<String, Integer>> x = new Sequence<Pair<String, Integer>>().insert(
 				FluentUtils.pair("Item 2", 20)).insert(FluentUtils.pair("Item 3", 3));
 		assertEquals(x.size(), map.toList().size());
@@ -48,8 +48,8 @@ public class DictionaryTest {
 
 	@Test
 	public void testDetect() throws Exception {
-		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt("Item 2", 20).putAt(
-				"Item 3", 3);
+		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt(
+				"Item 2", 20).putAt("Item 3", 3);
 		FluentList<Pair<String, Integer>> result = map.select(new Predicate() {
 			@Override
 			public boolean eval(Object... args) throws Exception {
@@ -57,14 +57,15 @@ public class DictionaryTest {
 				return pair.first.startsWith("I") && pair.second > 0;
 			}
 		});
-		assertEquals(new ExtendedSet<Pair<String, Integer>>().insert(FluentUtils.pair("Item 2", 20)).insert(
-				FluentUtils.pair("Item 3", 3)), result.toSet());
+		assertEquals(new ExtendedSet<Pair<String, Integer>>().insert(
+				FluentUtils.pair("Item 2", 20)).insert(FluentUtils.pair("Item 3", 3)),
+				result.toSet());
 	}
 
 	@Test
 	public void testKeysIsSafeToIterate() throws Exception {
-		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt("Item 2", 20).putAt(
-				"Item 3", 3);
+		FluentMap<String, Integer> map = new Dictionary<String, Integer>().putAt(
+				"Item 2", 20).putAt("Item 3", 3);
 		ExtendedSet<String> result = new ExtendedSet<String>();
 		for (String string : map.keys()) {
 			result.add(string);
@@ -72,7 +73,7 @@ public class DictionaryTest {
 		}
 		assertEquals(new ExtendedSet<String>("Item 2", "Item 3"), result);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testClone() throws Exception {
@@ -85,13 +86,13 @@ public class DictionaryTest {
 		mapKey(clone, "Item 3", 3);
 		assertTrue(map.isEmpty());
 	}
-	
+
 	@Test
 	public void testValuesAt() throws Exception {
-		FluentMap<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>()
-			.putAt("Item 1", 1)
-			.putAt("Item 2", 2);
-		assertEquals(FluentUtils.list(1, null, 1), dictionary.valuesAt("Item 1", "not included", "Item 1"));
+		FluentMap<CharSequence, Integer> dictionary = new Dictionary<CharSequence, Integer>().putAt(
+				"Item 1", 1).putAt("Item 2", 2);
+		assertEquals(FluentUtils.list(1, null, 1), dictionary.valuesAt("Item 1",
+				"not included", "Item 1"));
 	}
 
 	private HashSet<Pair<String, Integer>> set(List<Pair<String, Integer>> array) {
@@ -100,11 +101,14 @@ public class DictionaryTest {
 
 	/**
 	 * Custom assertion.
+	 * 
 	 * @param dictionary
 	 * @param key
 	 * @param value
 	 */
-	private void mapKey(Map<? extends CharSequence, Integer> dictionary, CharSequence key, int value) {
+	private void mapKey(Map<? extends CharSequence, Integer> dictionary,
+			CharSequence key,
+			int value) {
 		assertEquals(value, dictionary.get(key));
 	}
 

@@ -3,8 +3,8 @@ package org.fluentjava.collections;
 import java.util.List;
 
 /**
- * {@link List} that has type safe toArray, and has a fluent interface on methods. Also, has more
- * convenient methods to include and remove elements.
+ * {@link List} that has type safe toArray, and has a fluent interface on methods. Also,
+ * has more convenient methods to include and remove elements.
  * 
  * All {@link Enumerable} methods are also implemented.
  * 

@@ -96,7 +96,8 @@ public abstract class Closure {
 	 */
 	public <T> T toInteface(Class<?> clazz) {
 		InvocationHandler handler = new InvocationHandlerAdapter(this, clazz);
-		return FluentUtils.<T>as(Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, handler));
+		return FluentUtils.<T>as(Proxy.newProxyInstance(clazz.getClassLoader(),
+				new Class[] {clazz}, handler));
 	}
 
 	/**

@@ -35,6 +35,7 @@ public class Enumerator<E> extends AbstractEnumerable<E> implements Enumerable<E
 	/*
 	 * Public Methods
 	 */
+	@Override
 	public ExtendedIterator<E> iterator() {
 		return iterable.iterator();
 	}

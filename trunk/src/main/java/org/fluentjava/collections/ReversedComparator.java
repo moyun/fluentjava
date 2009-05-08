@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @param <T>
  */
 public class ReversedComparator<T> implements Comparator<T> {
-	
+
 	protected final Comparator<T> comparator;
 
 	public ReversedComparator(Comparator<T> comparator) {

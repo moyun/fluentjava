@@ -3,8 +3,8 @@ package org.fluentjava.closures;
 import org.fluentjava.FluentUtils;
 
 /**
- * Adapts a {@link Closure} to a {@link Predicate}. If the closure returns a Boolean, nulls are treated as
- * false.
+ * Adapts a {@link Closure} to a {@link Predicate}. If the closure returns a Boolean,
+ * nulls are treated as false.
  */
 public class PredicateAdapter extends Predicate {
 

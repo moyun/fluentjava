@@ -42,6 +42,7 @@ public class ExtendedIteratorAdapter<T> extends AbstractExtendedIterator<T> {
 		return iterator.next();
 	}
 
+	@Override
 	public void remove() {
 		iterator.remove();
 	}

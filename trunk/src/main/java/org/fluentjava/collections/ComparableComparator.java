@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.fluentjava.collections;
 
@@ -8,8 +8,8 @@ import static org.fluentjava.FluentUtils.as;
 import java.util.Comparator;
 
 /**
- * {@link Comparator} that takes any type that is comparable, and uses its natural order. The
- * check is made at runtime though, so that this comparator can be used on Generic
+ * {@link Comparator} that takes any type that is comparable, and uses its natural order.
+ * The check is made at runtime though, so that this comparator can be used on Generic
  * classes, as you cannot cast a type E to a Comparable<? super E>
  * 
  * @param <T>

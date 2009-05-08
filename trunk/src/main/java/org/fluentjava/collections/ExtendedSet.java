@@ -17,7 +17,11 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  * @param <E>
  * Type of elements
  */
-public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E>, Cloneable, Serializable {
+public class ExtendedSet<E> extends AbstractEnumerable<E>
+		implements
+			FluentSet<E>,
+			Cloneable,
+			Serializable {
 	private static final long serialVersionUID = 2L;
 
 	protected final HashSet<E> delegateSet = new HashSet<E>();
@@ -49,6 +53,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		insert(iterable);
 	}
 
+	@Override
 	public Object clone() {
 		return toSet();
 	}
@@ -61,7 +66,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	public ExtendedIterator<E> iterator() {
 		return new ExtendedIteratorAdapter<E>(delegateSet.iterator());
 	}
-	
+
 	@Override
 	public boolean containsAny(E... list) {
 		return containsAny(asList(list));
@@ -76,7 +81,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean addAll(E... list) {
 		return addAll(asList(list));
@@ -147,7 +152,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	public boolean containsAll(Collection<?> c) {
 		return delegateSet.containsAll(c);
 	}
-	
+
 	@Override
 	public FluentSet<E> intersect(Iterable<? extends E> iterable) {
 		FluentSet<E> clone = toSet();
@@ -199,14 +204,16 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 	/*
 	 * Delegate Methods
 	 */
+	@Override
 	public boolean equals(Object o) {
 		return delegateSet.equals(o);
 	}
 
+	@Override
 	public int hashCode() {
 		return delegateSet.hashCode();
 	}
-	
+
 	public boolean isEmpty() {
 		return delegateSet.isEmpty();
 	}
@@ -235,6 +242,7 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		return delegateSet.toArray(a);
 	}
 
+	@Override
 	public String toString() {
 		return delegateSet.toString();
 	}
@@ -248,7 +256,5 @@ public class ExtendedSet<E> extends AbstractEnumerable<E> implements FluentSet<E
 		}
 		return new ExtendedSet<E>(iterable);
 	}
-
-
 
 }

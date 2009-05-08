@@ -1,6 +1,7 @@
 package org.fluentjava.closures;
 
 import static org.fluentjava.FluentUtils.as;
+
 import java.lang.reflect.Method;
 import java.util.Comparator;
 
@@ -40,7 +41,8 @@ public class ClosureCoercion {
 		if (isFromHamcrest(closure)) {
 			return FluentUtils.my(closure, "matches");
 		}
-		throw new ClosureCoercionException("Argument does not coerce to closure: " + closure);
+		throw new ClosureCoercionException("Argument does not coerce to closure: "
+				+ closure);
 
 	}
 
@@ -69,8 +71,8 @@ public class ClosureCoercion {
 
 	private static Closure comparatorToClosure(Object closure) {
 		try {
-			return new ClosureOfAMethod(closure, Comparator.class.getMethod("compare", Object.class,
-					Object.class));
+			return new ClosureOfAMethod(closure, Comparator.class.getMethod("compare",
+					Object.class, Object.class));
 		} catch (NoSuchMethodException e) {
 			throw new RuntimeReflectionException(e);
 		}
