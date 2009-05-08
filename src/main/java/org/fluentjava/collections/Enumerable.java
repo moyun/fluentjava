@@ -159,6 +159,16 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	FluentList<E> sort(Object closure) throws EnumeratingException;
 
 	/**
+	 * Sort the objects e according to the natural order results of closure.call(e), for
+	 * evey e in the enumerable. Always returns a new list.
+	 * 
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	FluentList<E> sortBy(Object closure) throws EnumeratingException;
+
+	/**
 	 * Returns a list containing the elements of the Enumerator.
 	 * 
 	 * @return
@@ -225,16 +235,18 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * Return any element of the iterable. If there are no elements, return null.
 	 * 
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E any();
+	E any() throws EnumeratingException;
 
 	/**
 	 * Returns the maximum element according to the element's natural order (if any).
 	 * Returns null if there are no elements.
 	 * 
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E max();
+	E max() throws EnumeratingException;
 
 	/**
 	 * Returns the maximum element according to the order imposed by the Closure as a
@@ -242,8 +254,9 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * 
 	 * @param closure
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E max(Object closure);
+	E max(Object closure) throws EnumeratingException;
 
 	/**
 	 * Returns the maximum element e such that closure.call(e) is the minimum. Returns
@@ -251,16 +264,18 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * 
 	 * @param closure
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E maxBy(Object closure);
+	E maxBy(Object closure) throws EnumeratingException;
 
 	/**
 	 * Returns the minimum element according to the element's natural order (if any).
 	 * Returns null if there are no elements.
 	 * 
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E min();
+	E min() throws EnumeratingException;
 
 	/**
 	 * Returns the minimum element according to the order imposed by the Closure as a
@@ -268,8 +283,9 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * 
 	 * @param closure
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E min(Object closure);
+	E min(Object closure) throws EnumeratingException;
 
 	/**
 	 * Returns the minimum element e such that closure.call(e) is the minimum. Returns
@@ -277,6 +293,8 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * 
 	 * @param closure
 	 * @return
+	 * @throws EnumeratingException
 	 */
-	E minBy(Object closure);
+	E minBy(Object closure) throws EnumeratingException;
+
 }

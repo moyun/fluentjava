@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import org.fluentjava.FluentUtils;
 import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.Predicate;
 import org.junit.Test;
@@ -221,6 +222,16 @@ public class EnumeratorTest {
 		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
 				-300));
 		assertEquals(pair(1, -1), list.minBy(clousureThatGetsTheFirstFromPair()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testSortBy() throws Exception {
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
+				-300));
+		FluentList<Pair<Integer, Integer>> ret = list.sortBy(clousureThatGetsTheSecondFromPair());
+		assertEquals(FluentUtils.list(pair(300, -300), pair(20, -20), pair(1, -1)
+		), ret);
 	}
 	
 	private Closure clousureThatGetsTheFirstFromPair() {
