@@ -5,6 +5,7 @@
  * Builtin Common Closures (besides _my_)
  * Batch processing: map#valuesAt, varargs set#contains and list#contains
  * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by.
+ * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
 
 = Collection Theme =
  * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map, max, min etc): ??? points
@@ -19,7 +20,6 @@
 
 
 = To think about it (need points and priorization) =
- * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
  * Softening exceptions (on Closure)
  * Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
  * Arithmethic operations (smalltalk inspiration, again) on enumerable
