@@ -14,15 +14,16 @@
 
 = To Be Released =
  * immutable fluent set operations
+ * Builtin Common Closures (besides _my_)
  * Batch processing: map#valuesAt, varargs set#contains and list#contains
+ * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by.
 
 = To think about it (need points and priorization) =
- * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by
- * sort_with_keys (python influence). Receiving a closure, of course.
+ * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
  * Softening exceptions (on Closure)
  * Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
  * Arithmethic operations (smalltalk inspiration, again) on enumerable
- * Partition and iterablePartition on list
+ * Partition and iterablePartition on list (ruby calls this group_by, influenced by smalltalk's groupBy:having:)
  * Ruby's hash constructor (maybe extended interface on map, as the defaults do not allow this):
 {{{
 Hash.new => hash
@@ -31,7 +32,5 @@ Hash.new {|hash, key| block } => aHash
 }}}
  * Look into using [http://codeworker.free.fr/ codeworker] or [http://www.janino.net/ janino] to enable _eval_, and make closures out of it.
  * cache to o closure of a string based on signature.
- * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
  * Use wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned.
- * Builtin Common Closures (besides _my_)
  * CharSequence to enumerable
