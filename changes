@@ -5,12 +5,17 @@
  implement containsAny, and several varargs facilities of Collection methods.
  * FluentSet now have all set operations, without collateral effect.
  * Enumerable.take, Enumerable.any
+ * Enumerable max and min methods.
+ * new class ReversedComparator: reverses any comparator
  * FluentList.flatten
  * FluentMap.valuesAt (batch operation)
  * FluentUtils.aSet and FluentUtils.aList, create the collections disregarding type
  safety. Usefull for creating set of sets or list of lists, or set of lists of sets of
  maps, and so on.
  * FluentUtils.as (and Fluncy.as, as usual): fluent cast with type inference.
+ * FluentUtils.mapWithKeys: map that preserves keys, by creating pairs.
+ * FluentUtils.toMapBy: creates from pairs and entries.
+ * Builtin closures on Closures class static's methods
  * Better javadoc
 
 === Method Aliases ===
