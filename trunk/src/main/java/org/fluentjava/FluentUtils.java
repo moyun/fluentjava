@@ -20,7 +20,9 @@ import org.fluentjava.iterators.ExtendedIterator;
  * Class with static methods that serves as facade to several objects of the API. If you
  * wish a more fluent way to use the methods on this class, mainly
  * {@link #my(Object, String)} without the need to keep on passing this, consider
- * extending {@link Fluency}.
+ * extending {@link Fluency}. Otherwise, look on <a
+ * href=http://code.google.com/p/fluentjava/wiki/Faq>this</a> page on
+ * tips to making <code>import statics</code> more easy to use.
  * 
  * @see Fluency
  */
