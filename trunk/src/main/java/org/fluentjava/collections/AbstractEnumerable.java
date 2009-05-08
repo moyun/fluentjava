@@ -4,8 +4,10 @@ import static org.fluentjava.FluentUtils.as;
 import static org.fluentjava.closures.ClosureCoercion.toClosure;
 import static org.fluentjava.closures.ClosureCoercion.toPredicate;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.fluentjava.Closures;
 import org.fluentjava.closures.Closure;
@@ -163,6 +165,27 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	}
 
+	@Override
+	public FluentList<E> sortBy(Object closure) throws EnumeratingException {
+		Closure keyGenerator = toClosure(closure);
+		try {
+			List<Pair<Object, E>> middle = new ArrayList<Pair<Object, E>>();
+			for (E e : this) {
+				Pair<Object, E> pair = new Pair<Object, E>(keyGenerator.call(e), e);
+				middle.add(pair);
+			}
+			Comparator<Pair<Object, E>> compartor = pairComparator();
+			Collections.sort(middle, compartor);
+			FluentList<E> ret = new Sequence<E>();
+			for (Pair<Object, E> pair : middle) {
+				ret.add(pair.second);
+			}
+			return ret;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
+	}
+
 	public FluentList<E> toList() {
 		return new Sequence<E>(this);
 	}
@@ -229,7 +252,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	public E maxBy(Object closure) {
 		return getMax(closure, new ComparableComparator<Object>());
 	}
-	
+
 	@Override
 	public E min() {
 		return doMin(new ComparableComparator<E>());
@@ -240,7 +263,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
 		return doMin(comparator);
 	}
-	
+
 	@Override
 	public E minBy(Object closure) {
 		return getMax(closure, reverse(new ComparableComparator<Object>()));
@@ -271,7 +294,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 			throw new EnumeratingException(e);
 		}
 	}
-	
+
 	private E doMax(Comparator<E> comparator) {
 		return getMax(Closures.identity(), comparator);
 	}
@@ -298,5 +321,15 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		} catch (Exception e) {
 			throw new EnumeratingException(e);
 		}
+	}
+
+	private Comparator<Pair<Object, E>> pairComparator() {
+		final Comparator<Object> c = new ComparableComparator<Object>();
+		return new Comparator<Pair<Object, E>>() {
+			@Override
+			public int compare(Pair<Object, E> o1, Pair<Object, E> o2) {
+				return c.compare(o1.first, o2.first);
+			}
+		};
 	}
 }

@@ -10,6 +10,7 @@ public class Closures {
 		return new Identity();
 	}
 	
+	
 	private Closures() {
 	}
 	
