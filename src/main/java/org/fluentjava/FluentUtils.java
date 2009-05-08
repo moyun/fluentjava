@@ -2,10 +2,13 @@ package org.fluentjava;
 
 import java.lang.reflect.Method;
 import java.util.NoSuchElementException;
+import java.util.Map.Entry;
 
 import org.fluentjava.closures.ClosureOfAMethod;
+import org.fluentjava.collections.Dictionary;
 import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
+import org.fluentjava.collections.FluentMap;
 import org.fluentjava.collections.FluentSet;
 import org.fluentjava.collections.Pair;
 import org.fluentjava.collections.Sequence;
@@ -87,7 +90,7 @@ public class FluentUtils {
 	public static <T> FluentSet<T> set(T... args) {
 		return new ExtendedSet<T>(args);
 	}
-	
+
 	/**
 	 * Creates a {@link FluentSet} of objects.
 	 * 
@@ -123,6 +126,23 @@ public class FluentUtils {
 	}
 
 	/**
+	 * Creates a fluent map from entries (such as {@link Pair}).
+	 * 
+	 * @param args
+	 * @return
+	 * 
+	 * @see #pair(Object, Object).
+	 */
+	@SuppressWarnings("unchecked")
+	public static <K, V> FluentMap<K, V> map(Entry... args) {
+		FluentMap<K, V> ret = new Dictionary<K, V>();
+		for (Entry<K, V> entry : args) {
+			ret.put(entry.getKey(), entry.getValue());
+		}
+		return ret;
+	}
+
+	/**
 	 * Returns a closure of a method on the target current class, of the name methodName.
 	 * 
 	 * @param target
@@ -133,7 +153,7 @@ public class FluentUtils {
 	public static ClosureOfAMethod my(Object target, String methodName) {
 		return new ClosureOfAMethod(target, findMethod(target, methodName));
 	}
-	
+
 	/**
 	 * Alias to {@link #my(Object, String)}.
 	 * 
@@ -217,9 +237,10 @@ public class FluentUtils {
 	public static ExtendedIterable<Integer> irange(int start, int stop) {
 		return new IRangeFactory(start, stop);
 	}
-	
+
 	/**
 	 * Fluent Cast any object to a type T. Natural type inference.
+	 * 
 	 * @param <T>
 	 * @param o
 	 * @return
@@ -228,9 +249,10 @@ public class FluentUtils {
 	public static <T> T cast(Object o) {
 		return (T) o;
 	}
-	
+
 	/**
 	 * Alias to {@link #cast(Object)}.
+	 * 
 	 * @param <T>
 	 * @param o
 	 * @return
@@ -316,7 +338,7 @@ public class FluentUtils {
 			return new IRangeExtendedIterator(start, stop);
 		}
 	}
-	
+
 	private FluentUtils() {
 	}
 

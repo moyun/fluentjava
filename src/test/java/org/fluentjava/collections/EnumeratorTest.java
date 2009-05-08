@@ -1,6 +1,7 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.map;
 import static org.fluentjava.FluentUtils.pair;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +9,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import org.fluentjava.FluentUtils;
 import org.fluentjava.closures.Closure;
@@ -213,27 +215,65 @@ public class EnumeratorTest {
 				-300));
 		assertEquals(pair(300, -300), list.maxBy(clousureThatGetsTheFirstFromPair()));
 		assertEquals(pair(1, -1), list.maxBy(clousureThatGetsTheSecondFromPair()));
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testMinByTest() throws Exception {
-		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
-				-300));
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300, -300));
 		assertEquals(pair(1, -1), list.minBy(clousureThatGetsTheFirstFromPair()));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSortBy() throws Exception {
-		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300,
-				-300));
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300, -300));
 		FluentList<Pair<Integer, Integer>> ret = list.sortBy(clousureThatGetsTheSecondFromPair());
-		assertEquals(FluentUtils.list(pair(300, -300), pair(20, -20), pair(1, -1)
-		), ret);
+		assertEquals(FluentUtils.list(pair(300, -300), pair(20, -20), pair(1, -1)), ret);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testToMap() throws Exception {
+		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(300, -300));
+		FluentMap<Integer, Integer> expected = map(pair(1, -1), pair(20, -20), pair(300, -300));
+		assertEquals(expected, list.toMap());
+	}
+
+	@Test(expected = ClassCastException.class)
+	public void testToMapExpectsGoesBadWhenThereIsOneNotEntry() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3);
+		list.toMap();
+	}
+
+	@Test
+	public void testMapWithKeys() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3);
+		FluentList<Entry<Integer, Integer>> result = list.mapWithKeys(squareAnIntegerClosure());
+		FluentList<Pair<Integer, Integer>> expected = FluentUtils.list();
+		expected.insert(pair(1, 1)).insert(pair(2, 4)).insert(pair(3, 9));
+		assertEquals(expected, result);
 	}
 	
+	@Test
+	public void testToMapBy() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3);
+		FluentMap<Integer, Integer> result = list.toMapBy(squareAnIntegerClosure());
+		FluentMap<Integer, Integer> expected = map(pair(1, 1), pair(2, 4), pair(3, 9));
+		assertEquals(expected, result);
+	}
+
+	private Closure squareAnIntegerClosure() {
+		return new Closure() {
+			@Override
+			public Object call(Object... args) throws Exception {
+				Integer i = first(args);
+				return i * i;
+			}
+		};
+	}
+
 	private Closure clousureThatGetsTheFirstFromPair() {
 		return new Closure() {
 			@Override

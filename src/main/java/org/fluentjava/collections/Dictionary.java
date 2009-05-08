@@ -88,6 +88,11 @@ public class Dictionary<K, V> extends AbstractEnumerable<Pair<K, V>>
 	public FluentList<V> valuesAt(K... keys) {
 		return valuesAt(asList(keys));
 	}
+	
+	@Override
+	public FluentMap<K, V> insert(java.util.Map.Entry<? extends K, ? extends V> entry) {
+		return putAt(entry.getKey(), entry.getValue());
+	}
 
 	public Object clone() {
 		return new Dictionary<K, V>(delegateMap);
