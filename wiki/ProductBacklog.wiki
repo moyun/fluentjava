@@ -1,5 +1,10 @@
 #summary Features to be Implemented
 #labels backlog
+= To Be Released =
+ * immutable fluent set operations
+ * Builtin Common Closures (besides _my_)
+ * Batch processing: map#valuesAt, varargs set#contains and list#contains
+ * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by.
 
 = Collection Theme =
  * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map, max, min etc): ??? points
@@ -12,11 +17,6 @@
  * Compose: 6 points
  * Curry: 1 point
 
-= To Be Released =
- * immutable fluent set operations
- * Builtin Common Closures (besides _my_)
- * Batch processing: map#valuesAt, varargs set#contains and list#contains
- * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by.
 
 = To think about it (need points and priorization) =
  * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
