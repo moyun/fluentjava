@@ -37,6 +37,25 @@ public class ClosureCoercionTest {
 	}
 
 	@Test(expected = ClosureCoercionException.class)
+	public void testNullDoesNotCoerceToClosure() throws Exception {
+		ClosureCoercion.toClosure(null);
+	}
+
+	@Test
+	public void testMethodsFromObjectClassAreIgnoredFromInterfaceCoercion()
+			throws Exception {
+		OverrideAllObjectMethods caller = new OverrideAllObjectMethods() {
+			@Override
+			public String call() {
+				return "All others come from Object!";
+			}
+		};
+		Closure closure = ClosureCoercion.toClosure(caller);
+		assertEquals("All others come from Object!", closure.call());
+	}
+
+
+	@Test(expected = ClosureCoercionException.class)
 	public void testClassesWithTwoInterfacesEvenWithOneMethodEachDoNotCoerce()
 			throws Exception {
 		ClosureCoercion.toClosure(new SwissArmyKnife());
@@ -49,5 +68,15 @@ public class ClosureCoercionTest {
 		public String call() throws Exception {
 			return null;
 		}
+	}
+
+	private static interface OverrideAllObjectMethods {
+		boolean equals(Object obj);
+
+		int hashCode();
+
+		String toString();
+
+		String call();
 	}
 }
