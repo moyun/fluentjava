@@ -1,15 +1,10 @@
 package org.fluentjava.closures;
 
 import static java.util.Arrays.asList;
-import static org.fluentjava.FluentUtils.call;
-import static org.fluentjava.FluentUtils.map;
-import static org.fluentjava.FluentUtils.pair;
-import static org.fluentjava.FluentUtils.range;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.fluentjava.collections.FluentMap;
 import org.junit.Test;
 
 public class ClosureOfAMethodNameTest {
@@ -36,9 +31,9 @@ public class ClosureOfAMethodNameTest {
 	@Test
 	public void testSimpleVarArgs() throws Exception {
 		Object mock = new SimpleVarArrgs();
-		ClosureOfAMethodName closure = new ClosureOfAMethodName("inc");
-		Integer ret = closure.invoke(mock, 0, "one", "two");
-		assertEquals(1, ret);
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("sum");
+		Integer ret = closure.invoke(mock, 0, 1, 2, 3);
+		assertEquals(6, ret);
 	}
 
 	@Test
@@ -72,7 +67,7 @@ public class ClosureOfAMethodNameTest {
 		OverloadedTypesDifferOnlyOnVarargs mock = new OverloadedTypesDifferOnlyOnVarargs();
 		ClosureOfAMethodName closure = new ClosureOfAMethodName("typeName");
 		assertEquals("Integer...", closure.call(mock, "string", 1));
-//		assertEquals("String...", closure.call(mock, "string", "string"));
+		assertEquals("String...", closure.call(mock, "string", "arg"));
 	}
 
 	private static class OverloadedVarArgs {
@@ -86,8 +81,11 @@ public class ClosureOfAMethodNameTest {
 	}
 
 	private static class SimpleVarArrgs {
-		public int inc(Integer i, String... rest) {
-			return i + 1;
+		public int sum(Integer i, Integer... rest) {
+			for (Integer integer : rest) {
+				i += integer;
+			}
+			return i;
 		}
 	}
 
