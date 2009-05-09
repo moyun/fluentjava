@@ -39,7 +39,7 @@ public class Mirror {
 	 * @param mirroredObject
 	 * subject of reflection
 	 * @param isPriviliged
-	 * True if the mirror is priviliged
+	 * True if the mirror is privileged
 	 */
 	private Mirror(Object mirroredObject, boolean isPriviliged) {
 		this.mirrored = mirroredObject;

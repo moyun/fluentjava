@@ -9,7 +9,7 @@ import com.sun.org.apache.bcel.internal.generic.Select;
 
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
- * elements to be operated on with closures. All exceptions caught while iterating are
+ * elements to be operated on with closures. All exceptions caught whil iterating are
  * wrapped around the Runtime Exception {@link EnumeratingException}.
  * 
  * @param <E>
@@ -175,7 +175,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 
 	/**
 	 * Sort the objects e according to the natural order results of closure.call(e), for
-	 * evey e in the enumerable. Always returns a new list.
+	 * every e in the enumerable. Always returns a new list.
 	 * 
 	 * @param closure
 	 * @return
@@ -241,7 +241,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	E reduce(E initial, Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to {@link #reduce(Object))}.
+	 * Alias to {@link #reduce(Object)}.
 	 * 
 	 * @param closure
 	 * @return

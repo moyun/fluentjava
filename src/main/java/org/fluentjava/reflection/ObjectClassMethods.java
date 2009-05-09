@@ -15,7 +15,7 @@ import org.fluentjava.collections.Pair;
  * Mostly used on Coercing to closures the interfaces that have Object methods on their
  * signature (such as {@link Comparator}).
  */
-public class ObjectMethods {
+public class ObjectClassMethods {
 	/*
 	 * Variables
 	 */
@@ -24,7 +24,7 @@ public class ObjectMethods {
 	/*
 	 * Constructors
 	 */
-	public ObjectMethods() {
+	public ObjectClassMethods() {
 		this.mapa = buildMapOfMethods();
 	}
 

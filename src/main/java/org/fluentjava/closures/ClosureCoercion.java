@@ -8,7 +8,7 @@ import java.util.List;
 import org.fluentjava.FluentUtils;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.Sequence;
-import org.fluentjava.reflection.ObjectMethods;
+import org.fluentjava.reflection.ObjectClassMethods;
 
 /**
  * Converts Objects do Closures, or throws {@link ClosureCoercionException} if can't.
@@ -18,7 +18,7 @@ public class ClosureCoercion {
 	 * Constants
 	 */
 	private static String HamcrestMatcher = "org.hamcrest.BaseMatcher";
-	private static final ObjectMethods objectMethods = new ObjectMethods();
+	private static final ObjectClassMethods objectMethods = new ObjectClassMethods();
 
 	/*
 	 * Public Class Methods

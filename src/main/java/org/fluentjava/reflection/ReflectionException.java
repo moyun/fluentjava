@@ -2,7 +2,7 @@ package org.fluentjava.reflection;
 
 /**
  * Checked exception that encapsulates problems encountered by Mirror class. For unchecked
- * exceptions, see RuntimeReflectionException
+ * exceptions, see RuntimeReflectionException.
  * 
  * @see Mirror, RuntimeReflectionException
  */

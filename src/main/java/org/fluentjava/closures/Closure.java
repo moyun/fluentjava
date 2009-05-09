@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 import org.fluentjava.FluentUtils;
 
 /**
- * Approximation of the concept of closure on Java, abstracting a function defintion. It
+ * Approximation of the concept of closure on Java, abstracting a function definition. It
  * is not really a closure, as it does not close around the environment.
  */
 public abstract class Closure {
@@ -16,7 +16,7 @@ public abstract class Closure {
 	 * Generic Call.
 	 * 
 	 * @param args
-	 * Function Argumentsls
+	 * Function Arguments.
 	 * 
 	 * @return The result of Call
 	 * 
@@ -62,7 +62,7 @@ public abstract class Closure {
 	 * Utility method that returns arg(0, args).
 	 * 
 	 * @param <T>
-	 * Desired Type. Usually infered.
+	 * Desired Type. Usually inferred.
 	 * @param args
 	 * The args from call/invoke.
 	 * @return args[0] Casted
@@ -127,7 +127,7 @@ public abstract class Closure {
 	 * 
 	 * @return
 	 * 
-	 * @ee Runnable
+	 * @see Runnable
 	 */
 	public Runnable asRunnable() {
 		return toInteface(Runnable.class);

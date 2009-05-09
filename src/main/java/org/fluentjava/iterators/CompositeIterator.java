@@ -37,6 +37,7 @@ public class CompositeIterator<F, S> extends AbstractExtendedIterator<Pair<F, S>
 
 	@Override
 	public void remove() {
-		throw new UnsupportedOperationException("CompositeIterators cannot remove items.");
+		String message = "CompositeIterators cannot remove items.";
+		throw new UnsupportedOperationException(message);
 	}
 }
