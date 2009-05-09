@@ -70,8 +70,11 @@ public class ClosureOfAMethodName extends Closure {
 				boolean isOk = true;
 				Class<?>[] argTypes = method.getParameterTypes();
 				Object[] toInvoke = toInvokeList(restList, method);
-				restList = asList(toInvoke);
-				CountingIterator<Object> it = new CountingIterator<Object>(restList);
+				if (toInvoke == null) {
+					continue;
+				}
+				List<Object> newrestList = asList(toInvoke);
+				CountingIterator<Object> it = new CountingIterator<Object>(newrestList);
 				for (Object arg : it) {
 					Class<?> typeVariable = argTypes[it.iterationIndex()];
 					if (!typeVariable.isInstance(arg)) {
@@ -91,6 +94,10 @@ public class ClosureOfAMethodName extends Closure {
 	private Object invokeVarArgs(Object target, List<Object> argList, Method method)
 			throws IllegalAccessException, InvocationTargetException {
 		Object[] toInvoke = toInvokeList(argList, method);
+		if (toInvoke == null) {
+			throw new IllegalArgumentException("Method of name " + methodName
+					+ " could not be found on " + target);
+		}
 		return method.invoke(target, toInvoke);
 	}
 
@@ -109,9 +116,20 @@ public class ClosureOfAMethodName extends Closure {
 			Class<?>[] argTypes,
 			int nonVarArgsCount) {
 		Class<?> typeOfVarArgs = argTypes[nonVarArgsCount];
+		Class<?> elementsType = typeOfVarArgs.getComponentType();
 		assert (typeOfVarArgs.isArray());
-		return (Object[]) Array.newInstance(typeOfVarArgs.getComponentType(),
-				argList.size() - argList.size());
+		int arraySize = argList.size() - nonVarArgsCount;
+		Object[] ret = (Object[]) Array.newInstance(elementsType,
+				arraySize);
+		List<Object> restOfArgs = argList.subList(nonVarArgsCount, argList.size());
+		CountingIterator<Object> it = new CountingIterator<Object>(restOfArgs);
+		for (Object object : it) {
+			if (!elementsType.isInstance(object)) {
+				return null;
+			}
+			ret[it.iterationIndex()] = object;
+		}
+		return ret;
 	}
 
 }
