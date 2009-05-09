@@ -17,6 +17,14 @@ public class CompositeIterator<F, S> extends AbstractExtendedIterator<Pair<F, S>
 	private Iterator<S> secondIterable;
 
 	/*
+	 * Class Methods
+	 */
+	public static <K, V> CompositeIterator<K, V> fromIterables(Iterable<K> firstIterable,
+			Iterable<V> secondIterable) {
+		return new CompositeIterator<K, V>(firstIterable.iterator(), secondIterable.iterator());
+	}
+
+	/*
 	 * Constructors
 	 */
 	public CompositeIterator(Iterator<F> firstIterable, Iterator<S> secondIterable) {
