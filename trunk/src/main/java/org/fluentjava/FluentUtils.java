@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
+import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.ClosureOfAMethod;
 import org.fluentjava.collections.Dictionary;
 import org.fluentjava.collections.ExtendedSet;
@@ -152,7 +153,7 @@ public class FluentUtils {
 	 * 
 	 * @return
 	 */
-	public static ClosureOfAMethod my(Object target, String methodName) {
+	public static Closure my(Object target, String methodName) {
 		return new ClosureOfAMethod(target, findMethod(target, methodName));
 	}
 
@@ -164,7 +165,7 @@ public class FluentUtils {
 	 * 
 	 * @return
 	 */
-	public static ClosureOfAMethod call(Object target, String methodName) {
+	public static Closure call(Object target, String methodName) {
 		return new ClosureOfAMethod(target, findMethod(target, methodName));
 	}
 

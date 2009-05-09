@@ -40,4 +40,12 @@ public class CountingIterator<T> extends ExtendedIteratorAdapter<T> {
 	public int iterationNumber() {
 		return iterationNumber;
 	}
+	
+	/**
+	 * iterationNumber - 1.
+	 * @return
+	 */
+	public int iterationIndex() {
+		return iterationNumber - 1;
+	}
 }

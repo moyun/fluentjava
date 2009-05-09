@@ -34,7 +34,7 @@ public class CountingIteratorTest {
 		}
 		assertEquals(asList(1, 2, 3), ret);
 	}
-
+	
 	@Test
 	public void testSkippingSecondElement() throws Exception {
 		for (Integer integer : extendedIterator) {
@@ -57,6 +57,17 @@ public class CountingIteratorTest {
 	public void testExtendedIteratorsAreStillNotReusable() throws Exception {
 		for (Integer integer : extendedIterator) {
 			ret.add(integer);
+		}
+		assertEquals(3, extendedIterator.iterationNumber());
+		assertEquals(false, extendedIterator.hasNext());
+	}
+	
+	@Test
+	public void testCountintIteratorWithContinues() throws Exception {
+		for (Integer integer : extendedIterator) {
+			if (integer > 0) {
+				continue;
+			}
 		}
 		assertEquals(3, extendedIterator.iterationNumber());
 		assertEquals(false, extendedIterator.hasNext());
