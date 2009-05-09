@@ -231,7 +231,8 @@ public class EnumeratorTest {
 	public void testSortBy() throws Exception {
 		Enumerable<Pair<Integer, Integer>> list = list(pair(1, -1), pair(20, -20), pair(
 				300, -300));
-		FluentList<Pair<Integer, Integer>> ret = list.sortBy(clousureThatGetsTheSecondFromPair());
+		FluentList<Pair<Integer, Integer>> ret = 
+			list.sortBy(clousureThatGetsTheSecondFromPair());
 		assertEquals(FluentUtils.list(pair(300, -300), pair(20, -20), pair(1, -1)), ret);
 	}
 
@@ -254,7 +255,8 @@ public class EnumeratorTest {
 	@Test
 	public void testMapWithKeys() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
-		FluentList<Entry<Integer, Integer>> result = list.mapWithKeys(squareAnIntegerClosure());
+		FluentList<Entry<Integer, Integer>> result = 
+			list.mapWithKeys(squareAnIntegerClosure());
 		FluentList<Pair<Integer, Integer>> expected = FluentUtils.list();
 		expected.insert(pair(1, 1)).insert(pair(2, 4)).insert(pair(3, 9));
 		assertEquals(expected, result);

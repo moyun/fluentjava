@@ -5,7 +5,12 @@ import static java.util.Arrays.asList;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.fluentjava.collections.FluentList;
+import org.fluentjava.collections.Sequence;
 
 /**
  * Whenever this {@link #call(Object...)} is invoked, it reflectively invokes the
@@ -24,18 +29,38 @@ public class ClosureOfAMethodName extends Closure {
 	public Object call(Object... args) throws Exception {
 		Object target = first(args);
 		List<Object> restList = asList(args).subList(1, args.length);
+		FluentList<Method> candidates = new Sequence<Method>();
+		FluentList<Method> varArgsCandidates = new Sequence<Method>();
 		for (Method method : target.getClass().getMethods()) {
 			if (methodName.equals(method.getName())) {
 				if (method.isVarArgs()) {
 					if (restList.size() >= (method.getParameterTypes().length - 1)) {
-						return invokeVarArgs(target, restList, method);
+						varArgsCandidates.add(method);
 					}
 				}
 				else if (method.getParameterTypes().length == restList.size()) {
+					candidates.add(method);
+				}
+			}
+		}
+		if (candidates.size() == 1) {
+			return candidates.any().invoke(target, restList.toArray());
+		}
+		if (candidates.size() >= 1) {
+			for (Method method : candidates) {
+				Class<?>[] argTypes = method.getParameterTypes();
+				for (int i = 0; i < argTypes.length; i++) {
+					Class<?> typeVariable = argTypes[i];
+					Object arg = restList.get(i);
+					if (!typeVariable.isInstance(arg)) {
+						break;
+					}
 					return method.invoke(target, restList.toArray());
 				}
-
 			}
+		}
+		if (varArgsCandidates.size() >= 1) {
+			return invokeVarArgs(target, restList, varArgsCandidates.any());
 		}
 		throw new IllegalArgumentException("Method of name " + methodName
 				+ " could not be found on " + target);
