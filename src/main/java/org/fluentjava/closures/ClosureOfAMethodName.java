@@ -5,12 +5,11 @@ import static java.util.Arrays.asList;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.Sequence;
+import org.fluentjava.iterators.CountingIterator;
 
 /**
  * Whenever this {@link #call(Object...)} is invoked, it reflectively invokes the
@@ -46,21 +45,44 @@ public class ClosureOfAMethodName extends Closure {
 		if (candidates.size() == 1) {
 			return candidates.any().invoke(target, restList.toArray());
 		}
-		if (candidates.size() >= 1) {
+		if (candidates.size() > 1) {
 			for (Method method : candidates) {
+				boolean isOk = true;
 				Class<?>[] argTypes = method.getParameterTypes();
-				for (int i = 0; i < argTypes.length; i++) {
-					Class<?> typeVariable = argTypes[i];
-					Object arg = restList.get(i);
+				CountingIterator<Object> it = new CountingIterator<Object>(restList);
+				for (Object arg : it) {
+					Class<?> typeVariable = argTypes[it.iterationIndex()];
 					if (!typeVariable.isInstance(arg)) {
+						isOk = false;
 						break;
 					}
+				}
+				if (isOk) {
 					return method.invoke(target, restList.toArray());
 				}
 			}
 		}
-		if (varArgsCandidates.size() >= 1) {
+		if (varArgsCandidates.size() == 1) {
 			return invokeVarArgs(target, restList, varArgsCandidates.any());
+		}
+		if (varArgsCandidates.size() > 1) {
+			for (Method method : varArgsCandidates) {
+				boolean isOk = true;
+				Class<?>[] argTypes = method.getParameterTypes();
+				Object[] toInvoke = toInvokeList(restList, method);
+				restList = asList(toInvoke);
+				CountingIterator<Object> it = new CountingIterator<Object>(restList);
+				for (Object arg : it) {
+					Class<?> typeVariable = argTypes[it.iterationIndex()];
+					if (!typeVariable.isInstance(arg)) {
+						isOk = false;
+						break;
+					}
+				}
+				if (isOk) {
+					return  method.invoke(target, toInvoke);
+				}
+			}
 		}
 		throw new IllegalArgumentException("Method of name " + methodName
 				+ " could not be found on " + target);
@@ -68,6 +90,11 @@ public class ClosureOfAMethodName extends Closure {
 
 	private Object invokeVarArgs(Object target, List<Object> argList, Method method)
 			throws IllegalAccessException, InvocationTargetException {
+		Object[] toInvoke = toInvokeList(argList, method);
+		return method.invoke(target, toInvoke);
+	}
+
+	private Object[] toInvokeList(List<Object> argList, Method method) {
 		Class<?>[] argTypes = method.getParameterTypes();
 		Object[] toInvoke = new Object[argTypes.length];
 		int nonVarArgsCount = argTypes.length - 1;
@@ -75,7 +102,7 @@ public class ClosureOfAMethodName extends Closure {
 			toInvoke[i] = argList.get(i);
 		}
 		toInvoke[nonVarArgsCount] = buildVarArgsArray(argList, argTypes, nonVarArgsCount);
-		return method.invoke(target, toInvoke);
+		return toInvoke;
 	}
 
 	private Object[] buildVarArgsArray(List<Object> argList,
