@@ -15,7 +15,7 @@ import java.util.Set;
 public interface FluentSet<E> extends Set<E>, Enumerable<E>, ExtendedCollection<E> {
 	/**
 	 * Similar to the method toArray, but receives no args and is type safe. Also, the
-	 * returned array is just a copy. Note that the class is necessary, as Gererics by
+	 * returned array is just a copy. Note that the class is necessary, as Generics by
 	 * themselves cannot solve this problem alone. For more info:
 	 * http://www.ibm.com/developerworks/java/library/j-jtp01255.html
 	 * 

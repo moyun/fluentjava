@@ -4,6 +4,8 @@
  * Better closure coercion: overloaded Object methods are ignored from interfaces (Comparator now just coerces to closure).
  * ExtendedCollection is now super interface of FluentList and FluentSet. Both now
  implement containsAny, and several varargs facilities of Collection methods.
+ * Overloaded methods, and vararg methods are fully supported when using ClosureOfAMethodName
+ (former ClosureOfAString). This also goes for FluentUtils.my. 
  * FluentSet now have all set operations, without collateral effect.
  * Enumerable.take, Enumerable.any
  * Enumerable max and min methods.
@@ -13,11 +15,14 @@
  * FluentUtils.aSet and FluentUtils.aList, create the collections disregarding type
  safety. Useful for creating set of sets or list of lists, or set of lists of sets of
  maps, and so on.
- * FluentUtils.as (and Fluncy.as, as usual): fluent cast with type inference.
+ * FluentUtils.as (and Fluency.as, as usual): fluent cast with type inference.
  * FluentUtils.mapWithKeys: map that preserves keys, by creating pairs.
  * FluentUtils.toMapBy: creates from pairs and entries.
  * Builtin closures on Closures class static's methods
  * Better javadoc
+ * Forwarding collections(bringing fluent methods to all collection libraries out there).
+ * FluentUtils.toMap, FluentUtils.toList, and FluentUtils.toMap conveniently create
+ Forwarding collections, using type inference to make life a bit easier.
  
 
 === Method Aliases ===
@@ -30,15 +35,15 @@
  extend ArrayList, Dictionary does not extend HashMap, and ExtendedSet does not extend
  HashSet.
  * ClosureOfAString renamed to ClosureOfAMethodName. Just to make things clearer, although
- the prefered way is to always call ClosureCoercion.toClosure.
+ the preferred way is to always call ClosureCoercion.toClosure.
 
 = Release 0.2.1 =
 == New ones ==
  * _my_ is callable as static method on fluent Utils
- * Closure of a String now differs arity overloded methods and can call varargs.
+ * Closure of a String now differs arity overloaded methods and can call varargs.
  * Hamcrest matchers supported! They coerce to closure now.
  * Convenient methods to create callables, runnables and threads from a closure.
- * Range and IRange from python down to Java. On !FluentUtils, ubiquous facade.
+ * Range and IRange from python down to Java. On !FluentUtils, ubiquitous facade.
 
 == Breaking Changes ==
  * Pair moved from iterators to collections package.
