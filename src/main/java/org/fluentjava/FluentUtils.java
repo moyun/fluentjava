@@ -84,7 +84,7 @@ public class FluentUtils {
 	 * @param list
 	 * @return
 	 */
-	public static <T> FluentList<T> toList(List<T> list) {
+	public static <T> FluentList<T> fromList(List<T> list) {
 		return new ForwardingFluentList<T>(list);
 	}
 
@@ -125,7 +125,7 @@ public class FluentUtils {
 	 * @param list
 	 * @return
 	 */
-	public static <T> FluentSet<T> toList(Set<T> set) {
+	public static <T> FluentSet<T> fromSet(Set<T> set) {
 		return new ForwardingFluentSet<T>(set);
 	}
 
@@ -177,7 +177,7 @@ public class FluentUtils {
 	 * @param map
 	 * @return
 	 */
-	public static <K, V> FluentMap<K, V> toMap(Map<K, V> map) {
+	public static <K, V> FluentMap<K, V> fromMap(Map<K, V> map) {
 		return new ForwardingFluentMap<K, V>(map);
 	}
 

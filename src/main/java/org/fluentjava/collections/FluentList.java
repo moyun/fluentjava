@@ -4,7 +4,8 @@ import java.util.List;
 
 /**
  * {@link List} that has type safe toArray, and has a fluent interface on methods. Also,
- * has more convenient methods to include and remove elements.
+ * has more convenient methods to include and remove elements, and returns FluentLists
+ * where {@link List} would be returned.
  * 
  * All {@link Enumerable} methods are also implemented.
  * 
@@ -66,4 +67,20 @@ public interface FluentList<E> extends List<E>, Enumerable<E>, ExtendedCollectio
 	 * @return
 	 */
 	FluentList<Object> flatten();
+
+	FluentList<E> subList(int fromIndex, int toIndex);
+
+	/**
+	 * Same as {@link #subList(int, int)}, but fromIndex is 0.
+	 * @param i
+	 * @return
+	 */
+	FluentList<E> subListTo(int toIndex);
+
+	/**
+	 * Same as {@link #subList(int, int)}, but toIndex is {@link #size()}.
+	 * @param fromIndex
+	 * @return
+	 */
+	FluentList<E> subList(int fromIndex);
 }

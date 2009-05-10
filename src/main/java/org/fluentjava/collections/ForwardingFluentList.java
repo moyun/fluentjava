@@ -2,6 +2,7 @@ package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.as;
+import static org.fluentjava.FluentUtils.fromList;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -229,8 +230,8 @@ public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 		return delegateList.size();
 	}
 
-	public List<E> subList(int fromIndex, int toIndex) {
-		return delegateList.subList(fromIndex, toIndex);
+	public FluentList<E> subList(int fromIndex, int toIndex) {
+		return fromList(delegateList.subList(fromIndex, toIndex));  
 	}
 
 	public Object[] toArray() {
@@ -244,6 +245,16 @@ public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 	@Override
 	public String toString() {
 		return delegateList.toString();
+	}
+	
+	@Override
+	public FluentList<E> subListTo(int toIndex) {
+		return subList(0, toIndex);
+	}
+	
+	@Override
+	public FluentList<E> subList(int fromIndex) {
+		return subList(fromIndex, size());
 	}
 
 }

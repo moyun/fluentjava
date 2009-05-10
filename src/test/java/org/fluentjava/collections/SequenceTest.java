@@ -103,6 +103,26 @@ public class SequenceTest {
 		Sequence<Integer> list = new Sequence<Integer>(asList(1, 2, 3));
 		assertTrue(list.containsAny(9, 8, 7, 5, 4, 3));
 	}
+	
+	@Test
+	public void testSubListTo() throws Exception {
+		FluentList<Integer> list = new Sequence<Integer>(1, 2, 3, 4, 5);
+		FluentList<Integer> sublist = list.subListTo(3);
+		assertEquals(asList(1, 2, 3), sublist);
+		list.set(0, 42);
+		assertEquals(asList(42, 2, 3), sublist);
+		assertEquals(asList(42, 2, 3, 4, 5), list);
+	}
+	
+	@Test
+	public void testSubListWithJustStart() throws Exception {
+		FluentList<Integer> list = new Sequence<Integer>(1, 2, 3, 4, 5);
+		FluentList<Integer> sublist = list.subList(2);
+		assertEquals(asList(3, 4, 5), sublist);
+		list.set(4, 42);
+		assertEquals(asList(3, 4, 42), sublist);
+		assertEquals(asList(1, 2, 3, 4, 42), list);
+	}
 
 	private List<Integer> half(Integer... array) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
