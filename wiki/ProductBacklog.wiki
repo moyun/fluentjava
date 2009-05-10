@@ -33,5 +33,5 @@ Hash.new {|hash, key| block } => aHash
 }}}
  * Look into using [http://codeworker.free.fr/ codeworker] or [http://www.janino.net/ janino] to enable _eval_, and make closures out of it.
  * cache to o closure of a string based on signature.
- * Use wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned.
+ * Use wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned: List#subList, Map#keySet, Map#entrySet
  * !CharSequence to enumerable
