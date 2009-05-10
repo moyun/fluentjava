@@ -1,5 +1,8 @@
 package org.fluentjava;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import org.fluentjava.closures.Closure;
@@ -223,4 +226,36 @@ public abstract class Fluency {
 	protected <K, V> FluentMap<K, V> map(Entry... args) {
 		return FluentUtils.<K, V>map(args);
 	}
+	
+	/**
+	 * Delegates to {@link FluentUtils#fromList(List)}.
+	 * @param <T>
+	 * @param list
+	 * @return
+	 */
+	protected <T> FluentList<T> fromList(List<T> list) {
+		return FluentUtils.<T>fromList(list);
+	}
+	
+	/**
+	 * Delegates to {@link FluentUtils#fromMap(Map)}.
+	 * @param <K>
+	 * @param <V>
+	 * @param map
+	 * @return
+	 */
+	protected <K, V> FluentMap<K, V> fromMap(Map<K, V> map) {
+		return FluentUtils.<K, V>fromMap(map);
+	}
+	
+	/**
+	 * Delegates to {@link FluentUtils#fromSet(Set)}.
+	 * @param <T>
+	 * @param set
+	 * @return
+	 */
+	protected <T> FluentSet<T> fromSet(Set<T> set) {
+		return FluentUtils.<T>fromSet(set);
+	}
+	
 }
