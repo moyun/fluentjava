@@ -55,16 +55,7 @@ public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 
 	@Override
 	public ExtendedIterator<Pair<K, V>> iterator() {
-		final Iterator<Entry<K, V>> i = entrySet().iterator();
-		return new AbstractExtendedIterator<Pair<K, V>>() {
-			public boolean hasNext() {
-				return i.hasNext();
-			}
-
-			public Pair<K, V> next() {
-				return new Pair<K, V>(i.next());
-			}
-		};
+		return new EntrySetIterator<K, V>(delegateMap.entrySet().iterator());
 	}
 
 	@Override
@@ -157,4 +148,25 @@ public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return delegateMap.values();
 	}
 
+	/**
+	 * {@link ForwardingFluentMap} iterator.
+	 * @param <K>
+	 * @param <V>
+	 */
+	private static final class EntrySetIterator<K, V> extends
+			AbstractExtendedIterator<Pair<K, V>> {
+		private final Iterator<Entry<K, V>> iterator;
+
+		public EntrySetIterator(Iterator<Entry<K, V>> i) {
+			this.iterator = i;
+		}
+
+		public boolean hasNext() {
+			return iterator.hasNext();
+		}
+
+		public Pair<K, V> next() {
+			return new Pair<K, V>(iterator.next());
+		}
+	}
 }

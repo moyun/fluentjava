@@ -4,9 +4,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.fluentjava.iterators.ExtendedIterable;
-
-import com.sun.org.apache.bcel.internal.generic.Select;
-
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
  * elements to be operated on with closures. All exceptions caught whil iterating are
