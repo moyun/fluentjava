@@ -1,6 +1,9 @@
 package org.fluentjava;
 
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import org.fluentjava.closures.Closure;
@@ -10,6 +13,9 @@ import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
 import org.fluentjava.collections.FluentSet;
+import org.fluentjava.collections.ForwardingFluentList;
+import org.fluentjava.collections.ForwardingFluentMap;
+import org.fluentjava.collections.ForwardingFluentSet;
 import org.fluentjava.collections.Pair;
 import org.fluentjava.collections.Sequence;
 import org.fluentjava.iterators.AbstractExtendedIterator;
@@ -71,6 +77,16 @@ public class FluentUtils {
 	public static FluentList<Object> alist(Object... args) {
 		return new Sequence<Object>(args);
 	}
+	
+	/**
+	 * Creates a {@link FluentList} wrapping around the argument.
+	 * @param <T>
+	 * @param list
+	 * @return
+	 */
+	public static <T> FluentList<T> toList(List<T> list) {
+		return new ForwardingFluentList<T>(list);
+	}
 
 	/**
 	 * Creates an empty {@link FluentSet} of type T.
@@ -101,6 +117,16 @@ public class FluentUtils {
 	 */
 	public static FluentSet<Object> aSet(Object... args) {
 		return new ExtendedSet<Object>(args);
+	}
+	
+	/**
+	 * Creates a {@link FluentSet} wrapping around the argument.
+	 * @param <T>
+	 * @param list
+	 * @return
+	 */
+	public static <T> FluentSet<T> toList(Set<T> set) {
+		return new ForwardingFluentSet<T>(set);
 	}
 
 	/**
@@ -142,6 +168,17 @@ public class FluentUtils {
 			ret.put(entry.getKey(), entry.getValue());
 		}
 		return ret;
+	}
+	
+	/**
+	 * Creates a {@link FluentMap} wrapping around the argument.
+	 * @param <K>
+	 * @param <V>
+	 * @param map
+	 * @return
+	 */
+	public static <K, V> FluentMap<K, V> toMap(Map<K, V> map) {
+		return new ForwardingFluentMap<K, V>(map);
 	}
 
 	/**
