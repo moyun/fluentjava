@@ -1,6 +1,7 @@
 package org.fluentjava.closures;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.pair;
 import static org.fluentjava.iterators.CompositeIterator.fromIterables;
 
 import java.lang.reflect.Array;
@@ -9,9 +10,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fluentjava.collections.FluentList;
+import org.fluentjava.FluentUtils;
+import org.fluentjava.collections.FluentMap;
 import org.fluentjava.collections.Pair;
-import org.fluentjava.collections.Sequence;
 import org.fluentjava.iterators.CountingIterator;
 
 /**
@@ -19,14 +20,32 @@ import org.fluentjava.iterators.CountingIterator;
  * method is being invoked. Finds the best fit method if overloaded methods are found.
  */
 public class ReflectiveInvoker {
+	
+	public static void main(String[] args) {
+		System.out.println(Object[].class.isAssignableFrom(int[].class));
+	}
+	/*
+	 * Constants
+	 */
+    private static final FluentMap<Class<?>, Class<?>> PrimitiveMap = FluentUtils.map(
+    		    pair(Boolean.TYPE, Boolean.class),
+    		    pair(Byte.TYPE, Byte.class),
+    		    pair(Character.TYPE, Character.class),
+    		    pair(Double.TYPE, Double.class),
+    		    pair(Float.TYPE, Float.class),
+    		    pair(Integer.TYPE, Integer.class),
+    		    pair(Long.TYPE, Long.class),
+    		    pair(Short.TYPE, Short.class)); 
+
+	
 	/*
 	 * Variables
 	 */
 	protected final String methodName;
 	protected final Object target;
-	protected final List<Object> args;
-	private FluentList<Method> candidates = new Sequence<Method>();
-	private FluentList<Method> varArgsCandidates = new Sequence<Method>();
+	private List<Object> args;
+	private Method candidate;
+	private Method varArgsCandidate;
 
 	/*
 	 * Constructors
@@ -42,11 +61,11 @@ public class ReflectiveInvoker {
 	 */
 	public Object invoke() throws IllegalAccessException, InvocationTargetException {
 		findCandidatesByNameAndAgs();
-		if (candidates.size() >= 1) {
-			return candidates.any().invoke(target, args.toArray());
+		if (candidate != null) {
+			return candidate.invoke(target, args.toArray());
 		}
-		if (varArgsCandidates.size() >= 1) {
-			return invokeVarArgs(varArgsCandidates.any());
+		if (varArgsCandidate != null) {
+			return invokeVarArgs(varArgsCandidate);
 		}
 		throw new IllegalArgumentException("Method of name " + methodName
 				+ " could not be found on " + target);
@@ -70,21 +89,26 @@ public class ReflectiveInvoker {
 	private void findCandidatesByNameAndAgs() {
 		for (Method method : target.getClass().getMethods()) {
 			if (methodName.equals(method.getName())) {
-				analizeMethod(method);
+				if (analizeMethod(method)) {
+					return;
+				}
 			}
 		}
 	}
 
-	private void analizeMethod(Method method) {
+	private boolean analizeMethod(Method method) {
 		if (method.isVarArgs()) {
 			if (varArgsMatch(method)) {
-				varArgsCandidates.add(method);
+				varArgsCandidate = method;
+				return true;
 			}
-			return;
+			return false;
 		}
 		if (argumentsMatch(method)) {
-			candidates.add(method);
+			candidate = method;
+			return true;
 		}
+		return false;
 	}
 
 	private boolean varArgsMatch(Method method) {
@@ -100,9 +124,15 @@ public class ReflectiveInvoker {
 	}
 
 	private boolean argumentsMatchVarArgsParameters(Method method, List<Object> subList) {
+		if (subList.size() == 1) {
+			Object object = subList.get(0);
+			if (object.getClass().isArray()) {
+				return (varArgsArrayType(method).isAssignableFrom(object.getClass()));
+			}
+		}
 		Class<?> elementsType = varArgsType(method);
 		for (Object object : subList) {
-			if (!elementsType.isInstance(object)) {
+			if (!canArgumentBeAssignedToType(elementsType, object)) {
 				return false;
 			}
 		}
@@ -110,9 +140,12 @@ public class ReflectiveInvoker {
 	}
 
 	private Class<?> varArgsType(Method method) {
+		return varArgsArrayType(method).getComponentType();
+	}
+
+	private Class<?> varArgsArrayType(Method method) {
 		Class<?>[] argTypes = method.getParameterTypes();
-		Class<?> typeOfVarArgs = argTypes[argTypes.length - 1];
-		return typeOfVarArgs.getComponentType();
+		return argTypes[argTypes.length - 1];
 	}
 
 	private boolean argumentsMatch(Method method) {
@@ -125,11 +158,18 @@ public class ReflectiveInvoker {
 	private boolean argumentsMatchParameters(Method method, List<Object> arguments) {
 		List<Class<?>> argTypes = asList(method.getParameterTypes());
 		for (Pair<Class<?>, Object> pair : fromIterables(argTypes, arguments)) {
-			if (!pair.first.isInstance(pair.second)) {
+			if (!canArgumentBeAssignedToType(pair.first, pair.second)) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	private boolean canArgumentBeAssignedToType(Class<?> type, Object argument) {
+		if (type.isPrimitive()) {
+			return PrimitiveMap.get(type).isInstance(argument);
+		}
+		return type.isInstance(argument);
 	}
 
 	private Object invokeVarArgs(Method method) throws IllegalAccessException,
@@ -139,21 +179,28 @@ public class ReflectiveInvoker {
 		return method.invoke(target, toInvoke.toArray());
 	}
 
-	private Object[] createVarArgsArray(Method method) {
+	private Object createVarArgsArray(Method method) {
 		List<Object> varargs = varArgs(method);
-		Object[] ret = createArrayOfTheCorrectType(method, varargs);
+		if (varargs.size() == 1) {
+			Object object = varargs.get(0);
+			if (object.getClass().isArray()) {
+				return object;
+			}
+		}
+		Object ret = createArrayOfTheCorrectType(method, varargs);
 		copyVarArgsToArray(varargs, ret);
 		return ret;
 	}
 
-	private Object[] createArrayOfTheCorrectType(Method method, List<Object> varargs) {
-		return (Object[]) Array.newInstance(varArgsType(method), varargs.size());
+	private Object createArrayOfTheCorrectType(Method method, List<Object> varargs) {
+		Class<?> varArgsType = varArgsType(method);
+		return Array.newInstance(varArgsType, varargs.size());
 	}
 
-	private void copyVarArgsToArray(List<Object> varargs, Object[] array) {
+	private void copyVarArgsToArray(List<Object> varargs, Object array) {
 		CountingIterator<Object> it = new CountingIterator<Object>(varargs);
 		for (Object object : it) {
-			array[it.iterationIndex()] = object;
+			Array.set(array, it.iterationIndex(), object);
 		}
 	}
 }

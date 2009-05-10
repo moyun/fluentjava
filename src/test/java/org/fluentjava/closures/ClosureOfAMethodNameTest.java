@@ -35,6 +35,45 @@ public class ClosureOfAMethodNameTest {
 		Integer ret = closure.invoke(mock, 0, 1, 2, 3);
 		assertEquals(6, ret);
 	}
+	
+	@Test
+	public void testPrimitiveVarArgs() throws Exception {
+		PrimitiveVarArgs mock = new PrimitiveVarArgs();
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("sum");
+		Integer ret = closure.invoke(mock, 1, 2, 3);
+		assertEquals(6, ret);
+		
+	}
+	
+	@Test
+	public void testPrimitiveVarArgsAcceptsPrimitiveArrays() throws Exception {
+		PrimitiveVarArgs mock = new PrimitiveVarArgs();
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("sum");
+		int[] ar = {1, 2, 3};
+		Integer ret = closure.invoke(mock, ar);
+		assertEquals(6, ret);
+		
+	}
+
+	@Test
+	public void testVarArgMethodsCanReceiveArrayInstead() throws Exception {
+		SimpleVarArrgs mock = new SimpleVarArrgs();
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("sum");
+		Integer[] ar = {1, 2, 3};
+		Integer ret = closure.invoke(mock, 0, ar);
+		assertEquals(6, ret);
+	}
+	
+	@Test
+	public void testVarArgMethodsWithArrays() throws Exception {
+		VarArrgsWithArrays mock = new VarArrgsWithArrays();
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("sum");
+		Integer[] ar = {1, 2, 3};
+		Integer ret = closure.invoke(mock, 0, ar);
+		assertEquals(6, ret);
+		Integer retWithBothArraysAndVarargs = closure.invoke(mock, 0, ar, 4, 5);
+		assertEquals(15, retWithBothArraysAndVarargs);
+	}
 
 	@Test
 	public void testWithOverloadedVarARgs() throws Exception {
@@ -61,14 +100,33 @@ public class ClosureOfAMethodNameTest {
 		assertEquals("int varargs", closure.call(mock, 1));
 		assertEquals("string varargs", closure.call(mock, "one"));
 	}
-	
+
 	@Test
 	public void testVarArgsOnlyDiffereingOnArray() throws Exception {
-		OverloadedTypesDifferOnlyOnVarargs mock = new OverloadedTypesDifferOnlyOnVarargs();
+		OverloadedTypesDifferOnlyOnVarargs mock =
+				new OverloadedTypesDifferOnlyOnVarargs();
 		ClosureOfAMethodName closure = new ClosureOfAMethodName("typeName");
 		assertEquals("Integer...", closure.call(mock, "string", 1));
 		assertEquals("String...", closure.call(mock, "string", "arg"));
 	}
+
+	@Test
+	public void testPrimitiveTypes() throws Exception {
+		SimplePrimitiveType mock = new SimplePrimitiveType();
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("typeName");
+		assertEquals("primitive int", closure.call(mock, 1));
+	}
+
+	@Test
+	public void testWhenThereIsAmbiguityOneIsPickedArbitrarly() throws Exception {
+		AmbiguousMethods mock = new AmbiguousMethods();
+		ClosureOfAMethodName closure = new ClosureOfAMethodName("typeName");
+		int primitive = 1;
+		Integer integer = new Integer(primitive);
+		assertEquals(closure.call(mock, primitive), closure.call(mock, integer));
+	}
+
+
 
 	private static class OverloadedVarArgs {
 		public int inc(Integer i, Integer offset, String... rest) {
@@ -82,6 +140,18 @@ public class ClosureOfAMethodNameTest {
 
 	private static class SimpleVarArrgs {
 		public int sum(Integer i, Integer... rest) {
+			for (Integer integer : rest) {
+				i += integer;
+			}
+			return i;
+		}
+	}
+
+	private static class VarArrgsWithArrays {
+		public int sum(Integer i, Integer[] messy, Integer... rest) {
+			for (Integer integer : messy) {
+				i += integer;
+			}
 			for (Integer integer : rest) {
 				i += integer;
 			}
@@ -128,4 +198,31 @@ public class ClosureOfAMethodNameTest {
 			return "String...";
 		}
 	}
+
+	private static class SimplePrimitiveType {
+		public String typeName(int i) {
+			return "primitive int";
+		}
+	}
+
+	private static class PrimitiveVarArgs {
+		public int sum(int... rest) {
+			int i = 0;
+			for (int integer : rest) {
+				i += integer;
+			}
+			return i;
+		}
+	}
+
+	private static class AmbiguousMethods {
+		public String typeName(int i) {
+			return "primitive int";
+		}
+
+		public String typeName(Integer i) {
+			return "integer";
+		}
+	}
+
 }
