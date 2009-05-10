@@ -33,5 +33,5 @@ Hash.new(obj) => aHash
 Hash.new {|hash, key| block } => aHash
 }}}
  * Look into using [http://codeworker.free.fr/ codeworker] or [http://www.janino.net/ janino] to enable _eval_, and make closures out of it.
- * cache to o closure of a string based on signature.
+ * cache to o ClosureOfAMethodName based on signature.
  * !CharSequence to enumerable
