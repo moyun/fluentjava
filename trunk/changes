@@ -21,8 +21,10 @@
  * Builtin closures on Closures class static's methods
  * Better javadoc
  * Forwarding collections(bringing fluent methods to all collection libraries out there).
- * FluentUtils.toMap, FluentUtils.toList, and FluentUtils.toMap conveniently create
+ * FluentUtils.fromMap, FluentUtils.fromList, and FluentUtils.fromMap conveniently create
  Forwarding collections, using type inference to make life a bit easier.
+ * FluentList: now can sublist starting from zero (subListTo) and ending on the last position
+ (subList with one argument)
  
 
 === Method Aliases ===

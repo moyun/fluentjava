@@ -1,10 +1,11 @@
 package org.fluentjava.collections;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * {@link Map} that has a fluent interface on methods. All {@link Enumerable} methods are
- * also implemented.
+ * also implemented. Also, return FluentSets where Map would return {@link Set}.
  * 
  * @param <K>
  * Type of keys.
@@ -55,7 +56,23 @@ public interface FluentMap<K, V> extends Enumerable<Pair<K, V>>, Map<K, V> {
 	 */
 	FluentList<V> allValues();
 
+	/**
+	 * Return a list with the values from all the keys. nulls will appear where the map
+	 * does not find the keys.
+	 * 
+	 * @param keys
+	 * @return
+	 */
 	FluentList<V> valuesAt(Iterable<? extends K> keys);
 
+	/**
+	 * Varargs version of {@link #valuesAt(Iterable)}.
+	 * @param keys
+	 * @return
+	 */
 	FluentList<V> valuesAt(K... keys);
+	
+	FluentSet<Entry<K, V>> entrySet();
+	
+	FluentSet<K> keySet();
 }

@@ -1,11 +1,11 @@
 package org.fluentjava.collections;
 
 import static java.util.Arrays.asList;
+import static org.fluentjava.FluentUtils.fromSet;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import org.fluentjava.iterators.AbstractExtendedIterator;
 import org.fluentjava.iterators.ExtendedIterator;
@@ -106,8 +106,8 @@ public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return delegateMap.containsValue(value);
 	}
 
-	public Set<java.util.Map.Entry<K, V>> entrySet() {
-		return delegateMap.entrySet();
+	public FluentSet<Entry<K, V>> entrySet() {
+		return fromSet(delegateMap.entrySet());
 	}
 
 	@Override
@@ -128,8 +128,8 @@ public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 		return delegateMap.isEmpty();
 	}
 
-	public Set<K> keySet() {
-		return delegateMap.keySet();
+	public FluentSet<K> keySet() {
+		return fromSet(delegateMap.keySet());
 	}
 
 	public V put(K key, V value) {
