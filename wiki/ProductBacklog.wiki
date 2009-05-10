@@ -6,14 +6,15 @@
  * Batch processing: map#valuesAt, varargs set#contains and list#contains
  * [http://en.wikipedia.org/wiki/Schwartzian_transform Schwartzian_transform] on sort_by.
  * Convience methods: enumerable#createWithMap, enumerable#toMap (from pairs)
+ * Coercion from overloaded methods supported
+ * Wrapped extended collections.
 
 = Collection Theme =
- * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map, max, min etc): ??? points
- * Wrapped extended collections: 9 points
+ * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map, etc): ??? points
  * Wrapped over Fork Join: 10 points
 
 = Closures Theme =
- * Full Coercion. Includes detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces. [http://mxr.mozilla.org/mozilla/source/js/rhino/src/org/mozilla/javascript/NativeJavaMethod.java This] is how Rhino (javascript scripting in java) handled overloaded methods (important to closure of a string): 10  points
+ * Detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces.
  * !TimeIt: 4  points
  * Compose: 6 points
  * Curry: 1 point
