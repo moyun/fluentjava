@@ -1,11 +1,10 @@
 package org.fluentjava;
 
-import java.lang.reflect.Method;
 import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
 import org.fluentjava.closures.Closure;
-import org.fluentjava.closures.ClosureOfAMethod;
+import org.fluentjava.closures.PriviligedClosureOfAMethodName;
 import org.fluentjava.collections.Dictionary;
 import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
@@ -154,7 +153,7 @@ public class FluentUtils {
 	 * @return
 	 */
 	public static Closure my(Object target, String methodName) {
-		return new ClosureOfAMethod(target, findMethod(target, methodName));
+		return new PriviligedClosureOfAMethodName(target, methodName);
 	}
 
 	/**
@@ -166,7 +165,7 @@ public class FluentUtils {
 	 * @return
 	 */
 	public static Closure call(Object target, String methodName) {
-		return new ClosureOfAMethod(target, findMethod(target, methodName));
+		return new PriviligedClosureOfAMethodName(target, methodName);
 	}
 
 	/**
@@ -267,38 +266,6 @@ public class FluentUtils {
 	/*
 	 * Private Methods
 	 */
-	private static Method findMethod(Object target, String methodName) {
-		Method method = findOnDeclared(target, methodName);
-		if (method != null) {
-			return method;
-		}
-		method = findOnInhenrited(target, methodName);
-		if (method != null) {
-			return method;
-		}
-		throw new NoSuchElementException("The method " + methodName
-				+ " was not found on " + target);
-	}
-
-	private static Method findOnInhenrited(Object target, String methodName) {
-		for (Method method : target.getClass().getMethods()) {
-			if (methodName.equals(method.getName())) {
-				return method;
-			}
-		}
-		return null;
-	}
-
-	private static Method findOnDeclared(Object target, String methodName) {
-		for (Method method : target.getClass().getDeclaredMethods()) {
-			if (methodName.equals(method.getName())) {
-				method.setAccessible(true);
-				return method;
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * Inner class that makes iranges.
 	 */

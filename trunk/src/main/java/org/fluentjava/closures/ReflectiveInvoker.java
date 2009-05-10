@@ -20,24 +20,23 @@ import org.fluentjava.iterators.CountingIterator;
  * method is being invoked. Finds the best fit method if overloaded methods are found.
  */
 public class ReflectiveInvoker {
-	
+
 	public static void main(String[] args) {
 		System.out.println(Object[].class.isAssignableFrom(int[].class));
 	}
 	/*
 	 * Constants
 	 */
-    private static final FluentMap<Class<?>, Class<?>> PrimitiveMap = FluentUtils.map(
-    		    pair(Boolean.TYPE, Boolean.class),
-    		    pair(Byte.TYPE, Byte.class),
-    		    pair(Character.TYPE, Character.class),
-    		    pair(Double.TYPE, Double.class),
-    		    pair(Float.TYPE, Float.class),
-    		    pair(Integer.TYPE, Integer.class),
-    		    pair(Long.TYPE, Long.class),
-    		    pair(Short.TYPE, Short.class)); 
+	private static final FluentMap<Class<?>, Class<?>> PrimitiveMap =
+			FluentUtils.map(pair(Boolean.TYPE, Boolean.class),
+					pair(Byte.TYPE, Byte.class),
+					pair(Character.TYPE, Character.class),
+					pair(Double.TYPE, Double.class),
+					pair(Float.TYPE, Float.class),
+					pair(Integer.TYPE, Integer.class),
+					pair(Long.TYPE, Long.class),
+					pair(Short.TYPE, Short.class));
 
-	
 	/*
 	 * Variables
 	 */
@@ -59,12 +58,45 @@ public class ReflectiveInvoker {
 	/*
 	 * Public Methods
 	 */
+	/**
+	 * Actually do all the method lookup and invocation.
+	 * 
+	 * @return
+	 * @throws IllegalAccessException
+	 * From {@link Method#invoke(Object, Object...)}
+	 * @throws InvocationTargetException
+	 * From {@link Method#invoke(Object, Object...)}
+	 */
 	public Object invoke() throws IllegalAccessException, InvocationTargetException {
 		findCandidatesByNameAndAgs();
 		if (candidate != null) {
 			return candidate.invoke(target, args.toArray());
 		}
 		if (varArgsCandidate != null) {
+			return invokeVarArgs(varArgsCandidate);
+		}
+		throw new IllegalArgumentException("Method of name " + methodName
+				+ " could not be found on " + target);
+	}
+
+	/**
+	 * Like {@link #invoke()}, but looks up declared methods as well.
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	public Object priviligedInvoke() throws IllegalAccessException,
+			InvocationTargetException {
+		findCandidatesByNameAndAgs();
+		if (!wasMethodFound()) {
+			privilegedFindCandidatesByNameAndAgs();
+		}
+		if (candidate != null) {
+			candidate.setAccessible(true);
+			return candidate.invoke(target, args.toArray());
+		}
+		if (varArgsCandidate != null) {
+			varArgsCandidate.setAccessible(true);
 			return invokeVarArgs(varArgsCandidate);
 		}
 		throw new IllegalArgumentException("Method of name " + methodName
@@ -86,29 +118,39 @@ public class ReflectiveInvoker {
 		return method.getParameterTypes().length - 1;
 	}
 
+	private void privilegedFindCandidatesByNameAndAgs() {
+		findMethodsFromList(target.getClass().getDeclaredMethods());
+	}
+
 	private void findCandidatesByNameAndAgs() {
-		for (Method method : target.getClass().getMethods()) {
+		findMethodsFromList(target.getClass().getMethods());
+	}
+
+	private void findMethodsFromList(Method[] methods) {
+		for (Method method : methods) {
 			if (methodName.equals(method.getName())) {
-				if (analizeMethod(method)) {
+				analizeMethod(method);
+				if (wasMethodFound()) {
 					return;
 				}
 			}
 		}
 	}
 
-	private boolean analizeMethod(Method method) {
+	private boolean wasMethodFound() {
+		return candidate != null || varArgsCandidate != null;
+	}
+
+	private void analizeMethod(Method method) {
 		if (method.isVarArgs()) {
 			if (varArgsMatch(method)) {
 				varArgsCandidate = method;
-				return true;
+				return;
 			}
-			return false;
 		}
 		if (argumentsMatch(method)) {
 			candidate = method;
-			return true;
 		}
-		return false;
 	}
 
 	private boolean varArgsMatch(Method method) {
@@ -203,4 +245,5 @@ public class ReflectiveInvoker {
 			Array.set(array, it.iterationIndex(), object);
 		}
 	}
+
 }
