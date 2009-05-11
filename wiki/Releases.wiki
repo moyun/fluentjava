@@ -3,14 +3,14 @@
 == New Features ==
  * Better generic support all together
  * Better closure coercion: overloaded Object methods are ignored from interfaces (Comparator now just coerces to closure).
- * ExtendedCollection is now super interface of !FluentList and !FluentSet. Both now implement containsAny, and several varargs facilities of Collection methods.
+ * !ExtendedCollection is now super interface of !FluentList and !FluentSet. Both now implement containsAny, and several varargs facilities of Collection methods.
  * Overloaded methods, and vararg methods are fully supported when using ClosureOfAMethodName (former ClosureOfAString). This also goes for !FluentUtils.my. 
  * !FluentSet now have all set operations, without collateral effect.
  * Enumerable.take, Enumerable.any
  * Enumerable max and min methods.
- * new class ReversedComparator: reverses any comparator
+ * new class !ReversedComparator: reverses any comparator
  * !FluentList.flatten
- * FluentMap.valuesAt (batch operation)
+ * !FluentMap.valuesAt (batch operation)
  * !FluentUtils.aSet and !FluentUtils.aList, create the collections disregarding type safety. Useful for creating set of sets or list of lists, or set of lists of sets of maps, and so on.
  * !FluentUtils.as (and Fluency.as, as usual): fluent cast with type inference.
  * !FluentUtils.mapWithKeys: map that preserves keys, by creating pairs.
@@ -21,7 +21,7 @@
  * !FluentUtils.fromMap, !FluentUtils.fromList, and !FluentUtils.fromMap conveniently create Forwarding collections, using type inference to make life a bit easier.
  * !FluentList: now can sublist starting from zero (subListTo) and ending on the last position (subList with one argument).
  * Enumerable has lazy methods for select, reject, collect, take and mapWithKeys
- * Mirror now uses standard method lookup (from ReflectiveInvoker).
+ * Mirror now uses standard method lookup (from !ReflectiveInvoker).
  
 
 === Method Aliases ===
@@ -30,8 +30,8 @@
  * Enumerable.findAll is alias to Enumerable.select
 
 == Breaking Changes ==
- * Fluent Collections no longer extend java.util classes. That is: Sequence does not extend ArrayList, Dictionary does not extend HashMap, and ExtendedSet does not extend HashSet.
- * ClosureOfAString renamed to ClosureOfAMethodName. Just to make things clearer, although the preferred way is to always call ClosureCoercion.toClosure.
+ * Fluent Collections no longer extend java.util classes. That is: Sequence does not extend !ArrayList, Dictionary does not extend !HashMap, and !ExtendedSet does not extend HashSet.
+ * ClosureOfAString renamed to ClosureOfAMethodName. Just to make things clearer, although the preferred way is to always call !ClosureCoercion.toClosure.
 
 = Release 0.2.1 =
 == New ones ==
