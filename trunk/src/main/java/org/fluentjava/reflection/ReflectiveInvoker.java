@@ -18,21 +18,22 @@ import org.fluentjava.iterators.CountingIterator;
 /**
  * Invokes a method based only the name of the method and the class of the object whose
  * method is being invoked. Finds the best fit method if overloaded methods are found.
+ * This class is not thread safe.
  */
 public class ReflectiveInvoker {
 	/*
 	 * Constants
 	 */
 	private static final FluentMap<Class<?>, Class<?>> PrimitiveMap =
-			FluentUtils.map(pair(Boolean.TYPE, Boolean.class),
-					pair(Byte.TYPE, Byte.class),
-					pair(Character.TYPE, Character.class),
-					pair(Double.TYPE, Double.class),
-					pair(Float.TYPE, Float.class),
-					pair(Integer.TYPE, Integer.class),
-					pair(Long.TYPE, Long.class),
-					pair(Short.TYPE, Short.class));
-
+		FluentUtils.map(pair(Boolean.TYPE, Boolean.class),
+				pair(Byte.TYPE, Byte.class),
+				pair(Character.TYPE, Character.class),
+				pair(Double.TYPE, Double.class),
+				pair(Float.TYPE, Float.class),
+				pair(Integer.TYPE, Integer.class),
+				pair(Long.TYPE, Long.class),
+				pair(Short.TYPE, Short.class));
+	
 	/*
 	 * Variables
 	 */
@@ -77,6 +78,7 @@ public class ReflectiveInvoker {
 
 	/**
 	 * Like {@link #invoke()}, but looks up declared methods as well.
+	 * 
 	 * @return
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException

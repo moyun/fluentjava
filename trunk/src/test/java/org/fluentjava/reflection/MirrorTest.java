@@ -103,5 +103,11 @@ public class MirrorTest {
 		priviligedMirror.field("ClassField").set("aValue");
 		assertEquals("aValue", Mock.getValue());
 	}
+	
+	@Test
+	public void testInvoke() throws Exception {
+		mirror.invoke("setPrivateString", "changed on test");
+		assertEquals(mock.getPrivateString(), "changed on test");
+	}
 
 }

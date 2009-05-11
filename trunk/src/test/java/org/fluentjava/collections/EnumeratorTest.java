@@ -18,6 +18,8 @@ import org.junit.Test;
 
 public class EnumeratorTest {
 
+	private ArrayList<Object> data = new ArrayList<Object>();
+
 	@Test
 	public void testExistsWithClosures() {
 		Enumerable<Integer> list = list(1, 2, 3, 4, 5);
@@ -66,10 +68,37 @@ public class EnumeratorTest {
 		assertEquals(asList(5, 6, 7), list.select(greaterThan(4)));
 	}
 
+
+	@Test
+	public void testLazySelect() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
+		Enumerable<Integer> lazy = list.iselect(greaterThan(4));
+		assertEquals(asList(5, 6, 7), lazy.toList());
+	}
+	
+	@Test
+	public void testBeWareOfCollateralEfectsWhenBeingLazy() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
+		Enumerable<Integer> lazy = list.iselect(greaterThan(4));
+		data.set(2, 30);
+		data.set(3, 50);
+		data.set(4, 60);
+		data.set(5, -70);
+		assertEquals(asList(30, 50, 60), lazy.toList());
+	}
+	
 	@Test
 	public void testReject() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
 		assertEquals(asList(1, 2, 3), list.reject(greaterThan(4)));
+	}
+	
+	@Test
+	public void testLazyReject() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
+		Enumerable<Integer> lazy = list.ireject(greaterThan(4));
+		assertFalse(lazy.equals(asList(1, 2, 3)));
+		assertEquals(asList(1, 2, 3), lazy.toList());
 	}
 
 	@Test
@@ -116,7 +145,7 @@ public class EnumeratorTest {
 	@Test
 	public void testMap() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
-		Enumerable<Integer> ret = list.map(new Closure() {
+		FluentList<Integer> ret = list.map(new Closure() {
 			@Override
 			public Object call(Object... args) throws Exception {
 				Integer i = first(args);
@@ -129,14 +158,17 @@ public class EnumeratorTest {
 	@Test
 	public void testMapToDifferentTypes() throws Exception {
 		Enumerable<String> list = list("I", "am", "one");
-		Enumerable<Integer> ret = list.map(new Closure() {
-			@Override
-			public Object call(Object... args) throws Exception {
-				String i = first(args);
-				return i.length();
-			}
-		});
+		FluentList<Integer> ret = list.map("length");
 		assertEquals(asList(1, 2, 3), ret);
+	}
+	
+	@Test
+	public void testLazyMapToDifferentTypes() throws Exception {
+		Enumerable<String> list = list("I", "am", "one");
+		Enumerable<Integer> ret = list.imap("length");
+		data.set(2, "many");
+		assertEquals(asList(1, 2, 4), ret.toList());
+		assertFalse(ret.equals(asList(1, 2, 4)));
 	}
 
 	@Test
@@ -182,6 +214,15 @@ public class EnumeratorTest {
 	public void testTake() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3, 4);
 		assertEquals(asList(1, 2), list.take(2));
+	}
+	
+	@Test
+	public void testLazyTake() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 4);
+		Enumerable<Integer> taken = list.itake(2);
+		data.set(0, 10);
+		data.set(1, -20);
+		assertEquals(asList(10, -20), taken.toList());
 	}
 
 	@Test
@@ -261,7 +302,19 @@ public class EnumeratorTest {
 		expected.insert(pair(1, 1)).insert(pair(2, 4)).insert(pair(3, 9));
 		assertEquals(expected, result);
 	}
-
+	
+	@Test
+	public void testLazyMapWithKeys() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3);
+		Enumerable<Entry<Integer, Integer>> result = 
+			list.imapWithKeys(squareAnIntegerClosure());
+		data.set(0, 10);
+		data.set(1, -20);
+		FluentList<Pair<Integer, Integer>> expected = FluentUtils.list();
+		expected.insert(pair(10, 100)).insert(pair(-20, 400)).insert(pair(3, 9));
+		assertEquals(expected, result.toList());
+	}
+	
 	@Test
 	public void testToMapBy() throws Exception {
 		Enumerable<Integer> list = list(1, 2, 3);
@@ -327,10 +380,10 @@ public class EnumeratorTest {
 		return new Enumerator<T>(new ArrayList<T>());
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T> Enumerable<T> list(T... args) {
-		ArrayList<T> ret = new ArrayList<T>();
-		ret.addAll(asList(args));
-		return new Enumerator<T>(ret);
+		data.addAll(asList(args));
+		return new Enumerator<T>((Iterable<? extends T>) data);
 	}
 
 	private Closure stringLengthReversedComparatorClosure() {

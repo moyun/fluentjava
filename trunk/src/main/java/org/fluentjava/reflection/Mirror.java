@@ -1,5 +1,7 @@
 package org.fluentjava.reflection;
 
+import static java.util.Arrays.asList;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class Mirror {
 	 */
 	protected Object mirrored;
 	protected Map<String, InstanceField> allFields = new HashMap<String, InstanceField>();
+	private boolean isPriviliged;
 
 	/*
 	 * Constructors
@@ -46,6 +49,7 @@ public class Mirror {
 		for (Field field : mirroredObject.getClass().getFields()) {
 			allFields.put(field.getName(), new InstanceField(mirroredObject, field));
 		}
+		this.isPriviliged = isPriviliged;
 		if (isPriviliged) {
 			for (Field field : mirroredObject.getClass().getDeclaredFields()) {
 				if (!allFields.containsKey(field.getName())) {
@@ -110,9 +114,23 @@ public class Mirror {
 		throw new RuntimeReflectionException("Unknown field: " + fieldName);
 	}
 
+	/**
+	 * Invokes any method by only knowing its name and a set of arguments. To know more,
+	 * see {@link ReflectiveInvoker#invoke()} and
+	 * {@link ReflectiveInvoker#priviligedInvoke()} if the mirror is priviliged.
+	 * 
+	 * @param methodName
+	 * @param args
+	 * @return
+	 */
 	public Object invoke(String methodName, Object... args) {
 		try {
-			return mirrored.getClass().getMethod(methodName).invoke(mirrored, args);
+			ReflectiveInvoker invoker =
+					new ReflectiveInvoker(methodName, mirrored, asList(args));
+			if (isPriviliged) {
+				return invoker.priviligedInvoke();
+			}
+			return invoker.invoke();
 		} catch (Exception e) {
 			throw new RuntimeReflectionException(e);
 		}
