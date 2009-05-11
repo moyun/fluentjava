@@ -49,7 +49,7 @@ public class ReflectiveGetter {
 		} catch (Exception e) {
 			throw new RuntimeReflectionException(e);
 		}
-		return new RuntimeReflectionException(String.format(
+		throw new RuntimeReflectionException(String.format(
 				"No getter called %s found on %s", getterName, target));
 
 	}
@@ -83,7 +83,11 @@ public class ReflectiveGetter {
 	 */
 	private boolean isGetter(Method method, String methodName, String getterName) {
 		return method.getParameterTypes().length == 0
-				&& hasGetterName(methodName, getterName);
+				&& hasGetterName(methodName, getterName) && doesNotReturnVoid(method);
+	}
+
+	private boolean doesNotReturnVoid(Method method) {
+		return !void.class.isAssignableFrom(method.getReturnType());
 	}
 
 	private boolean hasGetterName(String methodName, String getterName) {

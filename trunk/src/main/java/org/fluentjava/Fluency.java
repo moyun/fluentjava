@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import org.fluentjava.closures.Closure;
 import org.fluentjava.collections.Dictionary;
+import org.fluentjava.collections.Enumerable;
 import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
@@ -253,6 +254,16 @@ public abstract class Fluency {
 	 */
 	protected <T> FluentSet<T> fromSet(Set<T> set) {
 		return FluentUtils.<T>fromSet(set);
+	}
+	
+	/**
+	 * Delegates to {@link FluentUtils#asEnumerable(Iterable)}.
+	 * @param <T>
+	 * @param iterable
+	 * @return
+	 */
+	protected  <T> Enumerable<T> asEnumerable(Iterable<T> iterable) {
+		return FluentUtils.<T>asEnumerable(iterable);
 	}
 	
 }
