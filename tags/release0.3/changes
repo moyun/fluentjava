@@ -1,0 +1,54 @@
+= Release 0.3 (WIP) =
+== New Features ==
+ * Better generic support all together
+ * Better closure coercion: overloaded Object methods are ignored from interfaces (Comparator now just coerces to closure).
+ * ExtendedCollection is now super interface of FluentList and FluentSet. Both now
+ implement containsAny, and several varargs facilities of Collection methods.
+ * Overloaded methods, and vararg methods are fully supported when using ClosureOfAMethodName
+ (former ClosureOfAString). This also goes for FluentUtils.my. 
+ * FluentSet now have all set operations, without collateral effect.
+ * Enumerable.take, Enumerable.any
+ * Enumerable max and min methods.
+ * new class ReversedComparator: reverses any comparator
+ * FluentList.flatten
+ * FluentMap.valuesAt (batch operation)
+ * FluentUtils.aSet and FluentUtils.aList, create the collections disregarding type
+ safety. Useful for creating set of sets or list of lists, or set of lists of sets of
+ maps, and so on.
+ * FluentUtils.as (and Fluency.as, as usual): fluent cast with type inference.
+ * FluentUtils.mapWithKeys: map that preserves keys, by creating pairs.
+ * FluentUtils.toMapBy: creates from pairs and entries.
+ * Builtin closures on Closures class static's methods
+ * Better javadoc
+ * Forwarding collections(bringing fluent methods to all collection libraries out there).
+ * FluentUtils.fromMap, FluentUtils.fromList, and FluentUtils.fromMap conveniently create
+ Forwarding collections, using type inference to make life a bit easier.
+ * FluentList: now can sublist starting from zero (subListTo) and ending on the last position
+ (subList with one argument).
+ * Enumerable has lazy methods for select, reject, collect, take and mapWithKeys
+ * Mirror now uses standard method lookup (from ReflectiveInvoker).
+ 
+
+=== Method Aliases ===
+ * Closure.as is alias to Closure.toInterface
+ * Fluentutils.call is alias to Fluentutils.my
+ * Enumerable.findAll is alias to Enumerable.select
+
+== Breaking Changes ==
+ * Fluent Collections no longer extend java.util classes. That is: Sequence does not
+ extend ArrayList, Dictionary does not extend HashMap, and ExtendedSet does not extend
+ HashSet.
+ * ClosureOfAString renamed to ClosureOfAMethodName. Just to make things clearer, although
+ the preferred way is to always call ClosureCoercion.toClosure.
+
+= Release 0.2.1 =
+== New ones ==
+ * _my_ is callable as static method on fluent Utils
+ * Closure of a String now differs arity overloaded methods and can call varargs.
+ * Hamcrest matchers supported! They coerce to closure now.
+ * Convenient methods to create callables, runnables and threads from a closure.
+ * Range and IRange from python down to Java. On !FluentUtils, ubiquitous facade.
+
+== Breaking Changes ==
+ * Pair moved from iterators to collections package.
+ * All factory methods from Sequence, Dictionary, Pair, etc, moved to a new Facade: !FluentUtils.
