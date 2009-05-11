@@ -3,11 +3,19 @@ package org.fluentjava.collections;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.fluentjava.closures.Closure;
+import org.fluentjava.closures.ClosureCoercion;
+import org.fluentjava.closures.ClosureCoercionException;
 import org.fluentjava.iterators.ExtendedIterable;
+
 /**
  * Implements a enumeration protocol. A class that implement this interface allow its
- * elements to be operated on with closures. All exceptions caught whil iterating are
+ * elements to be operated on with closures. All exceptions caught while iterating are
  * wrapped around the Runtime Exception {@link EnumeratingException}.
+ * 
+ * Important: all arguments named closures will be coerced into a {@link Closure} using
+ * {@link ClosureCoercion} methods, and therefore, can throw
+ * {@link ClosureCoercionException}.
  * 
  * @param <E>
  * Type of Elements.
@@ -75,13 +83,33 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	FluentList<E> select(Object closure) throws EnumeratingException;
 
 	/**
-	 * Alias to {@link Select}.
+	 * Lazy version of {@link #select(Object)}. Since the elements are generated as
+	 * requested, beware of non immutable data, even more when it is shared by multiple
+	 * threads.
+	 * 
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	Enumerable<E> iselect(Object closure) throws EnumeratingException;
+
+	/**
+	 * Alias to {@link #select(Object)}.
 	 * 
 	 * @param closure
 	 * @return
 	 * @throws EnumeratingException
 	 */
 	FluentList<E> findAll(Object closure) throws EnumeratingException;
+
+	/**
+	 * Alias to {@link #iselect(Object)}.
+	 * 
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	Enumerable<E> ifindAll(Object closure) throws EnumeratingException;
 
 	/**
 	 * Filter returning a FluentList with the elements such but the ones that the closure
@@ -92,6 +120,17 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @throws EnumeratingException
 	 */
 	FluentList<E> reject(Object closure) throws EnumeratingException;
+
+	/**
+	 * Lazy version of {@link #reject(Object)}. Since the elements are generated as
+	 * requested, beware of non immutable data, even more when it is shared by multiple
+	 * threads.
+	 * 
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	Enumerable<E> ireject(Object closure) throws EnumeratingException;
 
 	/**
 	 * Returns the first element such hat the closure returns true. The closure must only
@@ -132,6 +171,18 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	<T> FluentList<T> map(Object closure) throws EnumeratingException;
 
 	/**
+	 * Lazy version of {@link #map(Object)}. Since the elements are generated as
+	 * requested, beware of non immutable data, even more when it is shared by multiple
+	 * threads.
+	 * 
+	 * @param <T>
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	<T> Enumerable<T> imap(Object closure) throws EnumeratingException;
+
+	/**
 	 * Alias to {@link #map}.
 	 * 
 	 * @param <T>
@@ -142,16 +193,37 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	<T> FluentList<T> collect(Object closure) throws EnumeratingException;
 
 	/**
+	 * Alias to {@link #imap(Object)}.
+	 * 
+	 * @param <T>
+	 * @param closure
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	<T> Enumerable<T> icollect(Object closure) throws EnumeratingException;
+
+	/**
 	 * Similar to {@link #map(Object)}, but returns a list where the elements are pairs
 	 * whose first element is the element from the Enumerable, and the second one is the
 	 * result of the closure applied to such element. If you want a {@link Map}, just use
-	 * {@link #toMap()} afterwards.
+	 * {@link #toMap()} afterwards, or just use the convenience method
+	 * {@link #toMapBy(Object)} instead.
 	 * 
 	 * @param <V>
 	 * @param closure
 	 * @return
 	 */
 	<V> FluentList<Entry<E, V>> mapWithKeys(Object closure);
+	
+	/**
+	 * Lazy version of {@link #mapWithKeys(Object)}. Since the elements are generated as
+	 * requested, beware of non immutable data, even more when it is shared by multiple
+	 * threads.
+	 * @param <V>
+	 * @param closure
+	 * @return
+	 */
+	<V> Enumerable<Entry<E, V>> imapWithKeys(Object closure);
 
 	/**
 	 * Returns a list containing the sorted elements of the Enumerator, according to its
@@ -205,7 +277,7 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	<K, V> FluentMap<K, V> toMap() throws EnumeratingException;
 
 	/**
-	 * Convinience method to cascading calls of {@link #mapWithKeys(Object)} and
+	 * Convenience method to cascading calls of {@link #mapWithKeys(Object)} and
 	 * {@link #toMap()}.
 	 * 
 	 * @param closure
@@ -264,6 +336,16 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @throws EnumeratingException
 	 */
 	FluentList<E> take(int n) throws EnumeratingException;
+
+	/**
+	 * Lazy version of {@link #take(int)}. Since the elements are generated as requested,
+	 * beware of non immutable data, even more when it is shared by multiple threads.
+	 * 
+	 * @param n
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	Enumerable<E> itake(int n) throws EnumeratingException;
 
 	/**
 	 * Return any element of the iterable. If there are no elements, return null.

@@ -11,7 +11,7 @@ public abstract class AbstractExtendedIterator<T> implements ExtendedIterator<T>
 	}
 
 	public void remove() {
-		String message = "Extended Iterators have remotion as optional";
+		String message = "Extended Iterators have removal as optional.";
 		throw new UnsupportedOperationException(message);
 	}
 }
