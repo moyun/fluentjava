@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.PriviligedClosureOfAMethodName;
 import org.fluentjava.collections.Dictionary;
+import org.fluentjava.collections.Enumerable;
+import org.fluentjava.collections.Enumerator;
 import org.fluentjava.collections.ExtendedSet;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
@@ -77,9 +79,10 @@ public class FluentUtils {
 	public static FluentList<Object> alist(Object... args) {
 		return new Sequence<Object>(args);
 	}
-	
+
 	/**
 	 * Creates a {@link FluentList} wrapping around the argument.
+	 * 
 	 * @param <T>
 	 * @param list
 	 * @return
@@ -118,9 +121,10 @@ public class FluentUtils {
 	public static FluentSet<Object> aSet(Object... args) {
 		return new ExtendedSet<Object>(args);
 	}
-	
+
 	/**
 	 * Creates a {@link FluentSet} wrapping around the argument.
+	 * 
 	 * @param <T>
 	 * @param list
 	 * @return
@@ -169,9 +173,10 @@ public class FluentUtils {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Creates a {@link FluentMap} wrapping around the argument.
+	 * 
 	 * @param <K>
 	 * @param <V>
 	 * @param map
@@ -179,6 +184,18 @@ public class FluentUtils {
 	 */
 	public static <K, V> FluentMap<K, V> fromMap(Map<K, V> map) {
 		return new ForwardingFluentMap<K, V>(map);
+	}
+
+	/**
+	 * Convenient way (with type inference) to create an {@link Enumerator} from an
+	 * iterable.
+	 * 
+	 * @param <T>
+	 * @param iterable
+	 * @return
+	 */
+	public static <T> Enumerable<T> asEnumerable(Iterable<T> iterable) {
+		return new Enumerator<T>(iterable);
 	}
 
 	/**

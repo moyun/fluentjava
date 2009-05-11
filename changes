@@ -25,7 +25,7 @@
  Forwarding collections, using type inference to make life a bit easier.
  * FluentList: now can sublist starting from zero (subListTo) and ending on the last position
  (subList with one argument).
- * Enumerable has lazy methods for select, reject, collect, take, mapWithKeys, *reduce.  
+ * Enumerable has lazy methods for select, reject, collect, take and mapWithKeys
  * Mirror now uses standard method lookup (from ReflectiveInvoker).
  
 

@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Map.Entry;
 
 import org.fluentjava.Closures;
+import org.fluentjava.FluentUtils;
 import org.fluentjava.closures.Closure;
 import org.fluentjava.closures.Predicate;
 import org.fluentjava.iterators.AbstractExtendedIterator;
@@ -170,7 +171,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	public <T> FluentList<T> collect(Object closure) throws EnumeratingException {
 		return map(closure);
 	}
-	
+
 	@Override
 	public <T> Enumerable<T> icollect(Object closure) throws EnumeratingException {
 		return imap(closure);
@@ -240,7 +241,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		FluentList<Entry<E, V>> ret = this.<V>imapWithKeys(closure).toList();
 		return ret;
 	}
-	
+
 	@Override
 	public <V> Enumerable<Entry<E, V>> imapWithKeys(Object closure) {
 		Closure function = toClosure(closure);
@@ -271,7 +272,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	public FluentList<E> take(int n) throws EnumeratingException {
 		return itake(n).toList();
 	}
-	
+
 	@Override
 	public Enumerable<E> itake(int n) throws EnumeratingException {
 		if (n < 0) {
@@ -380,12 +381,11 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	private <T> Enumerable<T> asEnum(Iterable<T> iterable) {
-		return new Enumerator<T>(iterable);
+		return FluentUtils.<T>asEnumerable(iterable);
 	}
 
-	
 	/*
-	 * Helper Classes 
+	 * Helper Classes
 	 */
 	/**
 	 * Utility class to implement {@link Enumerable#iselect(Object)} and
@@ -455,6 +455,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	/**
 	 * Utility class for {@link Enumerable#map(Object)}.
+	 * 
 	 * @param <E>
 	 * @param <R>
 	 */
@@ -497,13 +498,12 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 				return call(it.next());
 
 			}
-
 		}
-
 	}
-	
+
 	/**
 	 * Utility class for {@link Enumerable#mapWithKeys(Object)}.
+	 * 
 	 * @param <E>
 	 * @param <R>
 	 */
@@ -549,9 +549,6 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 				return call(it.next());
 
 			}
-
 		}
-
 	}
-
 }

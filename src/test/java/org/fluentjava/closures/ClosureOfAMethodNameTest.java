@@ -35,16 +35,16 @@ public class ClosureOfAMethodNameTest {
 		Integer ret = closure.invoke(mock, 0, 1, 2, 3);
 		assertEquals(6, ret);
 	}
-	
+
 	@Test
 	public void testPrimitiveVarArgs() throws Exception {
 		PrimitiveVarArgs mock = new PrimitiveVarArgs();
 		ClosureOfAMethodName closure = new ClosureOfAMethodName("sum");
 		Integer ret = closure.invoke(mock, 1, 2, 3);
 		assertEquals(6, ret);
-		
+
 	}
-	
+
 	@Test
 	public void testPrimitiveVarArgsAcceptsPrimitiveArrays() throws Exception {
 		PrimitiveVarArgs mock = new PrimitiveVarArgs();
@@ -52,7 +52,7 @@ public class ClosureOfAMethodNameTest {
 		int[] ar = {1, 2, 3};
 		Integer ret = closure.invoke(mock, ar);
 		assertEquals(6, ret);
-		
+
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class ClosureOfAMethodNameTest {
 		Integer ret = closure.invoke(mock, 0, ar);
 		assertEquals(6, ret);
 	}
-	
+
 	@Test
 	public void testVarArgMethodsWithArrays() throws Exception {
 		VarArrgsWithArrays mock = new VarArrgsWithArrays();
@@ -125,8 +125,6 @@ public class ClosureOfAMethodNameTest {
 		Integer integer = new Integer(primitive);
 		assertEquals(closure.call(mock, primitive), closure.call(mock, integer));
 	}
-
-
 
 	protected static class OverloadedVarArgs {
 		public int inc(Integer i, Integer offset, String... rest) {

@@ -47,6 +47,14 @@ public class ClosuresTest {
 		assertEquals("Extreme Programming Explained", name);
 	}
 	
+
+	@Test(expected = RuntimeReflectionException.class)
+	public void testVoidGetterMethodsAreNotGetters() throws Exception {
+		BookWithNoGettersOrFields book = new BookWithNoGettersOrFields();
+		Closure closure = Closures.getter("name");
+		closure.call(book);
+	}
+	
 	
 	protected static class BookWithPublicAttributes {
 		public String name;
@@ -68,4 +76,8 @@ public class ClosuresTest {
 		}
 	}
 	
+	protected static class BookWithNoGettersOrFields {
+		public void getName() {
+		}
+	}
 }
