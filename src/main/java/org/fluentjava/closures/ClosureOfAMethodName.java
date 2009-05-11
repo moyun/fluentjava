@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import org.fluentjava.reflection.ReflectiveInvoker;
+
 /**
  * Whenever this {@link #call(Object...)} is invoked, it reflectively invokes the
  * {@link #methodName} into the first argument passed, passing the rest of the arguments

@@ -128,7 +128,7 @@ public class ClosureOfAMethodNameTest {
 
 
 
-	private static class OverloadedVarArgs {
+	protected static class OverloadedVarArgs {
 		public int inc(Integer i, Integer offset, String... rest) {
 			return i + offset;
 		}
@@ -138,7 +138,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class SimpleVarArrgs {
+	protected static class SimpleVarArrgs {
 		public int sum(Integer i, Integer... rest) {
 			for (Integer integer : rest) {
 				i += integer;
@@ -147,7 +147,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class VarArrgsWithArrays {
+	protected static class VarArrgsWithArrays {
 		public int sum(Integer i, Integer[] messy, Integer... rest) {
 			for (Integer integer : messy) {
 				i += integer;
@@ -159,7 +159,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class OverloadedMethodsArgwise {
+	protected static class OverloadedMethodsArgwise {
 		public int inc(Integer i) {
 			return inc(i, 1);
 		}
@@ -169,7 +169,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class OverloadedTypes {
+	protected static class OverloadedTypes {
 		public String typeName(String str) {
 			return "string";
 		}
@@ -179,7 +179,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class VarArgsOverloadedTypes {
+	protected static class VarArgsOverloadedTypes {
 		public String typeName(String str, Object... args) {
 			return "string varargs";
 		}
@@ -189,7 +189,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class OverloadedTypesDifferOnlyOnVarargs {
+	protected static class OverloadedTypesDifferOnlyOnVarargs {
 		public String typeName(String str, Integer... args) {
 			return "Integer...";
 		}
@@ -199,13 +199,13 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class SimplePrimitiveType {
+	protected static class SimplePrimitiveType {
 		public String typeName(int i) {
 			return "primitive int";
 		}
 	}
 
-	private static class PrimitiveVarArgs {
+	protected static class PrimitiveVarArgs {
 		public int sum(int... rest) {
 			int i = 0;
 			for (int integer : rest) {
@@ -215,7 +215,7 @@ public class ClosureOfAMethodNameTest {
 		}
 	}
 
-	private static class AmbiguousMethods {
+	protected static class AmbiguousMethods {
 		public String typeName(int i) {
 			return "primitive int";
 		}
