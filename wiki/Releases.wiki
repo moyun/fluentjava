@@ -30,7 +30,7 @@
  * Enumerable.findAll is alias to Enumerable.select
 
 == Breaking Changes ==
- * Fluent Collections no longer extend java.util classes. That is: Sequence does not extend !ArrayList, Dictionary does not extend !HashMap, and !ExtendedSet does not extend HashSet.
+ * Fluent Collections no longer extend java.util classes. That is: Sequence does not extend !ArrayList, Dictionary does not extend !HashMap, and !ExtendedSet does not extend !HashSet.
  * ClosureOfAString renamed to ClosureOfAMethodName. Just to make things clearer, although the preferred way is to always call !ClosureCoercion.toClosure.
 
 = Release 0.2.1 =
