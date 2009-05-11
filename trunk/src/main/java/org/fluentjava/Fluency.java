@@ -24,9 +24,6 @@ import org.fluentjava.iterators.ExtendedIterable;
  * @see FluentUtils
  */
 public abstract class Fluency {
-	public static void main(String[] args) {
-	}
-
 	/**
 	 * Creates an empty map.
 	 * 

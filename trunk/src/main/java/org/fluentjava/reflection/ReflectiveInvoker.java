@@ -1,4 +1,4 @@
-package org.fluentjava.closures;
+package org.fluentjava.reflection;
 
 import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.pair;
@@ -20,10 +20,6 @@ import org.fluentjava.iterators.CountingIterator;
  * method is being invoked. Finds the best fit method if overloaded methods are found.
  */
 public class ReflectiveInvoker {
-
-	public static void main(String[] args) {
-		System.out.println(Object[].class.isAssignableFrom(int[].class));
-	}
 	/*
 	 * Constants
 	 */

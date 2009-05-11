@@ -2,6 +2,8 @@ package org.fluentjava.closures;
 
 import static java.util.Arrays.asList;
 
+import org.fluentjava.reflection.ReflectiveInvoker;
+
 /**
  * Like {@link ClosureOfAMethodName}, but on a specific target, and calls protected and
  * private methods as well.

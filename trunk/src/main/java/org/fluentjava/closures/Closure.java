@@ -9,6 +9,8 @@ import org.fluentjava.FluentUtils;
 /**
  * Approximation of the concept of closure on Java, abstracting a function definition. It
  * is not really a closure, as it does not close around the environment.
+ * 
+ * Instead of subclassing this class, try using {@link ClosureCoercion} static methods.
  */
 public abstract class Closure {
 

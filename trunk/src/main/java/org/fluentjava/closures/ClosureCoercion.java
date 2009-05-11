@@ -23,6 +23,15 @@ public class ClosureCoercion {
 	/*
 	 * Public Class Methods
 	 */
+	/**
+	 * Attempts to converts any object to a closure. Important cases: Strings transform
+	 * into {@link ClosureOfAMethodName}, Interfaces with at most one method, such as
+	 * {@link Runnable}, transform into {@link ClosureOfAMethod}, and Hamcrest Matchers are  
+	 * transformed into {@link PriviligedClosureOfAMethodName}. 
+	 * 
+	 * @param closure
+	 * @return
+	 */
 	public static Closure toClosure(Object closure) {
 		if (closure == null) {
 			throw new ClosureCoercionException("null does not Coerce to Closure");
@@ -71,8 +80,7 @@ public class ClosureCoercion {
 	}
 
 	private static List<Method> filterMethods(Class<?> clazz) {
-		return objectMethods.filterObjectMethods(
-				clazz.getMethods());
+		return objectMethods.filterObjectMethods(clazz.getMethods());
 	}
 
 	private static boolean isFromHamcrest(Object o) {
