@@ -11,11 +11,10 @@
  * Use wrapped fluent lists, sets and maps whenever lists, sets and maps would otherwise be returned: List#subList, Map#keySet, Map#entrySet
 
 = Collection Theme =
- * A lot more Extended  Collections (curryed ones, like ruby 1.9, sortBy, partition, and lazy collect, lazy map, etc): ??? points
  * Wrapped over Fork Join: 10 points
 
 = Closures Theme =
- * Detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes instead of Interfaces.
+ * Detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes.
  * !TimeIt: 4  points
  * Compose: 6 points
  * Curry: 1 point
@@ -25,7 +24,7 @@
  * Softening exceptions (on Closure)
  * Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
  * Arithmethic operations (smalltalk inspiration, again) on enumerable
- * Partition and iterablePartition on list (ruby calls this group_by, influenced by smalltalk's groupBy:having:)
+ * Partition and iterablePartition on enum (ruby calls this group_by, influenced by smalltalk's groupBy:having:)
  * Ruby's hash constructor (maybe extended interface on map, as the defaults do not allow this):
 {{{
 Hash.new => hash
