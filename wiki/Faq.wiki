@@ -23,7 +23,7 @@ E e = closure.<E>invoke();
 booean bol = closure.<Boolean>invoke();
 }}}
 
- * This only applies to primities, as they can't be generic types: do not use autoboxxing:
+ * This doesn't work on primitives, as they can't be generic types: do not use autoboxxing:
 {{{
 Booean bol = closure.<Boolean>invoke();
 }}}
