@@ -7,6 +7,7 @@ import static org.fluentjava.Closures.getter;
 import static org.fluentjava.Closures.identity;
 import static org.fluentjava.FluentUtils.alist;
 import static org.fluentjava.FluentUtils.asEnumerable;
+import static org.fluentjava.FluentUtils.call;
 import static org.fluentjava.FluentUtils.cast;
 import static org.fluentjava.FluentUtils.fromMap;
 import static org.fluentjava.FluentUtils.irange;
@@ -18,9 +19,13 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.startsWith;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,6 +35,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fluentjava.FluentUtils;
+import org.fluentjava.closures.Closure;
+import org.fluentjava.closures.ClosureCoercion;
 import org.fluentjava.collections.Enumerable;
 import org.fluentjava.collections.FluentList;
 import org.fluentjava.collections.FluentMap;
@@ -37,6 +44,8 @@ import org.fluentjava.collections.FluentSet;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
 
 import extra166y.CommonOps;
@@ -53,7 +62,7 @@ public class Examples {
 				System.out.println("Invoking:" + method.getName());
 				method.invoke(examples);
 				System.out.println();
-				total ++;
+				total++;
 			}
 		}
 		System.out.println("\n\nTotal examples: " + total);
@@ -228,7 +237,7 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void regularSelecExepensiveBookstWithoutHamCrest() {
+	public void regularSelecExepensiveBookstWithHamCrest() {
 		BigDecimal threshold = new BigDecimal(30);
 		List<Book> result = new ArrayList<Book>();
 		for (Book book : books) {
@@ -261,7 +270,7 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void regularToStringCollectionWithoutGoogleFunctions() {
+	public void regulartToStringCollectionWithGoogleFunctions() {
 		List<String> result = new ArrayList<String>();
 		for (Book book : books) {
 			result.add(book.toString());
@@ -275,11 +284,19 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void regularLazyAddingTitleLenghtsWithoutForkJoinCommonOps() {
+	public void regularLazyAddingTitleLenghtsWithForkJoinCommonOps() {
 		int result = 0;
 		for (Book book : books) {
 			result += book.getTitle().length();
 		}
+		System.out.println(result);
+	}
+	
+	public void fluentCombiningGoogleCollectionsAndHamcrestIntoOneClosure() {
+		Predicate<Author> beginsWithA = ClosureCoercion.toClosure(startsWith("A")).as(Predicate.class);
+		Predicate<Author> beginsWithK = ClosureCoercion.toClosure(startsWith("K")).as(Predicate.class);
+		FluentList<Object> result = books.map(getter("title"))
+			.select(Predicates.or(beginsWithA, beginsWithK));
 		System.out.println(result);
 	}
 	
@@ -291,6 +308,24 @@ public class Examples {
 			.select(hasProperty("firstName", startsWith("M")))
 			.toSet();
 		System.out.println(result);
+	}
+	
+	public void fluentRunnableFromAMethod() throws Exception {
+		Closure closure = call(this, "requestScalaPage");
+		Thread thread = closure.asThread();
+		thread.start();
+		thread.join();
+	}
+	
+	protected void requestScalaPage() throws IOException {
+		StringBuilder output = new StringBuilder();
+		String urlname = "http://www.scala-lang.org/";
+		BufferedReader b = new BufferedReader(new InputStreamReader(new URL(urlname).openStream()));
+		for (String line = b.readLine(); line != null; line = b.readLine()) {
+			output.append(line).append("\n");
+		}
+		b.close();
+		System.out.println(output);
 	}
 
 	public void regularCombiningItAll() {
