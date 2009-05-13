@@ -237,7 +237,7 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void regularSelecExepensiveBookstWithHamCrest() {
+	public void regularSelectExepensiveBookstWithHamcrest() {
 		BigDecimal threshold = new BigDecimal(30);
 		List<Book> result = new ArrayList<Book>();
 		for (Book book : books) {
@@ -270,7 +270,7 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void regulartToStringCollectionWithGoogleFunctions() {
+	public void regularToStringCollectionWithGoogleFunctions() {
 		List<String> result = new ArrayList<String>();
 		for (Book book : books) {
 			result.add(book.toString());
@@ -310,24 +310,6 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void fluentRunnableFromAMethod() throws Exception {
-		Closure closure = call(this, "requestScalaPage");
-		Thread thread = closure.asThread();
-		thread.start();
-		thread.join();
-	}
-	
-	protected void requestScalaPage() throws IOException {
-		StringBuilder output = new StringBuilder();
-		String urlname = "http://www.scala-lang.org/";
-		BufferedReader b = new BufferedReader(new InputStreamReader(new URL(urlname).openStream()));
-		for (String line = b.readLine(); line != null; line = b.readLine()) {
-			output.append(line).append("\n");
-		}
-		b.close();
-		System.out.println(output);
-	}
-
 	public void regularCombiningItAll() {
 		Set<Object> result = new HashSet<Object>();
 		List<Author> authors = new ArrayList<Author>();
@@ -342,5 +324,23 @@ public class Examples {
 			}
 		}
 		System.out.println(result);
+	}
+	
+	public void fluentRunnableFromAMethod() throws Exception {
+		Closure closure = call(this, "requestScalaPage");
+		Thread thread = closure.asThread();
+		thread.start();
+		thread.join();
+	}
+	
+	private void requestScalaPage() throws IOException {
+		StringBuilder output = new StringBuilder();
+		String urlname = "http://www.scala-lang.org/";
+		BufferedReader b = new BufferedReader(new InputStreamReader(new URL(urlname).openStream()));
+		for (String line = b.readLine(); line != null; line = b.readLine()) {
+			output.append(line).append("\n");
+		}
+		b.close();
+		System.out.println(output);
 	}
 }
