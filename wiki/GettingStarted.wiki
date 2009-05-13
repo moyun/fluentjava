@@ -83,24 +83,28 @@ System.out.println(clouds);
 === Fluent 2 ===
 {{{
 FluentMap<String, String> clouds = map();
-clouds.putAt("Google", "Google App Engine").putAt("Microsfot", "Azure").putAt(
-		"Amazon", "Elastic Compute Cloud");
+clouds.putAt("Google", "Google App Engine")
+ .putAt("Microsfot", "Azure")
+ .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
 }}}
 === Fluent 3 ===
 {{{
 FluentMap<String, String> clouds =
-		FluentUtils.<String, String>map().putAt("Google", "Google App Engine").putAt(
-				"Microsfot", "Azure").putAt("Amazon", "Elastic Compute Cloud");
+		FluentUtils.<String, String>map()
+ .putAt("Google", "Google App Engine")
+ .putAt("Microsfot", "Azure")
+ .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
 }}}
 === Fluent 4 ===
 {{{
-FluentMap<Object, Object> clouds =
-		map().putAt("Google", "Google App Engine").putAt("Microsfot", "Azure").putAt(
-				"Amazon", "Elastic Compute Cloud");
+FluentMap<Object, Object> clouds = map()
+ .putAt("Google", "Google App Engine")
+ .putAt("Microsfot", "Azure")
+ .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
 }}}
