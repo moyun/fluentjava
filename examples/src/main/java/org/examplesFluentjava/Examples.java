@@ -128,22 +128,27 @@ public class Examples {
 
 	public void fluentMap2() {
 		FluentMap<String, String> clouds = map();
-		clouds.putAt("Google", "Google App Engine").putAt("Microsfot", "Azure").putAt(
-				"Amazon", "Elastic Compute Cloud");
+		clouds.putAt("Google", "Google App Engine")
+			.putAt("Microsfot", "Azure")
+			.putAt("Amazon", "Elastic Compute Cloud");
 		System.out.println(clouds);
 	}
 
 	public void fluentMap3() {
 		FluentMap<String, String> clouds =
-				FluentUtils.<String, String>map().putAt("Google", "Google App Engine").putAt(
-						"Microsfot", "Azure").putAt("Amazon", "Elastic Compute Cloud");
+				FluentUtils.<String, String>map()
+					.putAt("Google", "Google App Engine")
+					.putAt("Microsfot", "Azure")
+					.putAt("Amazon", "Elastic Compute Cloud");
 		System.out.println(clouds);
 	}
 
 	public void fluentMap4() {
 		FluentMap<Object, Object> clouds =
-				map().putAt("Google", "Google App Engine").putAt("Microsfot", "Azure").putAt(
-						"Amazon", "Elastic Compute Cloud");
+				map()
+					.putAt("Google", "Google App Engine")
+					.putAt("Microsfot", "Azure")
+					.putAt("Amazon", "Elastic Compute Cloud");
 		System.out.println(clouds);
 	}
 
