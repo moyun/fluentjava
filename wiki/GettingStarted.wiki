@@ -2,7 +2,28 @@
 #labels Featured
 <wiki:toc max_depth="3" />
 = Examples = 
-All examples can be downloaded from the repository (little snippet [http://code.google.com/p/fluentjava/source/browse/examples/src/main/java/org/examplesFluentjava/Examples.java here])
+All examples can be downloaded from the repository (little snippet [http://code.google.com/p/fluentjava/source/browse/examples/src/main/java/org/examplesFluentjava/Examples.java here]). For terseness sake, the following import statics were imported:
+
+{{{
+import static java.util.Arrays.asList;
+import static org.examplesFluentjava.Author.author;
+import static org.examplesFluentjava.Book.book;
+import static org.fluentjava.Closures.getter;
+import static org.fluentjava.Closures.identity;
+import static org.fluentjava.FluentUtils.alist;
+import static org.fluentjava.FluentUtils.asEnumerable;
+import static org.fluentjava.FluentUtils.call;
+import static org.fluentjava.FluentUtils.cast;
+import static org.fluentjava.FluentUtils.fromMap;
+import static org.fluentjava.FluentUtils.irange;
+import static org.fluentjava.FluentUtils.list;
+import static org.fluentjava.FluentUtils.map;
+import static org.fluentjava.FluentUtils.pair;
+import static org.fluentjava.FluentUtils.set;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.startsWith;
+}}}
 
 == Cast ==
 === Fluent ===
