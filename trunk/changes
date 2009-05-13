@@ -1,4 +1,4 @@
-= Release 0.3 (WIP) =
+= Release 0.3 =
 == New Features ==
  * Better generic support all together
  * Better closure coercion: overloaded Object methods are ignored from interfaces (Comparator now just coerces to closure).
