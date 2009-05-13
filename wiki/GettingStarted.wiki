@@ -66,7 +66,7 @@ assertEquals(list(1, 2, 3), list.map("length"));
 }}}
 
 
-== Clsoure Coercion: annonymous inner class (Reusing Apache Commons Library!) ==
+== Closure Coercion: annonymous inner class (Reusing Apache Commons Library!) ==
 {{{
 import static org.fluentjava.FluentUtils.list;
 import org.apache.commons.collections.Predicate;
