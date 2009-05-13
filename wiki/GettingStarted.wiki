@@ -136,7 +136,7 @@ System.out.println(casted);
 }}}
 
 == Book Examples Setup ==
-The most complex examples utilize this setup.
+The more complex examples below utilize this setup.
 {{{
 private FluentList<Book> books = list();
 public Examples() {
