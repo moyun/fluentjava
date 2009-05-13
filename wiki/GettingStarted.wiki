@@ -213,7 +213,7 @@ FluentList<Book> result = books.select(hasProperty("price", greaterThan(new BigD
 System.out.println(result);
 
 }}}
-== Selec Exepensive Bookst With Hamcrest ===
+== Select Exepensive Bookst With Hamcrest ===
 {{{
 BigDecimal threshold = new BigDecimal(30);
 List<Book> result = new ArrayList<Book>();
