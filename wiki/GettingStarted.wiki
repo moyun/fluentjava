@@ -2,7 +2,7 @@
 #labels Featured
 <wiki:toc max_depth="3" />
 = Examples = 
-All examples can be downloaded from the repository (little snippet [http://code.google.com/p/fluentjava/source/browse/examples/src/main/java/org/examplesFluentjava/Examples.java here]). For terseness sake, the following import statics were imported:
+All examples can be downloaded from the repository (little snippet [http://code.google.com/p/fluentjava/source/browse/examples/src/main/java/org/examplesFluentjava/Examples.java here]). For terseness sake, the following import statics were used:
 
 {{{
 import static java.util.Arrays.asList;
