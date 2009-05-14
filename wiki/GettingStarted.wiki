@@ -63,7 +63,7 @@ System.out.println(result);
 === Fluent 1 ===
 {{{
 FluentMap<String, String> clouds =
-		map(pair("Google", "Google App Engine"), pair("Microsfot", "Azure"),
+		map(pair("Google", "Google App Engine"), pair("Microsoft", "Azure"),
 				pair("Amazon", "Elastic Compute Cloud"));
 System.out.println(clouds);
 
@@ -73,7 +73,7 @@ System.out.println(clouds);
 {{{
 Map<String, String> clouds = new HashMap<String, String>();
 clouds.put("Google", "Google App Engine");
-clouds.put("Microsfot", "Azure");
+clouds.put("Microsoft", "Azure");
 clouds.put("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
@@ -84,7 +84,7 @@ System.out.println(clouds);
 {{{
 FluentMap<String, String> clouds = map();
 clouds.putAt("Google", "Google App Engine")
- .putAt("Microsfot", "Azure")
+ .putAt("Microsoft", "Azure")
  .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
@@ -94,7 +94,7 @@ System.out.println(clouds);
 FluentMap<String, String> clouds =
 		FluentUtils.<String, String>map()
  .putAt("Google", "Google App Engine")
- .putAt("Microsfot", "Azure")
+ .putAt("Microsoft", "Azure")
  .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
@@ -103,7 +103,7 @@ System.out.println(clouds);
 {{{
 FluentMap<Object, Object> clouds = map()
  .putAt("Google", "Google App Engine")
- .putAt("Microsfot", "Azure")
+ .putAt("Microsoft", "Azure")
  .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(clouds);
 
@@ -114,7 +114,7 @@ System.out.println(clouds);
 Map<String, String> clouds = new HashMap<String, String>() {
 	{
 		put("Google", "Google App Engine");
-		put("Microsfot", "Azure");
+		put("Microsoft", "Azure");
 		put("Amazon", "Elastic Compute Cloud");
 	}
 };
@@ -263,7 +263,7 @@ System.out.println(result);
 Map<String, String> clouds = new LinkedHashMap<String, String>();
 FluentMap<String, String> fluent = fromMap(clouds)
 .putAt("Google", "Google App Engine")
-.putAt("Microsfot", "Azure")
+.putAt("Microsoft", "Azure")
 .putAt("Amazon", "Elastic Compute Cloud");
 System.out.println(fluent);
 System.out.println(clouds);
