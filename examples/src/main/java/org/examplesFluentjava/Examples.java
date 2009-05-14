@@ -6,6 +6,7 @@ import static org.examplesFluentjava.Book.book;
 import static org.fluentjava.Closures.getter;
 import static org.fluentjava.Closures.identity;
 import static org.fluentjava.FluentUtils.alist;
+import static org.fluentjava.FluentUtils.as;
 import static org.fluentjava.FluentUtils.asEnumerable;
 import static org.fluentjava.FluentUtils.call;
 import static org.fluentjava.FluentUtils.cast;
@@ -190,17 +191,17 @@ public class Examples {
 
 	public void fluentCastingCollections() {
 		FluentList<Object> list = alist("one", "two", "three");
-		FluentList<String> casted = list.map(identity());
+		FluentList<String> casted = as(list);
 		System.out.println(casted);
 	}
 
+	
 	public void regularCastingCollections() {
 		List<Object> list = new ArrayList<Object>();
 		list.addAll(asList("one", "two", "three"));
-		List<String> casted = new ArrayList<String>();
-		for (Object object : list) {
-			casted.add((String) object);
-		}
+		Object o = list;
+		@SuppressWarnings("unchecked")
+		List<String> casted = (List<String>) o; 
 		System.out.println(casted);
 	}
 	
@@ -242,7 +243,7 @@ public class Examples {
 		System.out.println(result);
 	}
 	
-	public void regularSelectExepensiveBookstWithHamcrest() {
+	public void regularSelectExepensiveBooksWithHamcrest() {
 		BigDecimal threshold = new BigDecimal(30);
 		List<Book> result = new ArrayList<Book>();
 		for (Book book : books) {
