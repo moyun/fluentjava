@@ -142,7 +142,7 @@ System.out.println(builder);
 === Fluent ===
 {{{
 FluentList<Object> list = alist("one", "two", "three");
-FluentList<String> casted = list.map(identity());
+FluentList<String> casted = as(list);
 System.out.println(casted);
 
 }}}
@@ -150,12 +150,10 @@ System.out.println(casted);
 {{{
 List<Object> list = new ArrayList<Object>();
 list.addAll(asList("one", "two", "three"));
-List<String> casted = new ArrayList<String>();
-for (Object object : list) {
-	casted.add((String) object);
-}
+Object o = list;
+@SuppressWarnings("unchecked")
+List<String> casted = (List<String>) o;
 System.out.println(casted);
-
 }}}
 
 == Book Examples Setup ==
