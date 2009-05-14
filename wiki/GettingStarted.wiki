@@ -230,7 +230,7 @@ FluentList<String> result = books.map(new Function<Book, String>() {
 System.out.println(result);
 
 }}}
-== Select Exepensive Bookt With Hamcrest ===
+== Select Exepensive Books With Hamcrest ===
 === Fluent ===
 {{{
 FluentList<Book> result = books.select(hasProperty("price", greaterThan(new BigDecimal(30))));
