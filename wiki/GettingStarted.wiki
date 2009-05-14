@@ -111,13 +111,11 @@ System.out.println(clouds);
 === Regular Jmock Style ===
 {{{
 @SuppressWarnings("serial")
-Map<String, String> clouds = new HashMap<String, String>() {
-	{
+Map<String, String> clouds = new HashMap<String, String>() {{
 		put("Google", "Google App Engine");
 		put("Microsoft", "Azure");
 		put("Amazon", "Elastic Compute Cloud");
-	}
-};
+}};
 System.out.println(clouds);
 
 }}}
