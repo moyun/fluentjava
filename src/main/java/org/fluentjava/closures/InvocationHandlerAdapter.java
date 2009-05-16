@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * Adapts a closure to a Invocation Handler. Essentially it ignores the proxy and the
+ * Adapts a closure to an Invocation Handler. Essentially it ignores the proxy and the
  * method called, and just forwards args to Closure.call. Only forwards method of the
  * adapted interface.
  */

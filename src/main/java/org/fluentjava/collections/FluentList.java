@@ -60,7 +60,7 @@ public interface FluentList<E> extends List<E>, Enumerable<E>, ExtendedCollectio
 	FluentList<E> delete(Iterable<? extends E> iterable);
 
 	/**
-	 * Returns a new list that is a one-dimensional flattening of this list (recursively).
+	 * Returns a new list that is an one-dimensional flattening of this list (recursively).
 	 * This means: for every element that is a list, extract its elements into the new
 	 * array.
 	 * 
