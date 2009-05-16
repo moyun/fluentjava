@@ -1,7 +1,7 @@
 package org.fluentjava.iterators;
 
 /**
- * Adapts an Iterable<T> to a ExtendedIterable<T>.
+ * Adapts an Iterable<T> to an ExtendedIterable<T>.
  * 
  * @param <T>
  * Type of elements that are to be iterated.

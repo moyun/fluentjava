@@ -31,7 +31,9 @@ public abstract class Fluency {
 	 * @param <K>
 	 * @param <V>
 	 * @return
+	 * @deprecated Use {@link #map(Entry...)}.
 	 */
+	@Deprecated
 	protected <K, V> FluentMap<K, V> map() {
 		return new Dictionary<K, V>();
 	}
@@ -47,7 +49,7 @@ public abstract class Fluency {
 	}
 
 	/**
-	 * Delegates to {@link FluentUtils#list(Object...))}.
+	 * Delegates to {@link FluentUtils#list(Object...)}.
 	 * 
 	 * @param <T>
 	 * @param args

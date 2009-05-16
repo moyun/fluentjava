@@ -1,7 +1,7 @@
 package org.fluentjava.iterators;
 
 /**
- * An Iterable that provides an extendedIterator instead of a Iterable.
+ * An Iterable that provides an extendedIterator instead of an Iterable.
  * 
  * @param <T>
  */

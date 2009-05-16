@@ -87,7 +87,7 @@ public abstract class Closure {
 	}
 
 	/**
-	 * Adapts self to a Interface. <b>IMPORTANT:</b> All methods invoked on the interface
+	 * Adapts self to an Interface. <b>IMPORTANT:</b> All methods invoked on the interface
 	 * will trigger call, so be careful when adapting interfaces with several methods.
 	 * 
 	 * @param <T>
