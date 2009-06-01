@@ -69,7 +69,7 @@ public class Pair<F, S> implements Entry<F, S> {
 		if (!(obj instanceof Entry)) {
 			return false;
 		}
-		final Entry other = (Pair) obj;
+		final Entry other = (Entry) obj;
 		if (getKey() == null) {
 			if (other.getKey() != null) {
 				return false;
