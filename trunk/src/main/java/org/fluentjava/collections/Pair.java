@@ -66,24 +66,24 @@ public class Pair<F, S> implements Entry<F, S> {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof Entry)) {
 			return false;
 		}
-		final Pair other = (Pair) obj;
-		if (first == null) {
-			if (other.first != null) {
+		final Entry other = (Pair) obj;
+		if (getKey() == null) {
+			if (other.getKey() != null) {
 				return false;
 			}
 		}
-		else if (!first.equals(other.first)) {
+		else if (!getKey().equals(other.getKey())) {
 			return false;
 		}
-		if (second == null) {
-			if (other.second != null) {
+		if (getValue() == null) {
+			if (other.getValue() != null) {
 				return false;
 			}
 		}
-		else if (!second.equals(other.second)) {
+		else if (!getValue().equals(other.getValue())) {
 			return false;
 		}
 		return true;
