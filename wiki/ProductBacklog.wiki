@@ -10,7 +10,7 @@
  * Curry: 1 point
 
 
-= To think about it (need points and priorization) =
+= To think about it (not yet priorized) =
  * Support closures from: Scala, Jruby and Groovy. Maybe double Enumerable's methods to enable it receiving an Interface like Fork Join's Op, so that groovy and jruby will atomatically convert their closures into it (no trouble for us!). Scala does not support closure -> java interface implictily (unless you explictly use [http://www.scala-lang.org/node/130 views)], so it will probably have to be reflectively and actively supported.
  * Softening exceptions (on Closure)
  * Aspectj Aspect to make things like _my_ callable from static methods without one single argument (for those who won't/can't/don't like/don't feel like it/are grossed out about extending a third party class).
