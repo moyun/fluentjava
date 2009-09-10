@@ -3,6 +3,10 @@
 = Collection Theme =
  * Wrapped over Fork Join: 10 points
 
+“It has to be easier to send snippets of code to frameworks for parallel
+execution; otherwise no one will use them.” – Doug Lea, 2005
+
+
 = Closures Theme =
  * Detecting [http://docs.google.com/View?docid=k73_1ggr36h& SAMs] generated from Abstract Classes.
  * !TimeIt: 4  points
