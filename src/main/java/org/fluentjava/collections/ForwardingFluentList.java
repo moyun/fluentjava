@@ -21,7 +21,7 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  */
 public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 		implements
-			FluentList<E> {
+			FluentList<E>, Cloneable {
 	/*
 	 * Variables
 	 */

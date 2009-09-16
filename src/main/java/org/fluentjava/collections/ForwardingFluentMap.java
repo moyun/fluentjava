@@ -19,7 +19,7 @@ import org.fluentjava.iterators.ExtendedIterator;
  */
 public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 		implements
-			FluentMap<K, V> {
+			FluentMap<K, V>, Cloneable {
 	/*
 	 * Variables
 	 */
@@ -79,7 +79,7 @@ public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 
 	@Override
 	public Object clone() {
-		return new Dictionary<K, V>(delegateMap);
+		return toMap();
 	}
 
 	/*

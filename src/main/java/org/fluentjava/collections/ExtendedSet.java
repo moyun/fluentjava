@@ -1,7 +1,11 @@
 package org.fluentjava.collections;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Standard implementation of FluentSet.
@@ -9,9 +13,7 @@ import java.util.HashSet;
  * @param <E>
  * Type of elements
  */
-public class ExtendedSet<E> extends ForwardingFluentSet<E> implements
-
-Cloneable, Serializable {
+public class ExtendedSet<E> extends ForwardingFluentSet<E> implements Externalizable {
 	private static final long serialVersionUID = 2L;
 
 	/*
@@ -42,5 +44,17 @@ Cloneable, Serializable {
 	public ExtendedSet(Iterable<? extends E> iterable) {
 		this();
 		insert(iterable);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		Set<E> inobj = (Set<E>) in.readObject();
+		delegateSet.addAll(inobj);
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(delegateSet);
 	}
 }
