@@ -5,6 +5,10 @@ import static org.fluentjava.FluentUtils.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +126,20 @@ public class SequenceTest {
 		list.set(4, 42);
 		assertEquals(asList(3, 4, 42), sublist);
 		assertEquals(asList(1, 2, 3, 4, 42), list);
+	}
+	
+	@Test
+	public void testSerializable() throws Exception {
+		Sequence<Integer> list = new Sequence<Integer>(1, 2, 3);
+		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(byteStream);
+		out.writeObject(list);
+		out.close();
+		 ObjectInputStream in = new ObjectInputStream(
+				new ByteArrayInputStream(byteStream.toByteArray()));
+		 Object copy = in.readObject(); 
+		 in.close();
+		 assertEquals(list, copy);
 	}
 
 	private List<Integer> half(Integer... array) {

@@ -5,6 +5,7 @@ package org.fluentjava.collections;
 
 import static org.fluentjava.FluentUtils.as;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -17,7 +18,9 @@ import java.util.Comparator;
  * 
  * @see ComparableComparator
  */
-public class ComparableComparator<T> implements Comparator<T> {
+public class ComparableComparator<T> implements Comparator<T>, Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	public ComparableComparator() {
 	}

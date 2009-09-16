@@ -16,7 +16,10 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  * 
  * @param <E>
  */
-public class ForwardingFluentSet<E> extends AbstractEnumerable<E> implements FluentSet<E> {
+public class ForwardingFluentSet<E> extends AbstractEnumerable<E>
+		implements
+			FluentSet<E>,
+			Cloneable {
 	/*
 	 * Variables
 	 */
@@ -169,6 +172,11 @@ public class ForwardingFluentSet<E> extends AbstractEnumerable<E> implements Flu
 	@Override
 	public FluentSet<E> minus(Iterable<? extends E> iterable) {
 		return difference(iterable);
+	}
+	
+	@Override
+	public Object clone() {
+		return toSet();
 	}
 
 	/*
