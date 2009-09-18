@@ -3,6 +3,7 @@ package org.fluentjava.collections;
 import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.fromSet;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,7 +20,10 @@ import org.fluentjava.iterators.ExtendedIterator;
  */
 public class ForwardingFluentMap<K, V> extends AbstractEnumerable<Pair<K, V>>
 		implements
-			FluentMap<K, V>, Cloneable {
+			FluentMap<K, V>, Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	/*
 	 * Variables
 	 */

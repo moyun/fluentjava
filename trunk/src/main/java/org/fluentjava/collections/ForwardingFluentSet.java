@@ -3,6 +3,7 @@ package org.fluentjava.collections;
 import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.as;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Set;
@@ -19,7 +20,9 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
 public class ForwardingFluentSet<E> extends AbstractEnumerable<E>
 		implements
 			FluentSet<E>,
-			Cloneable {
+			Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	/*
 	 * Variables
 	 */
