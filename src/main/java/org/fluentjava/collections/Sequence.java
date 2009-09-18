@@ -1,11 +1,6 @@
 package org.fluentjava.collections;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.RandomAccess;
 
 /**
@@ -16,8 +11,7 @@ import java.util.RandomAccess;
  */
 public class Sequence<E> extends ForwardingFluentList<E>
 		implements
-			RandomAccess,
-			Externalizable {
+			RandomAccess {
 	private static final long serialVersionUID = 2L;
 
 	/*
@@ -48,18 +42,6 @@ public class Sequence<E> extends ForwardingFluentList<E>
 	public Sequence(Iterable<? extends E> iterable) {
 		this();
 		insert(iterable);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		List<E> inobj = (List<E>) in.readObject();
-		delegateList.addAll(inobj);
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeObject(delegateList);
 	}
 
 }

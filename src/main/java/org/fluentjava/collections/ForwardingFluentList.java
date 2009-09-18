@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 import static org.fluentjava.FluentUtils.as;
 import static org.fluentjava.FluentUtils.fromList;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.IdentityHashMap;
@@ -21,7 +22,8 @@ import org.fluentjava.iterators.ExtendedIteratorAdapter;
  */
 public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 		implements
-			FluentList<E>, Cloneable {
+			FluentList<E>, Cloneable, Serializable {
+	private static final long serialVersionUID = 1L;
 	/*
 	 * Variables
 	 */
