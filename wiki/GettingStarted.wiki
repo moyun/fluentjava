@@ -218,7 +218,7 @@ FluentList<String> result = books.map(new Op<Book, String>() {
 System.out.println(result);
 
 }}}
-=== Collect Books Tittle Using Google Function Type Safety ===
+=== Collect Books Tittle Using Google Function For Type Safety ===
 {{{
 FluentList<String> result = books.map(new Function<Book, String>() {
 	public String apply(Book book) {
@@ -228,7 +228,7 @@ FluentList<String> result = books.map(new Function<Book, String>() {
 System.out.println(result);
 
 }}}
-== Select Exepensive Books With Hamcrest ===
+== Select Expensive Books With Hamcrest ===
 === Fluent ===
 {{{
 FluentList<Book> result = books.select(hasProperty("price", greaterThan(new BigDecimal(30))));
