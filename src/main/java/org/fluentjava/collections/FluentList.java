@@ -64,9 +64,11 @@ public interface FluentList<E> extends List<E>, Enumerable<E>, ExtendedCollectio
 	 * This means: for every element that is a list, extract its elements into the new
 	 * array.
 	 * 
+	 * @param <T>
+	 * The type of the returned list.
 	 * @return
 	 */
-	FluentList<Object> flatten();
+	<T> FluentList<T> flatten();
 
 	FluentList<E> subList(int fromIndex, int toIndex);
 
