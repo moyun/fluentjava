@@ -69,7 +69,8 @@ public class SequenceTest {
 	public void testFlatten() throws Exception {
 		FluentList<List<String>> list = list();
 		list.insert(list("a", "b")).insert(asList("1", "2", "3"));
-		assertEquals(asList("a", "b", "1", "2", "3"), list.flatten());
+		FluentList<Integer> flatten = list.flatten();
+		assertEquals(asList("a", "b", "1", "2", "3"), flatten);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

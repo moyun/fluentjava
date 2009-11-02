@@ -111,8 +111,8 @@ public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 	}
 
 	@Override
-	public FluentList<Object> flatten() {
-		FluentList<Object> ret = new Sequence<Object>();
+	public <T> FluentList<T> flatten() {
+		FluentList<T> ret = new Sequence<T>();
 		recFlatten(ret, new IdentityHashMap<Object, Boolean>(), this);
 		return ret;
 	}
@@ -125,7 +125,8 @@ public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 	/*
 	 * Other Methods
 	 */
-	private void recFlatten(FluentList<Object> ret,
+	@SuppressWarnings("unchecked")
+	private <T> void recFlatten(FluentList<T> ret,
 			IdentityHashMap<Object, Boolean> visitedLists,
 			List<?> target) {
 		if (visitedLists.containsKey(target)) {
@@ -138,7 +139,7 @@ public class ForwardingFluentList<E> extends AbstractEnumerable<E>
 				recFlatten(ret, visitedLists, subList);
 			}
 			else {
-				ret.add(e);
+				ret.add((T) e);
 			}
 		}
 	}
