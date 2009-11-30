@@ -1,8 +1,6 @@
 package org.fluentjava.collections;
 
 import static org.fluentjava.FluentUtils.as;
-import static org.fluentjava.closures.ClosureCoercion.toClosure;
-import static org.fluentjava.closures.ClosureCoercion.toPredicate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +13,7 @@ import java.util.Map.Entry;
 import org.fluentjava.Closures;
 import org.fluentjava.FluentUtils;
 import org.fluentjava.closures.Closure;
+import org.fluentjava.closures.ClosureCoercion;
 import org.fluentjava.closures.Predicate;
 import org.fluentjava.iterators.AbstractExtendedIterator;
 import org.fluentjava.iterators.ExtendedIterable;
@@ -35,7 +34,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public E detectIfNone(Object closure, E ifNone) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
+		Predicate predicate = convertToPredicate(closure);
 		try {
 			for (E e : iterator()) {
 				if (predicate.eval(e)) {
@@ -53,11 +52,11 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public boolean noneSatisfy(Object closure) throws EnumeratingException {
-		return allSatisfy(toPredicate(closure).negated());
+		return allSatisfy(convertToPredicate(closure).negated());
 	}
 
 	public boolean allSatisfy(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
+		Predicate predicate = convertToPredicate(closure);
 		try {
 			for (E e : iterator()) {
 				if (predicate.notEval(e)) {
@@ -71,7 +70,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public boolean anySatisfy(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
+		Predicate predicate = convertToPredicate(closure);
 		try {
 			for (E e : iterator()) {
 				if (predicate.eval(e)) {
@@ -85,7 +84,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public int count(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
+		Predicate predicate = convertToPredicate(closure);
 		try {
 			int total = 0;
 			for (E e : iterator()) {
@@ -100,7 +99,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public FluentList<E> select(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
+		Predicate predicate = convertToPredicate(closure);
 		try {
 			FluentList<E> list = new Sequence<E>();
 			for (E e : iterator()) {
@@ -115,12 +114,12 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public Enumerable<E> iselect(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure);
+		Predicate predicate = convertToPredicate(closure);
 		return asEnum(new LazySelect<E>(this, predicate));
 	}
 
 	public Enumerable<E> ireject(Object closure) throws EnumeratingException {
-		Predicate predicate = toPredicate(closure).negated();
+		Predicate predicate = convertToPredicate(closure).negated();
 		return asEnum(new LazySelect<E>(this, predicate));
 	}
 
@@ -133,12 +132,12 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public FluentList<E> reject(Object closure) throws EnumeratingException {
-		return select(toPredicate(closure).negated());
+		return select(convertToPredicate(closure).negated());
 
 	}
 
 	public void foreach(Object closure) throws EnumeratingException {
-		Closure function = toClosure(closure);
+		Closure function = convertToClosure(closure);
 		try {
 			for (E e : iterator()) {
 				function.call(e);
@@ -149,7 +148,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public <T> FluentList<T> map(Object closure) throws EnumeratingException {
-		Closure function = toClosure(closure);
+		Closure function = convertToClosure(closure);
 		try {
 			FluentList<T> list = new Sequence<T>();
 			for (E e : iterator()) {
@@ -164,7 +163,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	@Override
 	public <T> Enumerable<T> imap(Object closure) throws EnumeratingException {
-		Closure function = toClosure(closure);
+		Closure function = convertToClosure(closure);
 		return asEnum(new LazyMap<E, T>(this, function));
 	}
 
@@ -178,7 +177,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public FluentList<E> sort(Object closure) throws EnumeratingException {
-		Comparator<E> comparator = toClosure(closure).toInteface(Comparator.class);
+		Comparator<E> comparator = convertToClosure(closure).toInteface(Comparator.class);
 		try {
 			FluentList<E> list = toList();
 			Collections.sort(list, comparator);
@@ -196,7 +195,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public FluentList<E> sortBy(Object closure) throws EnumeratingException {
-		Closure keyGenerator = toClosure(closure);
+		Closure keyGenerator = convertToClosure(closure);
 		try {
 			List<Pair<Object, E>> middle = new ArrayList<Pair<Object, E>>();
 			for (E e : this) {
@@ -244,7 +243,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 
 	@Override
 	public <V> Enumerable<Entry<E, V>> imapWithKeys(Object closure) {
-		Closure function = toClosure(closure);
+		Closure function = convertToClosure(closure);
 		LazyMapWithKeys<E, V> iterable = new LazyMapWithKeys<E, V>(this, function);
 		return new Enumerator<Entry<E, V>>(iterable);
 	}
@@ -295,7 +294,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public E max(Object closure) throws EnumeratingException {
-		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
+		Comparator<E> comparator = convertToClosure(closure).as(Comparator.class);
 		return doMax(comparator);
 	}
 
@@ -308,7 +307,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	public E min(Object closure) throws EnumeratingException {
-		Comparator<E> comparator = toClosure(closure).as(Comparator.class);
+		Comparator<E> comparator = convertToClosure(closure).as(Comparator.class);
 		return doMin(comparator);
 	}
 
@@ -319,6 +318,28 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	/*
 	 * Other Methods
 	 */
+	/**
+	 * Attempts to converts any object to a {@link Closure}. By default, invokes
+	 * {@link ClosureCoercion#toClosure(Object)}
+	 * 
+	 * @param closure
+	 * @return
+	 */
+	protected Closure convertToClosure(Object closure) {
+		return ClosureCoercion.toClosure(closure);
+	}
+
+	/**
+	 * Attempts to converts any object to a {@link Predicate}. By default, invokes
+	 * {@link ClosureCoercion#toPredicate(Object)}
+	 * 
+	 * @param closure
+	 * @return
+	 */
+	protected Predicate convertToPredicate(Object closure) {
+		return ClosureCoercion.toPredicate(closure);
+	}
+	
 	private E getMax(Object valueFunction, Comparator<?> comparatorOfValue) {
 		ExtendedIterator<E> it = iterator();
 		if (!it.hasNext()) {
@@ -326,7 +347,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 		}
 		try {
 			Comparator<Object> comp = as(comparatorOfValue);
-			Closure function = toClosure(valueFunction);
+			Closure function = convertToClosure(valueFunction);
 			E ret = it.next();
 			Object retValue = function.call(ret);
 			for (E cur : it) {
@@ -355,7 +376,7 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 	}
 
 	private E doReduce(E initial, Object closure, ExtendedIterator<E> it) {
-		Closure function = toClosure(closure);
+		Closure function = convertToClosure(closure);
 		if (!it.hasNext()) {
 			return initial;
 		}
