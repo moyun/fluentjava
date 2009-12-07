@@ -97,6 +97,20 @@ public abstract class AbstractEnumerable<E> implements Enumerable<E> {
 			throw new EnumeratingException(e);
 		}
 	}
+	
+	public int count() throws EnumeratingException {
+		try {
+			ExtendedIterator<E> i = iterator();
+			int total = 0;
+			while (i.hasNext()) {
+					total++;
+					i.next();
+			}
+			return total;
+		} catch (Exception e) {
+			throw new EnumeratingException(e);
+		}
+	}
 
 	public FluentList<E> select(Object closure) throws EnumeratingException {
 		Predicate predicate = convertToPredicate(closure);

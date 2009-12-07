@@ -73,6 +73,15 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	int count(Object closure) throws EnumeratingException;
 
 	/**
+	 * Count how many objects are on the enumerator. Same as {@link #count(Object)} for a
+	 * closure that returns true.
+	 * 
+	 * @return
+	 * @throws EnumeratingException
+	 */
+	int count() throws EnumeratingException;
+
+	/**
 	 * Filter returning a FluentList with the elements such that the closure returns true.
 	 * The closure must only return boolean values.
 	 * 
@@ -214,11 +223,12 @@ public interface Enumerable<E> extends ExtendedIterable<E> {
 	 * @return
 	 */
 	<V> FluentList<Entry<E, V>> mapWithKeys(Object closure);
-	
+
 	/**
 	 * Lazy version of {@link #mapWithKeys(Object)}. Since the elements are generated as
 	 * requested, beware of non immutable data, even more when it is shared by multiple
 	 * threads.
+	 * 
 	 * @param <V>
 	 * @param closure
 	 * @return
