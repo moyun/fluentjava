@@ -124,6 +124,13 @@ public class EnumeratorTest {
 		Enumerable<Integer> list = list(1, 2, 3, 5, 6, 7);
 		assertEquals(3, list.count(greaterThan(4)));
 	}
+	
+	@Test
+	public void testCountWithoutArguments() throws Exception {
+		Enumerable<Integer> list = list(1, 2, 3, 4, 5, 6, 7);
+		assertEquals(7, list.count());
+	}
+
 
 	@Test
 	public void testForEach() throws Exception {
