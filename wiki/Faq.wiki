@@ -15,7 +15,7 @@ E e = closure.invoke();
 booean bol = closure.invoke();
 }}}
 
-Eclipse compiler allows it, but javac doesn't. Some ways around this:
+Eclipse's compiler allows it, but javac doesn't. Some ways around this:
 
  * Specify the type:
 {{{
