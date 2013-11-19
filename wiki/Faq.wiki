@@ -12,7 +12,7 @@ This can usually happen when using generic methods with primitives or generic ty
 
 {{{
 E e = closure.invoke();
-booean bol = closure.invoke();
+boolean bol = closure.invoke();
 }}}
 
 Eclipse's compiler allows it, but javac doesn't. Some ways around this:
